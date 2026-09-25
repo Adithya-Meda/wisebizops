@@ -170,7 +170,8 @@ const main = async () => {
           service_name: service,
           region: region,
           configuration: config,
-          price_usd: parseFloat((basePrice * multiplier).toFixed(2))
+          price_usd: parseFloat((basePrice * multiplier).toFixed(2)),
+          pricing_unit: (service.includes('EBS') || service.includes('S3') || service.includes('EFS')) ? 'per TB-month' : (service.includes('API Gateway') || service.includes('SQS') || service.includes('SNS') ? 'per 1M Requests' : (service.includes('Route 53') ? 'per Hosted Zone' : 'per Resource-month'))
         });
       }
     }
