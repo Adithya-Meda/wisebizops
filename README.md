@@ -1,12 +1,16 @@
 # WiseBizOps - DevOps Tools
 
-Zero-trust architecture DevOps tools and Kubernetes analyzer built with Next.js.
+Welcome to **WiseBizOps**, a modern, AI-powered suite of DevOps and Cloud Architecture tools built to help engineers analyze, estimate, and optimize their infrastructure. Designed with a strict zero-trust philosophy, this application ensures your sensitive configurations and credentials remain secure and private while delivering cutting-edge AI insights.
+
+### Included Tools
+- **Kubernetes (K8s) Analyzer:** Paste your Kubernetes manifests to diagnose and automatically fix configuration errors, resolve security vulnerabilities, and receive actionable DevSecOps fixes for your clusters.
+- **AWS Cost Estimator & AI Architect:** Analyze AWS deployment configurations to get intelligent cost estimations and architectural feedback based on the latest AWS pricing structures.
 
 ## Features
 
 - **Zero-trust Architecture**: Secure by default, processing sensitive data completely in-memory.
 - **PII & Credentials Scrubbing**: Automatically detects and redacts IPv4/v6 addresses, MAC addresses, and credentials (e.g., API keys, Bearer tokens).
-- **AI-Powered Insights**: Integrates with Google Gemini to analyze infrastructure and provide actionable feedback.
+- **AI-Powered Insights**: Integrates with advanced AI to analyze infrastructure and provide actionable feedback.
 
 ## Getting Started
 
