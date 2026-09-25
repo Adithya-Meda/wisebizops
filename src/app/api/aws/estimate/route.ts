@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         quantity = res.quantity || 1;
       }
 
-      const match = resStr.match(/^(.+?)(?:\s*\((.+)\))?$/);
+      const match = resStr.match(/^([^(]+?)(?:\s*\(([^)]+)\))?$/);
       if (!match) return { service: resStr, cost: 50 * quantity, quantity };
 
       const serviceName = match[1].trim();
@@ -60,3 +60,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
