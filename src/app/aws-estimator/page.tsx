@@ -484,11 +484,18 @@ export default function AwsEstimator() {
               <h4 className="text-xs font-semibold text-primary-600 dark:text-primary-500 mb-4 pb-2 border-b border-zinc-200 dark:border-white/5 transition-colors">Cost Breakdown</h4>
               <ul className="space-y-3 flex-1 overflow-y-auto pl-1.5 pr-2 py-1">
                 {result.breakdown.map((item: any, idx: number) => (
-                  <li key={idx} className="flex justify-between items-center text-sm p-3 mb-2 rounded-xl bg-white/60 dark:bg-zinc-900/40 border border-primary-400 dark:border-primary-500/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:shadow-md hover:scale-[1.01] transition-all cursor-default">
-                    <span className="text-zinc-700 dark:text-zinc-300 pr-4 leading-tight font-mono text-[13px]">
-                      <span className="font-mono font-bold text-primary-600 dark:text-primary-400 mr-1">{item.quantity}x</span> {item.service} {item.storage && <span className="text-zinc-500 dark:text-zinc-400 text-[11px] ml-1">[{item.storage} GB]</span>}
-                    </span>
-                    <span className="font-medium text-zinc-900 dark:text-zinc-200 transition-colors whitespace-nowrap mt-0.5">{formatCost(item.cost)}</span>
+                  <li key={idx} className="flex justify-between items-center text-sm p-3 mb-2 rounded-xl bg-white/60 dark:bg-zinc-900/40 border border-primary-400 dark:border-primary-500/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:shadow-md hover:scale-[1.01] transition-all group">
+                    <div className="flex-1 flex flex-col justify-center">
+                      <span className="text-zinc-700 dark:text-zinc-300 pr-4 leading-tight font-mono text-[13px]">
+                        <span className="font-mono font-bold text-primary-600 dark:text-primary-400 mr-1">{item.quantity}x</span> {item.service} {item.storage && <span className="text-zinc-500 dark:text-zinc-400 text-[11px] ml-1">[{item.storage} GB]</span>}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="font-medium text-zinc-900 dark:text-zinc-200 transition-colors whitespace-nowrap">{formatCost(item.cost)}</span>
+                      <button onClick={() => { const newRes = [...addedResources]; newRes.splice(idx, 1); setAddedResources(newRes); }} className="text-zinc-400 hover:text-red-500 hover:bg-red-500/10 p-1.5 rounded-full transition-colors opacity-40 hover:opacity-100 focus:opacity-100" title="Remove Resource">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
