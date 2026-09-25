@@ -160,7 +160,7 @@ const main = async () => {
     }
   }
 
-  console.log(Upserting  records into Supabase...);
+  console.log("Upserting " + dbRecords.length + " records into Supabase...");
   
   // Supabase upsert will automatically update based on the UNIQUE(service_name, region, configuration) constraint
   const { data, error } = await supabase
@@ -176,3 +176,4 @@ const main = async () => {
 };
 
 main();
+
