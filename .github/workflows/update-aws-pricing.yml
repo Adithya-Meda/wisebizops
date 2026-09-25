@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Use the bypass token here so git push authenticates as the admin user
+          token: ${{ secrets.ACTIONS_BYPASS_TOKEN }}
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,6 +33,7 @@ jobs:
           git add src/data/aws-pricing.json
           git commit -m "chore: Daily AWS Pricing & Currency Update" || echo "No changes to commit"
           git push
+
 
 
 
