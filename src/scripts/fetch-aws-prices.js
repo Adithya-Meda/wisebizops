@@ -52,17 +52,29 @@ const main = async () => {
     "Amazon EBS": {}, "Elastic Load Balancing": {}
   };
 
-  // 1. Amazon EC2
+  // 1. Amazon EC2 (Now covering all OS combinations)
   const ec2Instances = ["t3.micro", "t3.medium", "m5.large", "m5.xlarge", "c5.large", "c5.xlarge", "r5.large"];
+  const operatingSystems = {
+    "Linux": "Linux",
+    "Ubuntu": "Linux", // Ubuntu uses standard Linux pricing on AWS
+    "RHEL": "RHEL",
+    "Windows": "Windows"
+  };
+  
   for (const inst of ec2Instances) {
-    const hourly = await getLivePrice("AmazonEC2", [
-      { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-      { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-      { Type: "TERM_MATCH", Field: "operatingSystem", Value: "Linux" },
-      { Type: "TERM_MATCH", Field: "tenancy", Value: "Shared" },
-      { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
-    ]);
-    liveBaselineCosts["Amazon EC2"][inst] = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
+    for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
+      const hourly = await getLivePrice("AmazonEC2", [
+        { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+        { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
+        { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
+        { Type: "TERM_MATCH", Field: "tenancy", Value: "Shared" },
+        { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" },
+        { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
+      ]);
+      const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
+      // We combine the instance type and OS into the configuration string for the database
+      liveBaselineCosts["Amazon EC2"][${inst} ()] = baseCost;
+    }
   }
 
   // 2. Amazon RDS
@@ -176,4 +188,5 @@ const main = async () => {
 };
 
 main();
+
 
