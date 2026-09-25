@@ -51,8 +51,8 @@ export async function POST(req: Request) {
 
       const match = resStr.match(/^([^(]+?)(?:\s*\(([^)]+)\))?$/);
       if (!match) {
-        breakdown.push({ service: resStr, cost: 50 * quantity, quantity, ...(storage !== undefined && {storage}) });
-        total += 50 * quantity;
+        breakdown.push({ service: resStr, cost: 0, quantity, ...(storage !== undefined && {storage}), error: true, message: 'Invalid or unsupported format' });
+        // total += 50 * quantity; // DO NOT add to total
         continue;
       }
 
@@ -68,9 +68,9 @@ export async function POST(req: Request) {
         .eq('configuration', primaryConfig)
         .single();
 
-      let unitCost = 15; // default fallback
-        if (error) console.error("Supabase Error for ${serviceName}: ", error);
-      if (data && !error) {
+      let unitCost = 0;
+      let unsupported = false;
+      if (error && error.code !== 'PGRST116') console.error("Supabase Error for " + serviceName + ": ", error);
         unitCost = parseFloat(data.price_usd);
       } else {
         // Fallback query without region if not found
@@ -83,9 +83,15 @@ export async function POST(req: Request) {
           .single();
         if (fallbackData) {
           unitCost = parseFloat(fallbackData.price_usd);
+        } else {
+          unsupported = true;
         }
       }
 
+      if (unsupported) {
+        breakdown.push({ service: resStr, cost: 0, quantity, unitCost: 0, error: true, message: 'Configuration unsupported or missing from DB' });
+        continue;
+      }
       let cost = unitCost * quantity;
       
       // Handle storage math correctly depending on the service type

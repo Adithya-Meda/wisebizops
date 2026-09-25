@@ -484,12 +484,13 @@ export default function AwsEstimator() {
                 {result.breakdown.map((item: any, idx: number) => (
                   <li key={idx} className="flex justify-between items-center text-sm p-3 mb-2 rounded-xl bg-white/60 dark:bg-zinc-900/40 border border-primary-400 dark:border-primary-500/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:shadow-md hover:scale-[1.01] transition-all group">
                     <div className="flex-1 flex flex-col justify-center">
-                      <span className="text-zinc-700 dark:text-zinc-300 pr-4 leading-tight font-mono text-[13px]">
-                        <span className="font-mono font-bold text-primary-600 dark:text-primary-400 mr-1">{item.quantity}x</span> {item.service} {item.storage && <span className="text-zinc-500 dark:text-zinc-400 text-[11px] ml-1">[{item.storage} GB]</span>}
+                      <span className={`pr-4 leading-tight font-mono text-[13px] ${item.error ? 'text-red-500 dark:text-red-400' : 'text-zinc-700 dark:text-zinc-300'}`}>
+                        <span className={`font-mono font-bold mr-1 ${item.error ? 'text-red-600 dark:text-red-500' : 'text-primary-600 dark:text-primary-400'}`}>{item.quantity}x</span> {item.service} {item.storage && <span className={`${item.error ? 'text-red-400' : 'text-zinc-500 dark:text-zinc-400'} text-[11px] ml-1`}>[{item.storage} GB]</span>}
                       </span>
+                      {item.error && <span className="text-[10.5px] text-red-500/90 dark:text-red-400 mt-1 flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>{item.message}</span>}
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="font-medium text-zinc-900 dark:text-zinc-200 transition-colors whitespace-nowrap">{formatCost(item.cost)}</span>
+                      <span className="font-medium text-zinc-900 dark:text-zinc-200 transition-colors whitespace-nowrap">{item.error ? '---' : formatCost(item.cost)}</span>
                       <button onClick={() => { const newRes = [...addedResources]; newRes.splice(idx, 1); setAddedResources(newRes); }} className="text-zinc-400 hover:text-red-500 hover:bg-red-500/10 p-1.5 rounded-full transition-colors opacity-40 hover:opacity-100 focus:opacity-100" title="Remove Resource">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                       </button>
