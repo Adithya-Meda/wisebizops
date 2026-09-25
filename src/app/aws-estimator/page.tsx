@@ -161,7 +161,7 @@ export default function AwsEstimator() {
         }, []);
         return grouped;
       });
-      toast.success(`Successfully parsed resources locally!`);
+      toast.success(`Successfully parsed resources!`);
     }
   };
 
