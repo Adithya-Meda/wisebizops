@@ -47,7 +47,19 @@ const main = async () => {
   };
 
   // 1. EC2
-  const ec2Instances = ["t3.micro", "t3.medium", "m5.large", "m5.xlarge", "c5.large", "c5.xlarge", "r5.large"];
+  const ec2Instances = [
+    "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge",
+    "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge",
+    "m5.large", "m5.xlarge", "m5.2xlarge", "m5.4xlarge",
+    "m6g.large", "m6g.xlarge", "m6g.2xlarge", "m6g.4xlarge",
+    "m7i.large", "m7i.xlarge", "m7i.2xlarge", "m7i.4xlarge",
+    "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge",
+    "c6g.large", "c6g.xlarge", "c6g.2xlarge", "c6g.4xlarge",
+    "c7g.large", "c7g.xlarge", "c7g.2xlarge", "c7g.4xlarge",
+    "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge",
+    "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge",
+    "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge"
+  ];
   const operatingSystems = { "Linux": "Linux", "Ubuntu": "Linux", "RHEL": "RHEL", "Windows": "Windows" };
   for (const inst of ec2Instances) {
     for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
@@ -66,7 +78,14 @@ const main = async () => {
 
   // 2. RDS (Engine, Instance, Deployment)
   const rdsEngines = ["PostgreSQL", "MySQL", "Aurora", "MariaDB", "Oracle", "SQL Server"];
-  const rdsInstances = ["db.t3.micro", "db.t3.medium", "db.m5.large", "db.r5.large", "db.r5.xlarge"];
+  const rdsInstances = [
+    "db.t3.micro", "db.t3.small", "db.t3.medium", "db.t3.large", "db.t3.xlarge",
+    "db.t4g.micro", "db.t4g.small", "db.t4g.medium", "db.t4g.large", "db.t4g.xlarge",
+    "db.m5.large", "db.m5.xlarge", "db.m5.2xlarge", "db.m5.4xlarge",
+    "db.m6g.large", "db.m6g.xlarge", "db.m6g.2xlarge", "db.m6g.4xlarge",
+    "db.r5.large", "db.r5.xlarge", "db.r5.2xlarge", "db.r5.4xlarge",
+    "db.r6g.large", "db.r6g.xlarge", "db.r6g.2xlarge", "db.r6g.4xlarge"
+  ];
   const rdsDeployments = ["Single-AZ", "Multi-AZ"];
   
   for (const engine of rdsEngines) {
