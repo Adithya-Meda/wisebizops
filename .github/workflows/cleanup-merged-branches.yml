@@ -1,0 +1,23 @@
+name: Cleanup Merged Branches
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  delete-branch:
+    # Only run if the PR was actually merged (not just closed without merging)
+    # and only for branches that start with 'update-pricing-'
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'update-pricing-')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACTIONS_BYPASS_TOKEN }}
+          
+      - name: Delete branch
+        run: |
+          echo "PR merged! Deleting branch: ${{ github.head_ref }}"
+          git push origin --delete ${{ github.head_ref }}
