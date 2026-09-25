@@ -47,11 +47,11 @@ export async function POST(req: Request) {
     for (const res of resources) {
       let resStr = typeof res === 'object' ? res.name : res;
       let quantity = typeof res === 'object' ? (res.quantity || 1) : 1;
-      let storage = typeof res === 'object' ? (res.storage || 1) : 1;
+      let storage = typeof res === 'object' ? res.storage : undefined;
 
       const match = resStr.match(/^([^(]+?)(?:\s*\(([^)]+)\))?$/);
       if (!match) {
-        breakdown.push({ service: resStr, cost: 50 * quantity, quantity, storage });
+        breakdown.push({ service: resStr, cost: 50 * quantity, quantity, ...(storage !== undefined && {storage}) });
         total += 50 * quantity;
         continue;
       }
@@ -91,15 +91,15 @@ export async function POST(req: Request) {
       // Handle storage math correctly depending on the service type
       if (serviceName.includes("S3") || serviceName.includes("EBS") || serviceName.includes("EFS")) {
          // Storage services: unit cost is per TB. Convert input GB to TB.
-         const storageInTB = storage / 1000;
+        const storageInTB = (storage || 0) / 1000;
          cost = unitCost * quantity * storageInTB;
-      } else if (storage > 1) {
+      } else if (storage !== undefined && storage > 0) {
          // Compute services (RDS, etc): compute is separate from storage. Add storage as .10/GB flat fee.
-         cost = (unitCost * quantity) + (0.10 * storage);
+        cost = (unitCost * quantity) + (0.10 * storage);
       }
       
       total += cost;
-      breakdown.push({ service: resStr, cost, quantity, unitCost, storage });
+        breakdown.push({ service: resStr, cost, quantity, unitCost, ...(storage !== undefined && {storage}) });
     }
 
     return NextResponse.json({
