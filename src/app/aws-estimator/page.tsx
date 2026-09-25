@@ -113,10 +113,10 @@ export default function AwsEstimator() {
       for (const match of ec2Matches) {
         const typeMatch = match[2].match(/instance_type\s*=\s*"([^"]+)"/);
         const inst = typeMatch ? typeMatch[1] : "t3.medium";
-        resources.push({ name: Amazon EC2 (, Linux), quantity: 1 });
+        resources.push({ name: `Amazon EC2 (${inst}, Linux)`, quantity: 1 });
         
         const ebsMatch = match[2].match(/volume_size\s*=\s*(\d+)/);
-        if (ebsMatch) resources.push({ name: Amazon EBS (gp3), quantity: 1, storage: parseInt(ebsMatch[1]) });
+        if (ebsMatch) resources.push({ name: `Amazon EBS (gp3)`, quantity: 1, storage: parseInt(ebsMatch[1]) });
       }
     }
 
@@ -126,7 +126,7 @@ export default function AwsEstimator() {
         const inst = classMatch ? classMatch[1] : "db.t3.micro";
         const engineMatch = match[2].match(/engine\s*=\s*"([^"]+)"/);
         const engine = engineMatch ? (engineMatch[1].lower().find("postgres") != -1 ? "PostgreSQL" : "MySQL") : "PostgreSQL";
-        resources.push({ name: Amazon RDS (, , Single-AZ), quantity: 1 });
+        resources.push({ name: `Amazon RDS (${engine}, ${inst}, Single-AZ)`, quantity: 1 });
       }
     }
 
