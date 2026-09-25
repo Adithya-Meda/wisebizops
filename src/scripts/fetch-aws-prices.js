@@ -73,7 +73,7 @@ const main = async () => {
       ]);
       const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
       // We combine the instance type and OS into the configuration string for the database
-      liveBaselineCosts["Amazon EC2"][${inst} ()] = baseCost;
+      liveBaselineCosts["Amazon EC2"][${inst}, ] = baseCost;
     }
   }
 
@@ -188,5 +188,6 @@ const main = async () => {
 };
 
 main();
+
 
 
