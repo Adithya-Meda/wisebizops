@@ -1,54 +1,70 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(req: Request) {
   try {
     const { region, resources } = await req.json();
     
-    const dbPath = path.join(process.cwd(), 'src/data/aws-pricing.json');
-    const pricingDb = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-
-    const exchangeRates = pricingDb.meta?.exchangeRates || { EUR: 0.92, GBP: 0.79, INR: 83.5 };
-    const regionData = pricingDb[region];
-    
-    if (!regionData) {
-      return NextResponse.json({ error: "Region not supported or data missing" }, { status: 400 });
+    if (!supabaseUrl || !supabaseKey) {
+      return NextResponse.json({ error: "Supabase credentials missing" }, { status: 500 });
     }
 
+    // Default exchange rates (could also be stored in DB later)
+    const exchangeRates = { EUR: 0.92, GBP: 0.79, INR: 83.5 };
+
     let total = 0;
-    const breakdown = resources.map((res: any) => {
-      let resStr = res;
-      let quantity = 1;
-      
-      // Support new { name, quantity } format or fallback to old string format
-      if (typeof res === 'object') {
-        resStr = res.name;
-        quantity = res.quantity || 1;
-      }
+    const breakdown = [];
+
+    for (const res of resources) {
+      let resStr = typeof res === 'object' ? res.name : res;
+      let quantity = typeof res === 'object' ? (res.quantity || 1) : 1;
+      let storage = typeof res === 'object' ? (res.storage || 1) : 1;
 
       const match = resStr.match(/^([^(]+?)(?:\s*\(([^)]+)\))?$/);
-      if (!match) return { service: resStr, cost: 50 * quantity, quantity };
+      if (!match) {
+        breakdown.push({ service: resStr, cost: 50 * quantity, quantity, storage });
+        total += 50 * quantity;
+        continue;
+      }
 
       const serviceName = match[1].trim();
       const configs = match[2] ? match[2].split(',').map((s: any) => s.trim()) : [];
-      
-      let unitCost = 15; 
-      
-      if (regionData[serviceName]) {
-        for (const config of configs) {
-          if (regionData[serviceName][config]) {
-            unitCost = regionData[serviceName][config];
-            break;
-          }
+      let primaryConfig = configs.length > 0 ? configs[0] : "Standard";
+
+      // Query Supabase
+      const { data, error } = await supabase
+        .from('aws_prices')
+        .select('price_usd')
+        .eq('service_name', serviceName)
+        .eq('region', region)
+        .eq('configuration', primaryConfig)
+        .single();
+
+      let unitCost = 15; // default fallback
+      if (data && !error) {
+        unitCost = parseFloat(data.price_usd);
+      } else {
+        // Fallback query without region if not found
+        const { data: fallbackData } = await supabase
+          .from('aws_prices')
+          .select('price_usd')
+          .eq('service_name', serviceName)
+          .eq('configuration', primaryConfig)
+          .limit(1)
+          .single();
+        if (fallbackData) {
+          unitCost = parseFloat(fallbackData.price_usd);
         }
-        if (unitCost === 15) unitCost = Object.values(regionData[serviceName])[0] as number || 50;
       }
 
-      const cost = unitCost * quantity * (res.storage || 1);
+      const cost = unitCost * quantity * storage;
       total += cost;
-      return { service: resStr, cost, quantity, unitCost, storage: res.storage };
-    });
+      breakdown.push({ service: resStr, cost, quantity, unitCost, storage });
+    }
 
     return NextResponse.json({
       total,
@@ -60,4 +76,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
-
