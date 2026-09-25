@@ -14,10 +14,10 @@ export default function Home() {
           <div className="w-12 h-12 rounded flex items-center justify-center bg-transparent mb-6">
             <img src="/k8s-3d.png?v=1" style={{ filter: "hue-rotate(var(--icon-hue))" }} alt="Kubernetes Analyzer" className="w-full h-full object-contain filter drop-shadow-[0_4px_8px_rgba(var(--primary-rgb),0.4)]" />
           </div>
-          <h3 className="text-base font-medium text-primary-700 dark:text-primary-400 mb-2 transition-colors">Kubernetes Connection</h3>
-          <p className="text-sm text-zinc-600 dark:text-zinc-500 mb-8 flex-1 leading-relaxed transition-colors">Connect your EKS cluster via OIDC or parse raw pod logs to unlock real-time health metrics and diagnostics.</p>
+          <h3 className="text-base font-medium text-primary-700 dark:text-primary-400 mb-2 transition-colors">Kubernetes Analyzer</h3>
+          <p className="text-sm text-zinc-600 dark:text-zinc-500 mb-8 flex-1 leading-relaxed transition-colors">Paste your Kubernetes manifests to automatically diagnose configuration errors, find security vulnerabilities, and get AI-driven fixes.</p>
           <Link href="/k8s-analyzer" className="w-full px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-2xl text-sm font-bold shadow-[inset_3px_3px_6px_rgba(255,255,255,0.3),inset_-3px_-3px_6px_rgba(var(--primary-rgb),0.8),4px_4px_10px_rgba(0,0,0,0.15)] hover:shadow-[inset_5px_5px_8px_rgba(255,255,255,0.4),inset_-5px_-5px_8px_rgba(var(--primary-rgb),0.9),6px_6px_15px_rgba(0,0,0,0.2)] active:shadow-[inset_1px_1px_2px_rgba(255,255,255,0.2),inset_-1px_-1px_2px_rgba(var(--primary-rgb),0.5),2px_2px_4px_rgba(0,0,0,0.05)] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 active:scale-95">
-            Configure Kubernetes
+            Analyze Manifests
           </Link>
         </div>
 
