@@ -1,9 +1,19 @@
 const { PricingClient, GetProductsCommand } = require("@aws-sdk/client-pricing");
-const fs = require('fs');
-const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 const https = require('https');
 
 const client = new PricingClient({ region: "us-east-1" });
+
+// Initialize Supabase Client
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY environment variables");
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function getLivePrice(serviceCode, filters) {
   try {
@@ -31,28 +41,15 @@ async function getLivePrice(serviceCode, filters) {
   }
 }
 
-const fetchExchangeRates = () => {
-  return new Promise((resolve) => {
-    https.get('https://open.er-api.com/v6/latest/USD', (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => resolve(JSON.parse(data).rates));
-    }).on('error', () => resolve({ EUR: 0.92, GBP: 0.79, INR: 83.5 }));
-  });
-};
-
 const main = async () => {
-  console.log("Fetching live exchange rates...");
-  const rates = await fetchExchangeRates();
-  const exchangeRates = { EUR: rates.EUR || 0.92, GBP: rates.GBP || 0.79, INR: rates.INR || 83.5 };
-
   console.log("Querying AWS Pricing API (this may take a minute due to 50+ queries)...");
   
   const liveBaselineCosts = {
     "Amazon EC2": {}, "Amazon RDS": {}, "Amazon S3": {}, "AWS Lambda": {},
     "Amazon DynamoDB": {}, "Amazon EKS": {}, "Amazon ECS": {}, "Amazon CloudFront": {},
     "Amazon API Gateway": {}, "Amazon ElastiCache": {}, "Amazon SQS": {}, "Amazon SNS": {},
-    "Amazon Route 53": {}, "AWS Fargate": {}, "AWS WAF": {}, "AWS KMS": {}
+    "Amazon Route 53": {}, "AWS Fargate": {}, "AWS WAF": {}, "AWS KMS": {},
+    "Amazon EBS": {}, "Elastic Load Balancing": {}
   };
 
   // 1. Amazon EC2
@@ -88,9 +85,9 @@ const main = async () => {
     { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
     { Type: "TERM_MATCH", Field: "volumeType", Value: "Standard - Infrequent Access" }
   ]) || 0.0125) * 1000;
-  liveBaselineCosts["Amazon S3"]["Glacier"] = 4.0; // Hardcoded fallback for Glacier complex pricing
+  liveBaselineCosts["Amazon S3"]["Glacier"] = 4.0; // Hardcoded fallback
 
-  // 4. AWS Lambda (Assume 10M requests, 5M GB-s)
+  // 4. AWS Lambda
   const lambdaGBs = await getLivePrice("AWSLambda", [
     { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
     { Type: "TERM_MATCH", Field: "group", Value: "AWS-Lambda-Duration" }
@@ -104,11 +101,11 @@ const main = async () => {
   liveBaselineCosts["Amazon DynamoDB"]["Provisioned"] = (await getLivePrice("AmazonDynamoDB", [
     { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
     { Type: "TERM_MATCH", Field: "group", Value: "DDB-WriteUnits" }
-  ]) || 0.00065) * 730 * 100; // 100 WCU baseline
-  liveBaselineCosts["Amazon DynamoDB"]["On-Demand"] = 25.0; // Approximation
+  ]) || 0.00065) * 730 * 100;
+  liveBaselineCosts["Amazon DynamoDB"]["On-Demand"] = 25.0;
 
-  // Serverless / Orchestration Standard baselines
-  liveBaselineCosts["Amazon EKS"]["Standard"] = 73.0; // Exact .10/hr * 730 = .00
+  // Serverless / Orchestration
+  liveBaselineCosts["Amazon EKS"]["Standard"] = 73.0; 
   liveBaselineCosts["Amazon EKS"]["Fargate"] = 90.0;
   liveBaselineCosts["Amazon ECS"]["Standard"] = 45.0;
   liveBaselineCosts["AWS Fargate"]["Standard"] = 110.0;
@@ -128,49 +125,54 @@ const main = async () => {
   liveBaselineCosts["AWS KMS"]["Standard"] = 5.0;
   
   // Storage & Networking Additions
-  liveBaselineCosts["Amazon EBS"] = {};
   liveBaselineCosts["Amazon EBS"]["Standard"] = (await getLivePrice("AmazonEC2", [
     { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
     { Type: "TERM_MATCH", Field: "volumeApiName", Value: "gp3" },
     { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" }
   ]) || 0.08) * 1000;
   
-  liveBaselineCosts["Elastic Load Balancing"] = {};
   liveBaselineCosts["Elastic Load Balancing"]["Standard"] = (await getLivePrice("AWSELB", [
     { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" },
     { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" }
   ]) || 0.0225) * 730;
 
-  console.log("Successfully fetched and compiled live data!");
+  console.log("Successfully fetched all live data!");
 
-  // Generate for all regions using multipliers
   const regions = ["us-east-1", "us-east-2", "us-west-1", "us-west-2",
-    "af-south-1", "ap-east-1", "ap-south-1", "ap-northeast-3",
-    "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1",
-    "ca-central-1", "eu-central-1", "eu-west-1", "eu-west-2",
-    "eu-south-1", "eu-west-3", "eu-north-1", "me-south-1", "sa-east-1"];
-  const output = { meta: { exchangeRates } };
+    "eu-central-1", "eu-west-1", "ap-southeast-1", "ap-northeast-1"];
+    
+  const dbRecords = [];
 
   for (const region of regions) {
-    output[region] = {};
     let multiplier = 1.0;
-    if (region.startsWith("us-")) multiplier = (Math.random() * 0.1) + 0.95;
-    else if (region.startsWith("eu-")) multiplier = (Math.random() * 0.15) + 1.05;
-    else if (region.startsWith("ap-")) multiplier = (Math.random() * 0.2) + 1.10;
-    else multiplier = (Math.random() * 0.3) + 1.20;
+    if (region.startsWith("eu-")) multiplier = 1.15;
+    else if (region.startsWith("ap-")) multiplier = 1.25;
 
     for (const [service, configs] of Object.entries(liveBaselineCosts)) {
-      output[region][service] = {};
       for (const [config, basePrice] of Object.entries(configs)) {
-        output[region][service][config] = parseFloat((basePrice * multiplier).toFixed(2));
+        dbRecords.push({
+          service_name: service,
+          region: region,
+          configuration: config,
+          price_usd: parseFloat((basePrice * multiplier).toFixed(2))
+        });
       }
     }
   }
 
-  const outputPath = path.join(__dirname, '../data/aws-pricing-live.json');
-  fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
-  console.log("Live data saved to " + outputPath);
+  console.log(Upserting  records into Supabase...);
+  
+  // Supabase upsert will automatically update based on the UNIQUE(service_name, region, configuration) constraint
+  const { data, error } = await supabase
+    .from('aws_prices')
+    .upsert(dbRecords, { onConflict: 'service_name,region,configuration' });
+
+  if (error) {
+    console.error("Error upserting to Supabase:", error);
+    process.exit(1);
+  }
+
+  console.log("Supabase successfully updated!");
 };
 
 main();
-

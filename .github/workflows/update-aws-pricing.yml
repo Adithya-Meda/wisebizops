@@ -5,18 +5,11 @@ on:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   update-pricing:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          # Use the bypass token here so git push authenticates as the admin user
-          token: ${{ secrets.ACTIONS_BYPASS_TOKEN }}
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,41 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Fetch Script
-        run: node src/scripts/fetch-aws-prices.js
-        
-      - name: Commit, Push and Create PR
+      - name: Fetch and Upsert AWS Pricing to Supabase
         env:
-          GH_TOKEN: ${{ secrets.ACTIONS_BYPASS_TOKEN }}
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          
-          # Create a unique branch name
-          BRANCH_NAME="update-pricing-${{ github.run_id }}"
-          git checkout -b $BRANCH_NAME
-          
-          git add src/data/aws-pricing.json
-          
-          # Check if there are changes before committing
-          if git diff --staged --quiet; then
-            echo "No pricing changes to commit"
-          else
-            git commit -m "chore: daily AWS pricing & currency update"
-            git push origin $BRANCH_NAME
-            
-            CURRENT_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-            
-            # Use native GitHub CLI to open the PR
-            gh pr create \
-              --title "Automated AWS Pricing Update" \
-              --body "This is an auto-generated PR with the latest AWS pricing and currency rates. Update ran on: **$CURRENT_DATE**" \
-              --base main \
-              --head $BRANCH_NAME
-              
-            # Instantly approve the PR using the default GITHUB_TOKEN (github-actions[bot])
-            GH_TOKEN="${{ secrets.GITHUB_TOKEN }}" gh pr review "$BRANCH_NAME" --approve -b "Automated approval by Actions Bot"
-            
-            # Since it's approved, trigger the merge!
-            gh pr merge "$BRANCH_NAME" --merge --admin --delete-branch
-          fi
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node src/scripts/fetch-aws-prices.js
