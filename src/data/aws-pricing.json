@@ -8,72 +8,72 @@
   },
   "us-east-1": {
     "Amazon EC2": {
-      "t3.micro": 7.73,
-      "t3.medium": 28.97,
-      "m5.large": 67.6,
-      "m5.xlarge": 135.2,
-      "c5.large": 59.87,
-      "c5.xlarge": 119.75,
-      "r5.large": 88.85
+      "t3.micro": 7.83,
+      "t3.medium": 29.35,
+      "m5.large": 68.5,
+      "m5.xlarge": 136.99,
+      "c5.large": 60.66,
+      "c5.xlarge": 121.34,
+      "r5.large": 90.03
     },
     "Amazon RDS": {
-      "db.t3.micro": 11.59,
-      "db.t3.medium": 46.36,
-      "db.m5.large": 125.54,
-      "db.r5.large": 164.17,
-      "db.r5.xlarge": 328.34
+      "db.t3.micro": 11.74,
+      "db.t3.medium": 46.97,
+      "db.m5.large": 127.2,
+      "db.r5.large": 166.35,
+      "db.r5.xlarge": 332.69
     },
     "Amazon S3": {
-      "Standard": 22.21,
-      "Intelligent-Tiering": 20.28,
-      "Standard-IA": 11.59,
-      "One Zone-IA": 9.65,
-      "Glacier": 3.86
+      "Standard": 22.5,
+      "Intelligent-Tiering": 20.55,
+      "Standard-IA": 11.74,
+      "One Zone-IA": 9.78,
+      "Glacier": 3.91
     },
     "AWS Lambda": {
-      "128MB": 1.93,
-      "512MB": 7.73,
-      "1024MB": 15.45,
-      "2048MB": 30.9,
-      "4096MB": 61.81
+      "128MB": 1.96,
+      "512MB": 7.83,
+      "1024MB": 15.65,
+      "2048MB": 31.31,
+      "4096MB": 62.63
     },
     "Amazon DynamoDB": {
-      "On-Demand": 24.15,
-      "Provisioned": 14.48
+      "On-Demand": 24.47,
+      "Provisioned": 14.67
     },
     "Amazon EKS": {
-      "Standard": 70.5,
-      "Fargate": 86.91
+      "Standard": 71.43,
+      "Fargate": 88.06
     },
     "Amazon ECS": {
-      "Standard": 43.46
+      "Standard": 44.04
     },
     "Amazon CloudFront": {
-      "Standard": 48.28
+      "Standard": 48.92
     },
     "Amazon API Gateway": {
-      "Standard": 24.15
+      "Standard": 24.47
     },
     "Amazon ElastiCache": {
-      "Standard": 86.91
+      "Standard": 88.06
     },
     "Amazon SQS": {
-      "Standard": 9.65
+      "Standard": 9.78
     },
     "Amazon SNS": {
-      "Standard": 9.65
+      "Standard": 9.78
     },
     "Amazon Route 53": {
-      "Standard": 4.83
+      "Standard": 4.89
     },
     "AWS Fargate": {
-      "Standard": 106.23
+      "Standard": 107.64
     },
     "AWS WAF": {
-      "Standard": 19.31
+      "Standard": 19.57
     },
     "AWS KMS": {
-      "Standard": 4.83
+      "Standard": 4.89
     },
     "Amazon EBS": {
       "gp3": 0.08,
@@ -84,10 +84,10 @@
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 16.07,
-      "Network": 16.07,
-      "Classic": 17.85,
-      "Gateway": 16.07
+      "Application": 16.28,
+      "Network": 16.28,
+      "Classic": 18.09,
+      "Gateway": 16.28
     },
     "Amazon EFS": {
       "Standard": 0.29,
@@ -98,141 +98,300 @@
       "Lustre": 0.14
     },
     "Amazon Redshift": {
-      "dc2.large": 178.48,
-      "ra3.xlplus": 774.6
+      "dc2.large": 180.85,
+      "ra3.xlplus": 784.87
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 197.75,
-      "db.t3.medium": 51.4
+      "db.r5.large": 200.37,
+      "db.t3.medium": 52.08
     },
     "Amazon Neptune": {
-      "db.r5.large": 248.44
+      "db.r5.large": 251.73
     },
     "Amazon VPC": {
-      "NAT Gateway": 32.13,
-      "Endpoint": 7.14
+      "NAT Gateway": 32.56,
+      "Endpoint": 7.23
     },
     "AWS Transit Gateway": {
-      "Attachment": 35.7
+      "Attachment": 36.17
     },
     "AWS VPN": {
-      "Connection": 35.7
+      "Connection": 36.17
     },
     "AWS Global Accelerator": {
-      "Accelerator": 17.85
+      "Accelerator": 18.09
     },
     "Amazon CloudWatch": {
-      "Dashboard": 2.93,
+      "Dashboard": 2.97,
+      "Alarms": 0.1
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.4
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 3.96
+    },
+    "Amazon Macie": {
+      "Data Discovery": 0.99
+    },
+    "AWS Shield": {
+      "Advanced": 2972.78
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 34.72
+    },
+    "Amazon Athena": {
+      "Query": 4.95
+    },
+    "AWS Glue": {
+      "DPU": 31.83
+    },
+    "Amazon Kinesis": {
+      "Shard": 10.85
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 151.91
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 52.81
+    },
+    "Amazon EventBridge": {
+      "Events": 0.99
+    },
+    "AWS Step Functions": {
+      "Standard": 24.77
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 20.97
+    }
+  },
+  "us-east-2": {
+    "Amazon EC2": {
+      "t3.micro": 7.77,
+      "t3.medium": 29.11,
+      "m5.large": 67.92,
+      "m5.xlarge": 135.84,
+      "c5.large": 60.15,
+      "c5.xlarge": 120.32,
+      "r5.large": 89.27
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 11.64,
+      "db.t3.medium": 46.58,
+      "db.m5.large": 126.13,
+      "db.r5.large": 164.95,
+      "db.r5.xlarge": 329.89
+    },
+    "Amazon S3": {
+      "Standard": 22.32,
+      "Intelligent-Tiering": 20.38,
+      "Standard-IA": 11.64,
+      "One Zone-IA": 9.7,
+      "Glacier": 3.88
+    },
+    "AWS Lambda": {
+      "128MB": 1.94,
+      "512MB": 7.77,
+      "1024MB": 15.52,
+      "2048MB": 31.05,
+      "4096MB": 62.1
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 24.26,
+      "Provisioned": 14.55
+    },
+    "Amazon EKS": {
+      "Standard": 70.83,
+      "Fargate": 87.32
+    },
+    "Amazon ECS": {
+      "Standard": 43.67
+    },
+    "Amazon CloudFront": {
+      "Standard": 48.51
+    },
+    "Amazon API Gateway": {
+      "Standard": 24.26
+    },
+    "Amazon ElastiCache": {
+      "Standard": 87.32
+    },
+    "Amazon SQS": {
+      "Standard": 9.7
+    },
+    "Amazon SNS": {
+      "Standard": 9.7
+    },
+    "Amazon Route 53": {
+      "Standard": 4.85
+    },
+    "AWS Fargate": {
+      "Standard": 106.73
+    },
+    "AWS WAF": {
+      "Standard": 19.4
+    },
+    "AWS KMS": {
+      "Standard": 4.85
+    },
+    "Amazon EBS": {
+      "gp3": 0.08,
+      "gp2": 0.1,
+      "io1": 0.12,
+      "io2": 0.12,
+      "st1": 0.04,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 16.15,
+      "Network": 16.15,
+      "Classic": 17.93,
+      "Gateway": 16.15
+    },
+    "Amazon EFS": {
+      "Standard": 0.29,
+      "One Zone": 0.16
+    },
+    "Amazon FSx": {
+      "Windows": 0.13,
+      "Lustre": 0.14
+    },
+    "Amazon Redshift": {
+      "dc2.large": 179.32,
+      "ra3.xlplus": 778.27
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 198.69,
+      "db.t3.medium": 51.64
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 249.62
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 32.28,
+      "Endpoint": 7.17
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 35.87
+    },
+    "AWS VPN": {
+      "Connection": 35.87
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 17.93
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 2.94,
       "Alarms": 0.1
     },
     "AWS Secrets Manager": {
       "Secret": 0.39
     },
     "Amazon GuardDuty": {
-      "Analysis": 3.91
+      "Analysis": 3.93
     },
     "Amazon Macie": {
       "Data Discovery": 0.98
     },
     "AWS Shield": {
-      "Advanced": 2933.89
+      "Advanced": 2947.77
     },
     "Amazon EMR": {
-      "m5.xlarge": 34.27
+      "m5.xlarge": 34.43
     },
     "Amazon Athena": {
-      "Query": 4.89
+      "Query": 4.91
     },
     "AWS Glue": {
-      "DPU": 31.41
+      "DPU": 31.56
     },
     "Amazon Kinesis": {
-      "Shard": 10.71
+      "Shard": 10.76
     },
     "Amazon MSK": {
-      "kafka.m5.large": 149.92
+      "kafka.m5.large": 150.63
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 52.12
+      "t3.medium.search": 52.37
     },
     "Amazon EventBridge": {
       "Events": 0.98
     },
     "AWS Step Functions": {
-      "Standard": 24.45
+      "Standard": 24.57
     },
     "Amazon MQ": {
-      "mq.t3.micro": 20.7
+      "mq.t3.micro": 20.8
     }
   },
-  "us-east-2": {
+  "us-west-1": {
     "Amazon EC2": {
-      "t3.micro": 7.57,
-      "t3.medium": 28.37,
-      "m5.large": 66.21,
-      "m5.xlarge": 132.43,
-      "c5.large": 58.64,
-      "c5.xlarge": 117.3,
-      "r5.large": 87.03
+      "t3.micro": 7.39,
+      "t3.medium": 27.69,
+      "m5.large": 64.61,
+      "m5.xlarge": 129.23,
+      "c5.large": 57.23,
+      "c5.xlarge": 114.46,
+      "r5.large": 84.93
     },
     "Amazon RDS": {
-      "db.t3.micro": 11.35,
-      "db.t3.medium": 45.4,
-      "db.m5.large": 122.97,
-      "db.r5.large": 160.8,
-      "db.r5.xlarge": 321.61
+      "db.t3.micro": 11.08,
+      "db.t3.medium": 44.31,
+      "db.m5.large": 120,
+      "db.r5.large": 156.92,
+      "db.r5.xlarge": 313.84
     },
     "Amazon S3": {
-      "Standard": 21.75,
-      "Intelligent-Tiering": 19.87,
-      "Standard-IA": 11.35,
-      "One Zone-IA": 9.45,
-      "Glacier": 3.78
+      "Standard": 21.23,
+      "Intelligent-Tiering": 19.38,
+      "Standard-IA": 11.08,
+      "One Zone-IA": 9.22,
+      "Glacier": 3.69
     },
     "AWS Lambda": {
-      "128MB": 1.89,
-      "512MB": 7.57,
-      "1024MB": 15.13,
-      "2048MB": 30.27,
-      "4096MB": 60.54
+      "128MB": 1.84,
+      "512MB": 7.39,
+      "1024MB": 14.77,
+      "2048MB": 29.54,
+      "4096MB": 59.08
     },
     "Amazon DynamoDB": {
-      "On-Demand": 23.65,
-      "Provisioned": 14.19
+      "On-Demand": 23.08,
+      "Provisioned": 13.84
     },
     "Amazon EKS": {
-      "Standard": 69.06,
-      "Fargate": 85.13
+      "Standard": 67.39,
+      "Fargate": 83.07
     },
     "Amazon ECS": {
-      "Standard": 42.57
+      "Standard": 41.54
     },
     "Amazon CloudFront": {
-      "Standard": 47.29
+      "Standard": 46.15
     },
     "Amazon API Gateway": {
-      "Standard": 23.65
+      "Standard": 23.08
     },
     "Amazon ElastiCache": {
-      "Standard": 85.13
+      "Standard": 83.07
     },
     "Amazon SQS": {
-      "Standard": 9.45
+      "Standard": 9.22
     },
     "Amazon SNS": {
-      "Standard": 9.45
+      "Standard": 9.22
     },
     "Amazon Route 53": {
-      "Standard": 4.73
+      "Standard": 4.62
     },
     "AWS Fargate": {
-      "Standard": 104.05
+      "Standard": 101.54
     },
     "AWS WAF": {
-      "Standard": 18.92
+      "Standard": 18.46
     },
     "AWS KMS": {
-      "Standard": 4.73
+      "Standard": 4.62
     },
     "Amazon EBS": {
       "gp3": 0.08,
@@ -243,13 +402,13 @@
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 15.74,
-      "Network": 15.74,
-      "Classic": 17.48,
-      "Gateway": 15.74
+      "Application": 15.36,
+      "Network": 15.36,
+      "Classic": 17.06,
+      "Gateway": 15.36
     },
     "Amazon EFS": {
-      "Standard": 0.29,
+      "Standard": 0.28,
       "One Zone": 0.15
     },
     "Amazon FSx": {
@@ -257,141 +416,141 @@
       "Lustre": 0.13
     },
     "Amazon Redshift": {
-      "dc2.large": 174.82,
-      "ra3.xlplus": 758.71
+      "dc2.large": 170.6,
+      "ra3.xlplus": 740.39
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 193.7,
-      "db.t3.medium": 50.35
+      "db.r5.large": 189.02,
+      "db.t3.medium": 49.13
     },
     "Amazon Neptune": {
-      "db.r5.large": 243.35
+      "db.r5.large": 237.47
     },
     "Amazon VPC": {
-      "NAT Gateway": 31.47,
-      "Endpoint": 6.99
+      "NAT Gateway": 30.71,
+      "Endpoint": 6.82
     },
     "AWS Transit Gateway": {
-      "Attachment": 34.96
+      "Attachment": 34.12
     },
     "AWS VPN": {
-      "Connection": 34.96
+      "Connection": 34.12
     },
     "AWS Global Accelerator": {
-      "Accelerator": 17.48
+      "Accelerator": 17.06
     },
     "Amazon CloudWatch": {
-      "Dashboard": 2.87,
+      "Dashboard": 2.8,
       "Alarms": 0.1
     },
     "AWS Secrets Manager": {
-      "Secret": 0.38
+      "Secret": 0.37
     },
     "Amazon GuardDuty": {
-      "Analysis": 3.83
+      "Analysis": 3.74
     },
     "Amazon Macie": {
-      "Data Discovery": 0.96
+      "Data Discovery": 0.94
     },
     "AWS Shield": {
-      "Advanced": 2873.72
+      "Advanced": 2804.33
     },
     "Amazon EMR": {
-      "m5.xlarge": 33.57
+      "m5.xlarge": 32.76
     },
     "Amazon Athena": {
-      "Query": 4.79
+      "Query": 4.67
     },
     "AWS Glue": {
-      "DPU": 30.77
+      "DPU": 30.02
     },
     "Amazon Kinesis": {
-      "Shard": 10.49
+      "Shard": 10.24
     },
     "Amazon MSK": {
-      "kafka.m5.large": 146.85
+      "kafka.m5.large": 143.3
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 51.05
+      "t3.medium.search": 49.82
     },
     "Amazon EventBridge": {
-      "Events": 0.96
+      "Events": 0.94
     },
     "AWS Step Functions": {
-      "Standard": 23.95
+      "Standard": 23.37
     },
     "Amazon MQ": {
-      "mq.t3.micro": 20.28
+      "mq.t3.micro": 19.79
     }
   },
-  "us-west-1": {
+  "us-west-2": {
     "Amazon EC2": {
-      "t3.micro": 8.22,
-      "t3.medium": 30.81,
-      "m5.large": 71.9,
-      "m5.xlarge": 143.82,
-      "c5.large": 63.68,
-      "c5.xlarge": 127.38,
-      "r5.large": 94.51
+      "t3.micro": 7.75,
+      "t3.medium": 29.05,
+      "m5.large": 67.8,
+      "m5.xlarge": 135.59,
+      "c5.large": 60.04,
+      "c5.xlarge": 120.1,
+      "r5.large": 89.11
     },
     "Amazon RDS": {
-      "db.t3.micro": 12.33,
-      "db.t3.medium": 49.31,
-      "db.m5.large": 133.54,
-      "db.r5.large": 174.63,
-      "db.r5.xlarge": 349.26
+      "db.t3.micro": 11.62,
+      "db.t3.medium": 46.5,
+      "db.m5.large": 125.91,
+      "db.r5.large": 164.65,
+      "db.r5.xlarge": 329.3
     },
     "Amazon S3": {
-      "Standard": 23.62,
-      "Intelligent-Tiering": 21.57,
-      "Standard-IA": 12.33,
-      "One Zone-IA": 10.27,
-      "Glacier": 4.11
+      "Standard": 22.27,
+      "Intelligent-Tiering": 20.34,
+      "Standard-IA": 11.62,
+      "One Zone-IA": 9.68,
+      "Glacier": 3.87
     },
     "AWS Lambda": {
-      "128MB": 2.05,
-      "512MB": 8.22,
-      "1024MB": 16.44,
-      "2048MB": 32.87,
-      "4096MB": 65.74
+      "128MB": 1.94,
+      "512MB": 7.75,
+      "1024MB": 15.5,
+      "2048MB": 30.99,
+      "4096MB": 61.99
     },
     "Amazon DynamoDB": {
-      "On-Demand": 25.68,
-      "Provisioned": 15.41
+      "On-Demand": 24.22,
+      "Provisioned": 14.52
     },
     "Amazon EKS": {
-      "Standard": 74.99,
-      "Fargate": 92.45
+      "Standard": 70.71,
+      "Fargate": 87.16
     },
     "Amazon ECS": {
-      "Standard": 46.23
+      "Standard": 43.59
     },
     "Amazon CloudFront": {
-      "Standard": 51.36
+      "Standard": 48.42
     },
     "Amazon API Gateway": {
-      "Standard": 25.68
+      "Standard": 24.22
     },
     "Amazon ElastiCache": {
-      "Standard": 92.45
+      "Standard": 87.16
     },
     "Amazon SQS": {
-      "Standard": 10.27
+      "Standard": 9.68
     },
     "Amazon SNS": {
-      "Standard": 10.27
+      "Standard": 9.68
     },
     "Amazon Route 53": {
-      "Standard": 5.14
+      "Standard": 4.84
     },
     "AWS Fargate": {
-      "Standard": 112.99
+      "Standard": 106.54
     },
     "AWS WAF": {
-      "Standard": 20.55
+      "Standard": 19.37
     },
     "AWS KMS": {
-      "Standard": 5.14
+      "Standard": 4.84
     },
     "Amazon EBS": {
       "gp3": 0.08,
@@ -402,10 +561,1759 @@
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 17.09,
-      "Network": 17.09,
-      "Classic": 18.98,
-      "Gateway": 17.09
+      "Application": 16.12,
+      "Network": 16.12,
+      "Classic": 17.9,
+      "Gateway": 16.12
+    },
+    "Amazon EFS": {
+      "Standard": 0.29,
+      "One Zone": 0.16
+    },
+    "Amazon FSx": {
+      "Windows": 0.13,
+      "Lustre": 0.14
+    },
+    "Amazon Redshift": {
+      "dc2.large": 179,
+      "ra3.xlplus": 776.86
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 198.33,
+      "db.t3.medium": 51.55
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 249.16
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 32.22,
+      "Endpoint": 7.16
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 35.8
+    },
+    "AWS VPN": {
+      "Connection": 35.8
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 17.9
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 2.94,
+      "Alarms": 0.1
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.39
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 3.92
+    },
+    "Amazon Macie": {
+      "Data Discovery": 0.98
+    },
+    "AWS Shield": {
+      "Advanced": 2942.44
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 34.37
+    },
+    "Amazon Athena": {
+      "Query": 4.9
+    },
+    "AWS Glue": {
+      "DPU": 31.5
+    },
+    "Amazon Kinesis": {
+      "Shard": 10.74
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 150.36
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 52.27
+    },
+    "Amazon EventBridge": {
+      "Events": 0.98
+    },
+    "AWS Step Functions": {
+      "Standard": 24.52
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 20.76
+    }
+  },
+  "af-south-1": {
+    "Amazon EC2": {
+      "t3.micro": 11.3,
+      "t3.medium": 42.35,
+      "m5.large": 98.82,
+      "m5.xlarge": 197.65,
+      "c5.large": 87.52,
+      "c5.xlarge": 175.06,
+      "r5.large": 129.89
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 16.94,
+      "db.t3.medium": 67.77,
+      "db.m5.large": 183.52,
+      "db.r5.large": 240,
+      "db.r5.xlarge": 479.99
+    },
+    "Amazon S3": {
+      "Standard": 32.47,
+      "Intelligent-Tiering": 29.65,
+      "Standard-IA": 16.94,
+      "One Zone-IA": 14.11,
+      "Glacier": 5.64
+    },
+    "AWS Lambda": {
+      "128MB": 2.82,
+      "512MB": 11.3,
+      "1024MB": 22.59,
+      "2048MB": 45.17,
+      "4096MB": 90.36
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 35.3,
+      "Provisioned": 21.17
+    },
+    "Amazon EKS": {
+      "Standard": 103.06,
+      "Fargate": 127.05
+    },
+    "Amazon ECS": {
+      "Standard": 63.53
+    },
+    "Amazon CloudFront": {
+      "Standard": 70.58
+    },
+    "Amazon API Gateway": {
+      "Standard": 35.3
+    },
+    "Amazon ElastiCache": {
+      "Standard": 127.05
+    },
+    "Amazon SQS": {
+      "Standard": 14.11
+    },
+    "Amazon SNS": {
+      "Standard": 14.11
+    },
+    "Amazon Route 53": {
+      "Standard": 7.06
+    },
+    "AWS Fargate": {
+      "Standard": 155.3
+    },
+    "AWS WAF": {
+      "Standard": 28.23
+    },
+    "AWS KMS": {
+      "Standard": 7.06
+    },
+    "Amazon EBS": {
+      "gp3": 0.12,
+      "gp2": 0.15,
+      "io1": 0.18,
+      "io2": 0.18,
+      "st1": 0.06,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 23.49,
+      "Network": 23.49,
+      "Classic": 26.09,
+      "Gateway": 23.49
+    },
+    "Amazon EFS": {
+      "Standard": 0.42,
+      "One Zone": 0.23
+    },
+    "Amazon FSx": {
+      "Windows": 0.19,
+      "Lustre": 0.2
+    },
+    "Amazon Redshift": {
+      "dc2.large": 260.92,
+      "ra3.xlplus": 1132.37
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 289.09,
+      "db.t3.medium": 75.14
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 363.19
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 46.97,
+      "Endpoint": 10.44
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 52.19
+    },
+    "AWS VPN": {
+      "Connection": 52.19
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 26.09
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 4.28,
+      "Alarms": 0.15
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.57
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 5.72
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.43
+    },
+    "AWS Shield": {
+      "Advanced": 4288.98
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 50.1
+    },
+    "Amazon Athena": {
+      "Query": 7.15
+    },
+    "AWS Glue": {
+      "DPU": 45.92
+    },
+    "Amazon Kinesis": {
+      "Shard": 15.66
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 219.16
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 76.19
+    },
+    "Amazon EventBridge": {
+      "Events": 1.43
+    },
+    "AWS Step Functions": {
+      "Standard": 35.74
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 30.26
+    }
+  },
+  "ap-east-1": {
+    "Amazon EC2": {
+      "t3.micro": 9.86,
+      "t3.medium": 36.97,
+      "m5.large": 86.27,
+      "m5.xlarge": 172.54,
+      "c5.large": 76.4,
+      "c5.xlarge": 152.82,
+      "r5.large": 113.39
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 14.79,
+      "db.t3.medium": 59.16,
+      "db.m5.large": 160.21,
+      "db.r5.large": 209.51,
+      "db.r5.xlarge": 419.01
+    },
+    "Amazon S3": {
+      "Standard": 28.34,
+      "Intelligent-Tiering": 25.88,
+      "Standard-IA": 14.79,
+      "One Zone-IA": 12.31,
+      "Glacier": 4.93
+    },
+    "AWS Lambda": {
+      "128MB": 2.46,
+      "512MB": 9.86,
+      "1024MB": 19.72,
+      "2048MB": 39.43,
+      "4096MB": 78.88
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 30.82,
+      "Provisioned": 18.48
+    },
+    "Amazon EKS": {
+      "Standard": 89.97,
+      "Fargate": 110.91
+    },
+    "Amazon ECS": {
+      "Standard": 55.46
+    },
+    "Amazon CloudFront": {
+      "Standard": 61.61
+    },
+    "Amazon API Gateway": {
+      "Standard": 30.82
+    },
+    "Amazon ElastiCache": {
+      "Standard": 110.91
+    },
+    "Amazon SQS": {
+      "Standard": 12.31
+    },
+    "Amazon SNS": {
+      "Standard": 12.31
+    },
+    "Amazon Route 53": {
+      "Standard": 6.16
+    },
+    "AWS Fargate": {
+      "Standard": 135.57
+    },
+    "AWS WAF": {
+      "Standard": 24.64
+    },
+    "AWS KMS": {
+      "Standard": 6.16
+    },
+    "Amazon EBS": {
+      "gp3": 0.1,
+      "gp2": 0.13,
+      "io1": 0.15,
+      "io2": 0.15,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 20.51,
+      "Network": 20.51,
+      "Classic": 22.78,
+      "Gateway": 20.51
+    },
+    "Amazon EFS": {
+      "Standard": 0.37,
+      "One Zone": 0.2
+    },
+    "Amazon FSx": {
+      "Windows": 0.17,
+      "Lustre": 0.18
+    },
+    "Amazon Redshift": {
+      "dc2.large": 227.77,
+      "ra3.xlplus": 988.51
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 252.36,
+      "db.t3.medium": 65.59
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 317.05
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 41,
+      "Endpoint": 9.11
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 45.56
+    },
+    "AWS VPN": {
+      "Connection": 45.56
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 22.78
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.74,
+      "Alarms": 0.13
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.5
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.99
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.25
+    },
+    "AWS Shield": {
+      "Advanced": 3744.1
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 43.73
+    },
+    "Amazon Athena": {
+      "Query": 6.24
+    },
+    "AWS Glue": {
+      "DPU": 40.08
+    },
+    "Amazon Kinesis": {
+      "Shard": 13.67
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 191.32
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 66.51
+    },
+    "Amazon EventBridge": {
+      "Events": 1.25
+    },
+    "AWS Step Functions": {
+      "Standard": 31.2
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 26.42
+    }
+  },
+  "ap-south-1": {
+    "Amazon EC2": {
+      "t3.micro": 8.61,
+      "t3.medium": 32.29,
+      "m5.large": 75.34,
+      "m5.xlarge": 150.67,
+      "c5.large": 66.72,
+      "c5.xlarge": 133.46,
+      "r5.large": 99.02
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 12.92,
+      "db.t3.medium": 51.67,
+      "db.m5.large": 139.91,
+      "db.r5.large": 182.96,
+      "db.r5.xlarge": 365.92
+    },
+    "Amazon S3": {
+      "Standard": 24.75,
+      "Intelligent-Tiering": 22.6,
+      "Standard-IA": 12.92,
+      "One Zone-IA": 10.75,
+      "Glacier": 4.3
+    },
+    "AWS Lambda": {
+      "128MB": 2.15,
+      "512MB": 8.61,
+      "1024MB": 17.22,
+      "2048MB": 34.44,
+      "4096MB": 68.88
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 26.91,
+      "Provisioned": 16.14
+    },
+    "Amazon EKS": {
+      "Standard": 78.57,
+      "Fargate": 96.86
+    },
+    "Amazon ECS": {
+      "Standard": 48.43
+    },
+    "Amazon CloudFront": {
+      "Standard": 53.81
+    },
+    "Amazon API Gateway": {
+      "Standard": 26.91
+    },
+    "Amazon ElastiCache": {
+      "Standard": 96.86
+    },
+    "Amazon SQS": {
+      "Standard": 10.75
+    },
+    "Amazon SNS": {
+      "Standard": 10.75
+    },
+    "Amazon Route 53": {
+      "Standard": 5.38
+    },
+    "AWS Fargate": {
+      "Standard": 118.39
+    },
+    "AWS WAF": {
+      "Standard": 21.52
+    },
+    "AWS KMS": {
+      "Standard": 5.38
+    },
+    "Amazon EBS": {
+      "gp3": 0.09,
+      "gp2": 0.11,
+      "io1": 0.13,
+      "io2": 0.13,
+      "st1": 0.04,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 17.91,
+      "Network": 17.91,
+      "Classic": 19.89,
+      "Gateway": 17.91
+    },
+    "Amazon EFS": {
+      "Standard": 0.32,
+      "One Zone": 0.18
+    },
+    "Amazon FSx": {
+      "Windows": 0.14,
+      "Lustre": 0.16
+    },
+    "Amazon Redshift": {
+      "dc2.large": 198.91,
+      "ra3.xlplus": 863.26
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 220.38,
+      "db.t3.medium": 57.28
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 276.87
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 35.81,
+      "Endpoint": 7.96
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 39.79
+    },
+    "AWS VPN": {
+      "Connection": 39.79
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 19.89
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.27,
+      "Alarms": 0.11
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.43
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.36
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.09
+    },
+    "AWS Shield": {
+      "Advanced": 3269.68
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 38.19
+    },
+    "Amazon Athena": {
+      "Query": 5.45
+    },
+    "AWS Glue": {
+      "DPU": 35
+    },
+    "Amazon Kinesis": {
+      "Shard": 11.94
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 167.08
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 58.09
+    },
+    "Amazon EventBridge": {
+      "Events": 1.09
+    },
+    "AWS Step Functions": {
+      "Standard": 27.25
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 23.07
+    }
+  },
+  "ap-northeast-3": {
+    "Amazon EC2": {
+      "t3.micro": 9.78,
+      "t3.medium": 36.66,
+      "m5.large": 85.54,
+      "m5.xlarge": 171.08,
+      "c5.large": 75.76,
+      "c5.xlarge": 151.53,
+      "r5.large": 112.43
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 14.67,
+      "db.t3.medium": 58.66,
+      "db.m5.large": 158.85,
+      "db.r5.large": 207.73,
+      "db.r5.xlarge": 415.47
+    },
+    "Amazon S3": {
+      "Standard": 28.1,
+      "Intelligent-Tiering": 25.66,
+      "Standard-IA": 14.67,
+      "One Zone-IA": 12.21,
+      "Glacier": 4.88
+    },
+    "AWS Lambda": {
+      "128MB": 2.44,
+      "512MB": 9.78,
+      "1024MB": 19.55,
+      "2048MB": 39.1,
+      "4096MB": 78.21
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 30.56,
+      "Provisioned": 18.32
+    },
+    "Amazon EKS": {
+      "Standard": 89.21,
+      "Fargate": 109.97
+    },
+    "Amazon ECS": {
+      "Standard": 54.99
+    },
+    "Amazon CloudFront": {
+      "Standard": 61.09
+    },
+    "Amazon API Gateway": {
+      "Standard": 30.56
+    },
+    "Amazon ElastiCache": {
+      "Standard": 109.97
+    },
+    "Amazon SQS": {
+      "Standard": 12.21
+    },
+    "Amazon SNS": {
+      "Standard": 12.21
+    },
+    "Amazon Route 53": {
+      "Standard": 6.11
+    },
+    "AWS Fargate": {
+      "Standard": 134.42
+    },
+    "AWS WAF": {
+      "Standard": 24.43
+    },
+    "AWS KMS": {
+      "Standard": 6.11
+    },
+    "Amazon EBS": {
+      "gp3": 0.1,
+      "gp2": 0.13,
+      "io1": 0.15,
+      "io2": 0.15,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 20.33,
+      "Network": 20.33,
+      "Classic": 22.59,
+      "Gateway": 20.33
+    },
+    "Amazon EFS": {
+      "Standard": 0.37,
+      "One Zone": 0.2
+    },
+    "Amazon FSx": {
+      "Windows": 0.16,
+      "Lustre": 0.18
+    },
+    "Amazon Redshift": {
+      "dc2.large": 225.84,
+      "ra3.xlplus": 980.15
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 250.23,
+      "db.t3.medium": 65.04
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 314.37
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 40.66,
+      "Endpoint": 9.03
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 45.17
+    },
+    "AWS VPN": {
+      "Connection": 45.17
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 22.59
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.71,
+      "Alarms": 0.13
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.49
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.95
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.24
+    },
+    "AWS Shield": {
+      "Advanced": 3712.44
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 43.36
+    },
+    "Amazon Athena": {
+      "Query": 6.19
+    },
+    "AWS Glue": {
+      "DPU": 39.75
+    },
+    "Amazon Kinesis": {
+      "Shard": 13.55
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 189.7
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 65.95
+    },
+    "Amazon EventBridge": {
+      "Events": 1.24
+    },
+    "AWS Step Functions": {
+      "Standard": 30.94
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 26.19
+    }
+  },
+  "ap-northeast-2": {
+    "Amazon EC2": {
+      "t3.micro": 9.52,
+      "t3.medium": 35.66,
+      "m5.large": 83.21,
+      "m5.xlarge": 166.42,
+      "c5.large": 73.7,
+      "c5.xlarge": 147.4,
+      "r5.large": 109.37
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 14.27,
+      "db.t3.medium": 57.07,
+      "db.m5.large": 154.53,
+      "db.r5.large": 202.08,
+      "db.r5.xlarge": 404.16
+    },
+    "Amazon S3": {
+      "Standard": 27.34,
+      "Intelligent-Tiering": 24.96,
+      "Standard-IA": 14.27,
+      "One Zone-IA": 11.88,
+      "Glacier": 4.75
+    },
+    "AWS Lambda": {
+      "128MB": 2.38,
+      "512MB": 9.52,
+      "1024MB": 19.02,
+      "2048MB": 38.04,
+      "4096MB": 76.08
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 29.73,
+      "Provisioned": 17.82
+    },
+    "Amazon EKS": {
+      "Standard": 86.78,
+      "Fargate": 106.98
+    },
+    "Amazon ECS": {
+      "Standard": 53.5
+    },
+    "Amazon CloudFront": {
+      "Standard": 59.43
+    },
+    "Amazon API Gateway": {
+      "Standard": 29.73
+    },
+    "Amazon ElastiCache": {
+      "Standard": 106.98
+    },
+    "Amazon SQS": {
+      "Standard": 11.88
+    },
+    "Amazon SNS": {
+      "Standard": 11.88
+    },
+    "Amazon Route 53": {
+      "Standard": 5.95
+    },
+    "AWS Fargate": {
+      "Standard": 130.76
+    },
+    "AWS WAF": {
+      "Standard": 23.77
+    },
+    "AWS KMS": {
+      "Standard": 5.95
+    },
+    "Amazon EBS": {
+      "gp3": 0.1,
+      "gp2": 0.12,
+      "io1": 0.15,
+      "io2": 0.15,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 19.78,
+      "Network": 19.78,
+      "Classic": 21.97,
+      "Gateway": 19.78
+    },
+    "Amazon EFS": {
+      "Standard": 0.36,
+      "One Zone": 0.2
+    },
+    "Amazon FSx": {
+      "Windows": 0.16,
+      "Lustre": 0.17
+    },
+    "Amazon Redshift": {
+      "dc2.large": 219.69,
+      "ra3.xlplus": 953.47
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 243.41,
+      "db.t3.medium": 63.27
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 305.81
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 39.55,
+      "Endpoint": 8.79
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 43.94
+    },
+    "AWS VPN": {
+      "Connection": 43.94
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 21.97
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.61,
+      "Alarms": 0.12
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.48
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.81
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.21
+    },
+    "AWS Shield": {
+      "Advanced": 3611.39
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 42.18
+    },
+    "Amazon Athena": {
+      "Query": 6.02
+    },
+    "AWS Glue": {
+      "DPU": 38.66
+    },
+    "Amazon Kinesis": {
+      "Shard": 13.18
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 184.54
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 64.16
+    },
+    "Amazon EventBridge": {
+      "Events": 1.21
+    },
+    "AWS Step Functions": {
+      "Standard": 30.1
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 25.48
+    }
+  },
+  "ap-southeast-1": {
+    "Amazon EC2": {
+      "t3.micro": 8.81,
+      "t3.medium": 33.03,
+      "m5.large": 77.06,
+      "m5.xlarge": 154.13,
+      "c5.large": 68.25,
+      "c5.xlarge": 136.52,
+      "r5.large": 101.29
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 13.21,
+      "db.t3.medium": 52.85,
+      "db.m5.large": 143.12,
+      "db.r5.large": 187.15,
+      "db.r5.xlarge": 374.31
+    },
+    "Amazon S3": {
+      "Standard": 25.32,
+      "Intelligent-Tiering": 23.12,
+      "Standard-IA": 13.21,
+      "One Zone-IA": 11,
+      "Glacier": 4.4
+    },
+    "AWS Lambda": {
+      "128MB": 2.2,
+      "512MB": 8.81,
+      "1024MB": 17.61,
+      "2048MB": 35.23,
+      "4096MB": 70.46
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 27.53,
+      "Provisioned": 16.51
+    },
+    "Amazon EKS": {
+      "Standard": 80.37,
+      "Fargate": 99.08
+    },
+    "Amazon ECS": {
+      "Standard": 49.54
+    },
+    "Amazon CloudFront": {
+      "Standard": 55.04
+    },
+    "Amazon API Gateway": {
+      "Standard": 27.53
+    },
+    "Amazon ElastiCache": {
+      "Standard": 99.08
+    },
+    "Amazon SQS": {
+      "Standard": 11
+    },
+    "Amazon SNS": {
+      "Standard": 11
+    },
+    "Amazon Route 53": {
+      "Standard": 5.51
+    },
+    "AWS Fargate": {
+      "Standard": 121.1
+    },
+    "AWS WAF": {
+      "Standard": 22.01
+    },
+    "AWS KMS": {
+      "Standard": 5.51
+    },
+    "Amazon EBS": {
+      "gp3": 0.09,
+      "gp2": 0.11,
+      "io1": 0.14,
+      "io2": 0.14,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 18.32,
+      "Network": 18.32,
+      "Classic": 20.35,
+      "Gateway": 18.32
+    },
+    "Amazon EFS": {
+      "Standard": 0.33,
+      "One Zone": 0.18
+    },
+    "Amazon FSx": {
+      "Windows": 0.15,
+      "Lustre": 0.16
+    },
+    "Amazon Redshift": {
+      "dc2.large": 203.47,
+      "ra3.xlplus": 883.04
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 225.44,
+      "db.t3.medium": 58.6
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 283.22
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 36.63,
+      "Endpoint": 8.14
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 40.7
+    },
+    "AWS VPN": {
+      "Connection": 40.7
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 20.35
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.34,
+      "Alarms": 0.11
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.44
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.46
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.12
+    },
+    "AWS Shield": {
+      "Advanced": 3344.64
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 39.07
+    },
+    "Amazon Athena": {
+      "Query": 5.57
+    },
+    "AWS Glue": {
+      "DPU": 35.81
+    },
+    "Amazon Kinesis": {
+      "Shard": 12.21
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 170.91
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 59.42
+    },
+    "Amazon EventBridge": {
+      "Events": 1.12
+    },
+    "AWS Step Functions": {
+      "Standard": 27.87
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 23.6
+    }
+  },
+  "ap-southeast-2": {
+    "Amazon EC2": {
+      "t3.micro": 9.38,
+      "t3.medium": 35.15,
+      "m5.large": 82.02,
+      "m5.xlarge": 164.05,
+      "c5.large": 72.64,
+      "c5.xlarge": 145.3,
+      "r5.large": 107.81
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 14.06,
+      "db.t3.medium": 56.25,
+      "db.m5.large": 152.33,
+      "db.r5.large": 199.2,
+      "db.r5.xlarge": 398.4
+    },
+    "Amazon S3": {
+      "Standard": 26.95,
+      "Intelligent-Tiering": 24.61,
+      "Standard-IA": 14.06,
+      "One Zone-IA": 11.71,
+      "Glacier": 4.68
+    },
+    "AWS Lambda": {
+      "128MB": 2.34,
+      "512MB": 9.38,
+      "1024MB": 18.75,
+      "2048MB": 37.49,
+      "4096MB": 75
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 29.3,
+      "Provisioned": 17.57
+    },
+    "Amazon EKS": {
+      "Standard": 85.54,
+      "Fargate": 105.45
+    },
+    "Amazon ECS": {
+      "Standard": 52.73
+    },
+    "Amazon CloudFront": {
+      "Standard": 58.58
+    },
+    "Amazon API Gateway": {
+      "Standard": 29.3
+    },
+    "Amazon ElastiCache": {
+      "Standard": 105.45
+    },
+    "Amazon SQS": {
+      "Standard": 11.71
+    },
+    "Amazon SNS": {
+      "Standard": 11.71
+    },
+    "Amazon Route 53": {
+      "Standard": 5.86
+    },
+    "AWS Fargate": {
+      "Standard": 128.9
+    },
+    "AWS WAF": {
+      "Standard": 23.43
+    },
+    "AWS KMS": {
+      "Standard": 5.86
+    },
+    "Amazon EBS": {
+      "gp3": 0.1,
+      "gp2": 0.12,
+      "io1": 0.15,
+      "io2": 0.15,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 19.5,
+      "Network": 19.5,
+      "Classic": 21.66,
+      "Gateway": 19.5
+    },
+    "Amazon EFS": {
+      "Standard": 0.35,
+      "One Zone": 0.19
+    },
+    "Amazon FSx": {
+      "Windows": 0.16,
+      "Lustre": 0.17
+    },
+    "Amazon Redshift": {
+      "dc2.large": 216.56,
+      "ra3.xlplus": 939.88
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 239.94,
+      "db.t3.medium": 62.37
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 301.45
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 38.99,
+      "Endpoint": 8.66
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 43.32
+    },
+    "AWS VPN": {
+      "Connection": 43.32
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 21.66
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.56,
+      "Alarms": 0.12
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.47
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.74
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.19
+    },
+    "AWS Shield": {
+      "Advanced": 3559.89
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 41.58
+    },
+    "Amazon Athena": {
+      "Query": 5.93
+    },
+    "AWS Glue": {
+      "DPU": 38.11
+    },
+    "Amazon Kinesis": {
+      "Shard": 13
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 181.91
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 63.24
+    },
+    "Amazon EventBridge": {
+      "Events": 1.19
+    },
+    "AWS Step Functions": {
+      "Standard": 29.67
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 25.12
+    }
+  },
+  "ap-northeast-1": {
+    "Amazon EC2": {
+      "t3.micro": 9.94,
+      "t3.medium": 37.24,
+      "m5.large": 86.9,
+      "m5.xlarge": 173.8,
+      "c5.large": 76.96,
+      "c5.xlarge": 153.94,
+      "r5.large": 114.22
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 14.9,
+      "db.t3.medium": 59.6,
+      "db.m5.large": 161.38,
+      "db.r5.large": 211.04,
+      "db.r5.xlarge": 422.08
+    },
+    "Amazon S3": {
+      "Standard": 28.55,
+      "Intelligent-Tiering": 26.07,
+      "Standard-IA": 14.9,
+      "One Zone-IA": 12.41,
+      "Glacier": 4.96
+    },
+    "AWS Lambda": {
+      "128MB": 2.48,
+      "512MB": 9.94,
+      "1024MB": 19.86,
+      "2048MB": 39.72,
+      "4096MB": 79.46
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 31.05,
+      "Provisioned": 18.61
+    },
+    "Amazon EKS": {
+      "Standard": 90.63,
+      "Fargate": 111.72
+    },
+    "Amazon ECS": {
+      "Standard": 55.87
+    },
+    "Amazon CloudFront": {
+      "Standard": 62.06
+    },
+    "Amazon API Gateway": {
+      "Standard": 31.05
+    },
+    "Amazon ElastiCache": {
+      "Standard": 111.72
+    },
+    "Amazon SQS": {
+      "Standard": 12.41
+    },
+    "Amazon SNS": {
+      "Standard": 12.41
+    },
+    "Amazon Route 53": {
+      "Standard": 6.21
+    },
+    "AWS Fargate": {
+      "Standard": 136.56
+    },
+    "AWS WAF": {
+      "Standard": 24.82
+    },
+    "AWS KMS": {
+      "Standard": 6.21
+    },
+    "Amazon EBS": {
+      "gp3": 0.1,
+      "gp2": 0.13,
+      "io1": 0.15,
+      "io2": 0.15,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 20.66,
+      "Network": 20.66,
+      "Classic": 22.95,
+      "Gateway": 20.66
+    },
+    "Amazon EFS": {
+      "Standard": 0.37,
+      "One Zone": 0.21
+    },
+    "Amazon FSx": {
+      "Windows": 0.17,
+      "Lustre": 0.18
+    },
+    "Amazon Redshift": {
+      "dc2.large": 229.44,
+      "ra3.xlplus": 995.76
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 254.21,
+      "db.t3.medium": 66.08
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 319.37
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 41.3,
+      "Endpoint": 9.18
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 45.89
+    },
+    "AWS VPN": {
+      "Connection": 45.89
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 22.95
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.77,
+      "Alarms": 0.13
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.5
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 5.03
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.26
+    },
+    "AWS Shield": {
+      "Advanced": 3771.55
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 44.05
+    },
+    "Amazon Athena": {
+      "Query": 6.29
+    },
+    "AWS Glue": {
+      "DPU": 40.38
+    },
+    "Amazon Kinesis": {
+      "Shard": 13.77
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 192.72
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 67
+    },
+    "Amazon EventBridge": {
+      "Events": 1.26
+    },
+    "AWS Step Functions": {
+      "Standard": 31.43
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 26.61
+    }
+  },
+  "ca-central-1": {
+    "Amazon EC2": {
+      "t3.micro": 10.5,
+      "t3.medium": 39.35,
+      "m5.large": 91.82,
+      "m5.xlarge": 183.64,
+      "c5.large": 81.32,
+      "c5.xlarge": 162.65,
+      "r5.large": 120.68
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 15.74,
+      "db.t3.medium": 62.97,
+      "db.m5.large": 170.52,
+      "db.r5.large": 222.99,
+      "db.r5.xlarge": 445.97
+    },
+    "Amazon S3": {
+      "Standard": 30.17,
+      "Intelligent-Tiering": 27.55,
+      "Standard-IA": 15.74,
+      "One Zone-IA": 13.11,
+      "Glacier": 5.24
+    },
+    "AWS Lambda": {
+      "128MB": 2.62,
+      "512MB": 10.5,
+      "1024MB": 20.99,
+      "2048MB": 41.97,
+      "4096MB": 83.95
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 32.8,
+      "Provisioned": 19.67
+    },
+    "Amazon EKS": {
+      "Standard": 95.76,
+      "Fargate": 118.05
+    },
+    "Amazon ECS": {
+      "Standard": 59.03
+    },
+    "Amazon CloudFront": {
+      "Standard": 65.58
+    },
+    "Amazon API Gateway": {
+      "Standard": 32.8
+    },
+    "Amazon ElastiCache": {
+      "Standard": 118.05
+    },
+    "Amazon SQS": {
+      "Standard": 13.11
+    },
+    "Amazon SNS": {
+      "Standard": 13.11
+    },
+    "Amazon Route 53": {
+      "Standard": 6.56
+    },
+    "AWS Fargate": {
+      "Standard": 144.29
+    },
+    "AWS WAF": {
+      "Standard": 26.23
+    },
+    "AWS KMS": {
+      "Standard": 6.56
+    },
+    "Amazon EBS": {
+      "gp3": 0.11,
+      "gp2": 0.14,
+      "io1": 0.16,
+      "io2": 0.16,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 21.83,
+      "Network": 21.83,
+      "Classic": 24.24,
+      "Gateway": 21.83
+    },
+    "Amazon EFS": {
+      "Standard": 0.39,
+      "One Zone": 0.22
+    },
+    "Amazon FSx": {
+      "Windows": 0.18,
+      "Lustre": 0.19
+    },
+    "Amazon Redshift": {
+      "dc2.large": 242.42,
+      "ra3.xlplus": 1052.11
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 268.6,
+      "db.t3.medium": 69.81
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 337.45
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 43.64,
+      "Endpoint": 9.7
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 48.49
+    },
+    "AWS VPN": {
+      "Connection": 48.49
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 24.24
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.98,
+      "Alarms": 0.14
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.53
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 5.31
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.33
+    },
+    "AWS Shield": {
+      "Advanced": 3984.98
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 46.55
+    },
+    "Amazon Athena": {
+      "Query": 6.64
+    },
+    "AWS Glue": {
+      "DPU": 42.66
+    },
+    "Amazon Kinesis": {
+      "Shard": 14.55
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 203.63
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 70.79
+    },
+    "Amazon EventBridge": {
+      "Events": 1.33
+    },
+    "AWS Step Functions": {
+      "Standard": 33.21
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 28.12
+    }
+  },
+  "eu-central-1": {
+    "Amazon EC2": {
+      "t3.micro": 9.15,
+      "t3.medium": 34.27,
+      "m5.large": 79.98,
+      "m5.xlarge": 159.95,
+      "c5.large": 70.83,
+      "c5.xlarge": 141.67,
+      "r5.large": 105.12
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 13.71,
+      "db.t3.medium": 54.85,
+      "db.m5.large": 148.52,
+      "db.r5.large": 194.23,
+      "db.r5.xlarge": 388.45
+    },
+    "Amazon S3": {
+      "Standard": 26.28,
+      "Intelligent-Tiering": 23.99,
+      "Standard-IA": 13.71,
+      "One Zone-IA": 11.42,
+      "Glacier": 4.57
+    },
+    "AWS Lambda": {
+      "128MB": 2.28,
+      "512MB": 9.15,
+      "1024MB": 18.28,
+      "2048MB": 36.56,
+      "4096MB": 73.13
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 28.57,
+      "Provisioned": 17.13
+    },
+    "Amazon EKS": {
+      "Standard": 83.41,
+      "Fargate": 102.82
+    },
+    "Amazon ECS": {
+      "Standard": 51.42
+    },
+    "Amazon CloudFront": {
+      "Standard": 57.12
+    },
+    "Amazon API Gateway": {
+      "Standard": 28.57
+    },
+    "Amazon ElastiCache": {
+      "Standard": 102.82
+    },
+    "Amazon SQS": {
+      "Standard": 11.42
+    },
+    "Amazon SNS": {
+      "Standard": 11.42
+    },
+    "Amazon Route 53": {
+      "Standard": 5.71
+    },
+    "AWS Fargate": {
+      "Standard": 125.68
+    },
+    "AWS WAF": {
+      "Standard": 22.85
+    },
+    "AWS KMS": {
+      "Standard": 5.71
+    },
+    "Amazon EBS": {
+      "gp3": 0.09,
+      "gp2": 0.12,
+      "io1": 0.14,
+      "io2": 0.14,
+      "st1": 0.05,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 19.01,
+      "Network": 19.01,
+      "Classic": 21.12,
+      "Gateway": 19.01
+    },
+    "Amazon EFS": {
+      "Standard": 0.34,
+      "One Zone": 0.19
+    },
+    "Amazon FSx": {
+      "Windows": 0.15,
+      "Lustre": 0.17
+    },
+    "Amazon Redshift": {
+      "dc2.large": 211.16,
+      "ra3.xlplus": 916.41
+    },
+    "Amazon DocumentDB": {
+      "db.r5.large": 233.95,
+      "db.t3.medium": 60.81
+    },
+    "Amazon Neptune": {
+      "db.r5.large": 293.92
+    },
+    "Amazon VPC": {
+      "NAT Gateway": 38.01,
+      "Endpoint": 8.45
+    },
+    "AWS Transit Gateway": {
+      "Attachment": 42.24
+    },
+    "AWS VPN": {
+      "Connection": 42.24
+    },
+    "AWS Global Accelerator": {
+      "Accelerator": 21.12
+    },
+    "Amazon CloudWatch": {
+      "Dashboard": 3.47,
+      "Alarms": 0.12
+    },
+    "AWS Secrets Manager": {
+      "Secret": 0.46
+    },
+    "Amazon GuardDuty": {
+      "Analysis": 4.63
+    },
+    "Amazon Macie": {
+      "Data Discovery": 1.16
+    },
+    "AWS Shield": {
+      "Advanced": 3471.03
+    },
+    "Amazon EMR": {
+      "m5.xlarge": 40.54
+    },
+    "Amazon Athena": {
+      "Query": 5.79
+    },
+    "AWS Glue": {
+      "DPU": 37.16
+    },
+    "Amazon Kinesis": {
+      "Shard": 12.67
+    },
+    "Amazon MSK": {
+      "kafka.m5.large": 177.37
+    },
+    "Amazon OpenSearch Service": {
+      "t3.medium.search": 61.66
+    },
+    "Amazon EventBridge": {
+      "Events": 1.16
+    },
+    "AWS Step Functions": {
+      "Standard": 28.93
+    },
+    "Amazon MQ": {
+      "mq.t3.micro": 24.49
+    }
+  },
+  "eu-west-1": {
+    "Amazon EC2": {
+      "t3.micro": 8.17,
+      "t3.medium": 30.63,
+      "m5.large": 71.48,
+      "m5.xlarge": 142.96,
+      "c5.large": 63.31,
+      "c5.xlarge": 126.62,
+      "r5.large": 93.95
+    },
+    "Amazon RDS": {
+      "db.t3.micro": 12.25,
+      "db.t3.medium": 49.02,
+      "db.m5.large": 132.74,
+      "db.r5.large": 173.59,
+      "db.r5.xlarge": 347.18
+    },
+    "Amazon S3": {
+      "Standard": 23.48,
+      "Intelligent-Tiering": 21.44,
+      "Standard-IA": 12.25,
+      "One Zone-IA": 10.2,
+      "Glacier": 4.08
+    },
+    "AWS Lambda": {
+      "128MB": 2.04,
+      "512MB": 8.17,
+      "1024MB": 16.34,
+      "2048MB": 32.67,
+      "4096MB": 65.36
+    },
+    "Amazon DynamoDB": {
+      "On-Demand": 25.54,
+      "Provisioned": 15.31
+    },
+    "Amazon EKS": {
+      "Standard": 74.54,
+      "Fargate": 91.9
+    },
+    "Amazon ECS": {
+      "Standard": 45.95
+    },
+    "Amazon CloudFront": {
+      "Standard": 51.05
+    },
+    "Amazon API Gateway": {
+      "Standard": 25.54
+    },
+    "Amazon ElastiCache": {
+      "Standard": 91.9
+    },
+    "Amazon SQS": {
+      "Standard": 10.2
+    },
+    "Amazon SNS": {
+      "Standard": 10.2
+    },
+    "Amazon Route 53": {
+      "Standard": 5.11
+    },
+    "AWS Fargate": {
+      "Standard": 112.33
+    },
+    "AWS WAF": {
+      "Standard": 20.42
+    },
+    "AWS KMS": {
+      "Standard": 5.11
+    },
+    "Amazon EBS": {
+      "gp3": 0.08,
+      "gp2": 0.11,
+      "io1": 0.13,
+      "io2": 0.13,
+      "st1": 0.04,
+      "sc1": 0.01
+    },
+    "Elastic Load Balancing": {
+      "Application": 16.99,
+      "Network": 16.99,
+      "Classic": 18.87,
+      "Gateway": 16.99
     },
     "Amazon EFS": {
       "Standard": 0.31,
@@ -416,2254 +2324,346 @@
       "Lustre": 0.15
     },
     "Amazon Redshift": {
-      "dc2.large": 189.85,
-      "ra3.xlplus": 823.94
+      "dc2.large": 188.72,
+      "ra3.xlplus": 819.04
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 210.35,
-      "db.t3.medium": 54.68
+      "db.r5.large": 209.1,
+      "db.t3.medium": 54.35
     },
     "Amazon Neptune": {
-      "db.r5.large": 264.27
+      "db.r5.large": 262.69
     },
     "Amazon VPC": {
-      "NAT Gateway": 34.17,
-      "Endpoint": 7.59
+      "NAT Gateway": 33.97,
+      "Endpoint": 7.55
     },
     "AWS Transit Gateway": {
-      "Attachment": 37.97
+      "Attachment": 37.75
     },
     "AWS VPN": {
-      "Connection": 37.97
+      "Connection": 37.75
     },
     "AWS Global Accelerator": {
-      "Accelerator": 18.98
+      "Accelerator": 18.87
     },
     "Amazon CloudWatch": {
-      "Dashboard": 3.12,
-      "Alarms": 0.1
+      "Dashboard": 3.1,
+      "Alarms": 0.11
     },
     "AWS Secrets Manager": {
-      "Secret": 0.42
+      "Secret": 0.41
     },
     "Amazon GuardDuty": {
-      "Analysis": 4.16
+      "Analysis": 4.13
     },
     "Amazon Macie": {
       "Data Discovery": 1.04
     },
     "AWS Shield": {
-      "Advanced": 3120.78
+      "Advanced": 3102.22
     },
     "Amazon EMR": {
-      "m5.xlarge": 36.45
+      "m5.xlarge": 36.24
     },
     "Amazon Athena": {
-      "Query": 5.2
+      "Query": 5.17
     },
     "AWS Glue": {
-      "DPU": 33.41
+      "DPU": 33.21
     },
     "Amazon Kinesis": {
-      "Shard": 11.39
+      "Shard": 11.32
     },
     "Amazon MSK": {
-      "kafka.m5.large": 159.47
+      "kafka.m5.large": 158.52
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 55.44
+      "t3.medium.search": 55.11
     },
     "Amazon EventBridge": {
       "Events": 1.04
     },
     "AWS Step Functions": {
-      "Standard": 26.01
+      "Standard": 25.85
     },
     "Amazon MQ": {
-      "mq.t3.micro": 22.02
+      "mq.t3.micro": 21.89
     }
   },
-  "us-west-2": {
+  "eu-west-2": {
     "Amazon EC2": {
-      "t3.micro": 7.59,
-      "t3.medium": 28.47,
-      "m5.large": 66.45,
-      "m5.xlarge": 132.9,
-      "c5.large": 58.85,
-      "c5.xlarge": 117.72,
-      "r5.large": 87.34
+      "t3.micro": 9.08,
+      "t3.medium": 34.03,
+      "m5.large": 79.41,
+      "m5.xlarge": 158.81,
+      "c5.large": 70.33,
+      "c5.xlarge": 140.66,
+      "r5.large": 104.37
     },
     "Amazon RDS": {
-      "db.t3.micro": 11.39,
-      "db.t3.medium": 45.57,
-      "db.m5.large": 123.41,
-      "db.r5.large": 161.38,
-      "db.r5.xlarge": 322.76
+      "db.t3.micro": 13.61,
+      "db.t3.medium": 54.46,
+      "db.m5.large": 147.47,
+      "db.r5.large": 192.84,
+      "db.r5.xlarge": 385.68
     },
     "Amazon S3": {
-      "Standard": 21.83,
-      "Intelligent-Tiering": 19.94,
-      "Standard-IA": 11.39,
-      "One Zone-IA": 9.49,
-      "Glacier": 3.8
-    },
-    "AWS Lambda": {
-      "128MB": 1.89,
-      "512MB": 7.59,
-      "1024MB": 15.19,
-      "2048MB": 30.38,
-      "4096MB": 60.76
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 23.74,
-      "Provisioned": 14.24
-    },
-    "Amazon EKS": {
-      "Standard": 69.3,
-      "Fargate": 85.43
-    },
-    "Amazon ECS": {
-      "Standard": 42.72
-    },
-    "Amazon CloudFront": {
-      "Standard": 47.46
-    },
-    "Amazon API Gateway": {
-      "Standard": 23.74
-    },
-    "Amazon ElastiCache": {
-      "Standard": 85.43
-    },
-    "Amazon SQS": {
-      "Standard": 9.49
-    },
-    "Amazon SNS": {
-      "Standard": 9.49
-    },
-    "Amazon Route 53": {
-      "Standard": 4.75
-    },
-    "AWS Fargate": {
-      "Standard": 104.42
-    },
-    "AWS WAF": {
-      "Standard": 18.99
-    },
-    "AWS KMS": {
-      "Standard": 4.75
-    },
-    "Amazon EBS": {
-      "gp3": 0.08,
-      "gp2": 0.1,
-      "io1": 0.12,
-      "io2": 0.12,
-      "st1": 0.04,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 15.79,
-      "Network": 15.79,
-      "Classic": 17.54,
-      "Gateway": 15.79
-    },
-    "Amazon EFS": {
-      "Standard": 0.29,
-      "One Zone": 0.15
-    },
-    "Amazon FSx": {
-      "Windows": 0.12,
-      "Lustre": 0.13
-    },
-    "Amazon Redshift": {
-      "dc2.large": 175.44,
-      "ra3.xlplus": 761.42
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 194.39,
-      "db.t3.medium": 50.53
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 244.22
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 31.58,
-      "Endpoint": 7.02
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 35.09
-    },
-    "AWS VPN": {
-      "Connection": 35.09
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 17.54
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 2.88,
-      "Alarms": 0.1
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.38
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 3.85
-    },
-    "Amazon Macie": {
-      "Data Discovery": 0.96
-    },
-    "AWS Shield": {
-      "Advanced": 2883.99
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 33.69
-    },
-    "Amazon Athena": {
-      "Query": 4.81
-    },
-    "AWS Glue": {
-      "DPU": 30.88
-    },
-    "Amazon Kinesis": {
-      "Shard": 10.53
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 147.37
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 51.23
-    },
-    "Amazon EventBridge": {
-      "Events": 0.96
-    },
-    "AWS Step Functions": {
-      "Standard": 24.03
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 20.35
-    }
-  },
-  "af-south-1": {
-    "Amazon EC2": {
-      "t3.micro": 10.99,
-      "t3.medium": 41.19,
-      "m5.large": 96.12,
-      "m5.xlarge": 192.25,
-      "c5.large": 85.13,
-      "c5.xlarge": 170.27,
-      "r5.large": 126.33
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 16.48,
-      "db.t3.medium": 65.91,
-      "db.m5.large": 178.51,
-      "db.r5.large": 233.43,
-      "db.r5.xlarge": 466.87
-    },
-    "Amazon S3": {
-      "Standard": 31.58,
-      "Intelligent-Tiering": 28.84,
-      "Standard-IA": 16.48,
-      "One Zone-IA": 13.72,
-      "Glacier": 5.49
-    },
-    "AWS Lambda": {
-      "128MB": 2.74,
-      "512MB": 10.99,
-      "1024MB": 21.97,
-      "2048MB": 43.94,
-      "4096MB": 87.88
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 34.33,
-      "Provisioned": 20.59
-    },
-    "Amazon EKS": {
-      "Standard": 100.25,
-      "Fargate": 123.58
-    },
-    "Amazon ECS": {
-      "Standard": 61.8
-    },
-    "Amazon CloudFront": {
-      "Standard": 68.65
-    },
-    "Amazon API Gateway": {
-      "Standard": 34.33
-    },
-    "Amazon ElastiCache": {
-      "Standard": 123.58
-    },
-    "Amazon SQS": {
-      "Standard": 13.72
-    },
-    "Amazon SNS": {
-      "Standard": 13.72
-    },
-    "Amazon Route 53": {
-      "Standard": 6.87
-    },
-    "AWS Fargate": {
-      "Standard": 151.04
-    },
-    "AWS WAF": {
-      "Standard": 27.46
-    },
-    "AWS KMS": {
-      "Standard": 6.87
-    },
-    "Amazon EBS": {
-      "gp3": 0.11,
-      "gp2": 0.14,
-      "io1": 0.17,
-      "io2": 0.17,
-      "st1": 0.06,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 22.85,
-      "Network": 22.85,
-      "Classic": 25.38,
-      "Gateway": 22.85
-    },
-    "Amazon EFS": {
-      "Standard": 0.42,
-      "One Zone": 0.22
-    },
-    "Amazon FSx": {
-      "Windows": 0.18,
-      "Lustre": 0.19
-    },
-    "Amazon Redshift": {
-      "dc2.large": 253.78,
-      "ra3.xlplus": 1101.4
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 281.19,
-      "db.t3.medium": 73.09
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 353.26
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 45.68,
-      "Endpoint": 10.15
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 50.76
-    },
-    "AWS VPN": {
-      "Connection": 50.76
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 25.38
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 4.17,
-      "Alarms": 0.14
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.56
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 5.56
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.39
-    },
-    "AWS Shield": {
-      "Advanced": 4171.69
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 48.73
-    },
-    "Amazon Athena": {
-      "Query": 6.95
-    },
-    "AWS Glue": {
-      "DPU": 44.66
-    },
-    "Amazon Kinesis": {
-      "Shard": 15.23
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 213.17
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 74.1
-    },
-    "Amazon EventBridge": {
-      "Events": 1.39
-    },
-    "AWS Step Functions": {
-      "Standard": 34.76
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 29.44
-    }
-  },
-  "ap-east-1": {
-    "Amazon EC2": {
-      "t3.micro": 9.79,
-      "t3.medium": 36.7,
-      "m5.large": 85.64,
-      "m5.xlarge": 171.29,
-      "c5.large": 75.85,
-      "c5.xlarge": 151.71,
-      "r5.large": 112.56
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 14.68,
-      "db.t3.medium": 58.73,
-      "db.m5.large": 159.05,
-      "db.r5.large": 207.99,
-      "db.r5.xlarge": 415.97
-    },
-    "Amazon S3": {
-      "Standard": 28.14,
-      "Intelligent-Tiering": 25.7,
-      "Standard-IA": 14.68,
-      "One Zone-IA": 12.23,
-      "Glacier": 4.89
-    },
-    "AWS Lambda": {
-      "128MB": 2.44,
-      "512MB": 9.79,
-      "1024MB": 19.58,
-      "2048MB": 39.15,
-      "4096MB": 78.3
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 30.59,
-      "Provisioned": 18.35
-    },
-    "Amazon EKS": {
-      "Standard": 89.32,
-      "Fargate": 110.11
-    },
-    "Amazon ECS": {
-      "Standard": 55.06
-    },
-    "Amazon CloudFront": {
-      "Standard": 61.17
-    },
-    "Amazon API Gateway": {
-      "Standard": 30.59
-    },
-    "Amazon ElastiCache": {
-      "Standard": 110.11
-    },
-    "Amazon SQS": {
-      "Standard": 12.23
-    },
-    "Amazon SNS": {
-      "Standard": 12.23
-    },
-    "Amazon Route 53": {
-      "Standard": 6.12
-    },
-    "AWS Fargate": {
-      "Standard": 134.58
-    },
-    "AWS WAF": {
-      "Standard": 24.47
-    },
-    "AWS KMS": {
-      "Standard": 6.12
-    },
-    "Amazon EBS": {
-      "gp3": 0.1,
-      "gp2": 0.12,
-      "io1": 0.15,
-      "io2": 0.15,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 20.36,
-      "Network": 20.36,
-      "Classic": 22.61,
-      "Gateway": 20.36
-    },
-    "Amazon EFS": {
-      "Standard": 0.37,
-      "One Zone": 0.2
-    },
-    "Amazon FSx": {
-      "Windows": 0.16,
-      "Lustre": 0.17
-    },
-    "Amazon Redshift": {
-      "dc2.large": 226.11,
-      "ra3.xlplus": 981.33
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 250.53,
-      "db.t3.medium": 65.12
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 314.75
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 40.7,
-      "Endpoint": 9.04
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 45.22
-    },
-    "AWS VPN": {
-      "Connection": 45.22
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 22.61
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.72,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.5
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.96
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.24
-    },
-    "AWS Shield": {
-      "Advanced": 3716.92
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 43.41
-    },
-    "Amazon Athena": {
-      "Query": 6.19
-    },
-    "AWS Glue": {
-      "DPU": 39.8
-    },
-    "Amazon Kinesis": {
-      "Shard": 13.57
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 189.93
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 66.02
-    },
-    "Amazon EventBridge": {
-      "Events": 1.24
-    },
-    "AWS Step Functions": {
-      "Standard": 30.97
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 26.23
-    }
-  },
-  "ap-south-1": {
-    "Amazon EC2": {
-      "t3.micro": 9.16,
-      "t3.medium": 34.36,
-      "m5.large": 80.19,
-      "m5.xlarge": 160.38,
-      "c5.large": 71.02,
-      "c5.xlarge": 142.05,
-      "r5.large": 105.39
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 13.75,
-      "db.t3.medium": 54.99,
-      "db.m5.large": 148.92,
-      "db.r5.large": 194.74,
-      "db.r5.xlarge": 389.49
-    },
-    "Amazon S3": {
-      "Standard": 26.35,
-      "Intelligent-Tiering": 24.06,
-      "Standard-IA": 13.75,
-      "One Zone-IA": 11.45,
-      "Glacier": 4.58
-    },
-    "AWS Lambda": {
-      "128MB": 2.29,
-      "512MB": 9.16,
-      "1024MB": 18.33,
-      "2048MB": 36.66,
-      "4096MB": 73.32
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 28.64,
-      "Provisioned": 17.18
-    },
-    "Amazon EKS": {
-      "Standard": 83.63,
-      "Fargate": 103.1
-    },
-    "Amazon ECS": {
-      "Standard": 51.55
-    },
-    "Amazon CloudFront": {
-      "Standard": 57.27
-    },
-    "Amazon API Gateway": {
-      "Standard": 28.64
-    },
-    "Amazon ElastiCache": {
-      "Standard": 103.1
-    },
-    "Amazon SQS": {
-      "Standard": 11.45
-    },
-    "Amazon SNS": {
-      "Standard": 11.45
-    },
-    "Amazon Route 53": {
-      "Standard": 5.73
-    },
-    "AWS Fargate": {
-      "Standard": 126.01
-    },
-    "AWS WAF": {
-      "Standard": 22.91
-    },
-    "AWS KMS": {
-      "Standard": 5.73
-    },
-    "Amazon EBS": {
-      "gp3": 0.09,
-      "gp2": 0.12,
-      "io1": 0.14,
-      "io2": 0.14,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 19.06,
-      "Network": 19.06,
-      "Classic": 21.17,
-      "Gateway": 19.06
-    },
-    "Amazon EFS": {
-      "Standard": 0.35,
-      "One Zone": 0.19
-    },
-    "Amazon FSx": {
-      "Windows": 0.15,
-      "Lustre": 0.16
-    },
-    "Amazon Redshift": {
-      "dc2.large": 211.72,
-      "ra3.xlplus": 918.85
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 234.58,
-      "db.t3.medium": 60.97
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 294.71
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 38.11,
-      "Endpoint": 8.47
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 42.34
-    },
-    "AWS VPN": {
-      "Connection": 42.34
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 21.17
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.48,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.46
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.64
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.16
-    },
-    "AWS Shield": {
-      "Advanced": 3480.25
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 40.65
-    },
-    "Amazon Athena": {
-      "Query": 5.8
-    },
-    "AWS Glue": {
-      "DPU": 37.26
-    },
-    "Amazon Kinesis": {
-      "Shard": 12.7
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 177.84
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 61.82
-    },
-    "Amazon EventBridge": {
-      "Events": 1.16
-    },
-    "AWS Step Functions": {
-      "Standard": 29
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 24.56
-    }
-  },
-  "ap-northeast-3": {
-    "Amazon EC2": {
-      "t3.micro": 9.78,
-      "t3.medium": 36.68,
-      "m5.large": 85.6,
-      "m5.xlarge": 171.22,
-      "c5.large": 75.82,
-      "c5.xlarge": 151.65,
-      "r5.large": 112.52
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 14.68,
-      "db.t3.medium": 58.7,
-      "db.m5.large": 158.98,
-      "db.r5.large": 207.9,
-      "db.r5.xlarge": 415.81
-    },
-    "Amazon S3": {
-      "Standard": 28.13,
-      "Intelligent-Tiering": 25.69,
-      "Standard-IA": 14.68,
-      "One Zone-IA": 12.22,
-      "Glacier": 4.89
-    },
-    "AWS Lambda": {
-      "128MB": 2.44,
-      "512MB": 9.78,
-      "1024MB": 19.57,
-      "2048MB": 39.14,
-      "4096MB": 78.27
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 30.58,
-      "Provisioned": 18.34
-    },
-    "Amazon EKS": {
-      "Standard": 89.28,
-      "Fargate": 110.06
-    },
-    "Amazon ECS": {
-      "Standard": 55.04
-    },
-    "Amazon CloudFront": {
-      "Standard": 61.14
-    },
-    "Amazon API Gateway": {
-      "Standard": 30.58
-    },
-    "Amazon ElastiCache": {
-      "Standard": 110.06
-    },
-    "Amazon SQS": {
-      "Standard": 12.22
-    },
-    "Amazon SNS": {
-      "Standard": 12.22
-    },
-    "Amazon Route 53": {
-      "Standard": 6.12
-    },
-    "AWS Fargate": {
-      "Standard": 134.52
-    },
-    "AWS WAF": {
-      "Standard": 24.46
-    },
-    "AWS KMS": {
-      "Standard": 6.12
-    },
-    "Amazon EBS": {
-      "gp3": 0.1,
-      "gp2": 0.12,
-      "io1": 0.15,
-      "io2": 0.15,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 20.35,
-      "Network": 20.35,
-      "Classic": 22.6,
-      "Gateway": 20.35
-    },
-    "Amazon EFS": {
-      "Standard": 0.37,
-      "One Zone": 0.2
-    },
-    "Amazon FSx": {
-      "Windows": 0.16,
-      "Lustre": 0.17
-    },
-    "Amazon Redshift": {
-      "dc2.large": 226.02,
-      "ra3.xlplus": 980.94
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 250.43,
-      "db.t3.medium": 65.09
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 314.62
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 40.68,
-      "Endpoint": 9.04
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 45.2
-    },
-    "AWS VPN": {
-      "Connection": 45.2
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 22.6
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.72,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.5
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.95
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.24
-    },
-    "AWS Shield": {
-      "Advanced": 3715.44
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 43.4
-    },
-    "Amazon Athena": {
-      "Query": 6.19
-    },
-    "AWS Glue": {
-      "DPU": 39.78
-    },
-    "Amazon Kinesis": {
-      "Shard": 13.56
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 189.86
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 66
-    },
-    "Amazon EventBridge": {
-      "Events": 1.24
-    },
-    "AWS Step Functions": {
-      "Standard": 30.96
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 26.22
-    }
-  },
-  "ap-northeast-2": {
-    "Amazon EC2": {
-      "t3.micro": 9.61,
-      "t3.medium": 36.04,
-      "m5.large": 84.09,
-      "m5.xlarge": 168.2,
-      "c5.large": 74.48,
-      "c5.xlarge": 148.98,
-      "r5.large": 110.53
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 14.42,
-      "db.t3.medium": 57.67,
-      "db.m5.large": 156.18,
-      "db.r5.large": 204.23,
-      "db.r5.xlarge": 408.47
-    },
-    "Amazon S3": {
-      "Standard": 27.63,
-      "Intelligent-Tiering": 25.23,
-      "Standard-IA": 14.42,
-      "One Zone-IA": 12.01,
-      "Glacier": 4.81
-    },
-    "AWS Lambda": {
-      "128MB": 2.4,
-      "512MB": 9.61,
-      "1024MB": 19.22,
-      "2048MB": 38.45,
-      "4096MB": 76.89
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 30.04,
-      "Provisioned": 18.02
-    },
-    "Amazon EKS": {
-      "Standard": 87.71,
-      "Fargate": 108.12
-    },
-    "Amazon ECS": {
-      "Standard": 54.07
-    },
-    "Amazon CloudFront": {
-      "Standard": 60.06
-    },
-    "Amazon API Gateway": {
-      "Standard": 30.04
-    },
-    "Amazon ElastiCache": {
-      "Standard": 108.12
-    },
-    "Amazon SQS": {
-      "Standard": 12.01
-    },
-    "Amazon SNS": {
-      "Standard": 12.01
-    },
-    "Amazon Route 53": {
-      "Standard": 6.01
-    },
-    "AWS Fargate": {
-      "Standard": 132.15
-    },
-    "AWS WAF": {
-      "Standard": 24.03
-    },
-    "AWS KMS": {
-      "Standard": 6.01
-    },
-    "Amazon EBS": {
-      "gp3": 0.1,
-      "gp2": 0.12,
-      "io1": 0.15,
-      "io2": 0.15,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 19.99,
-      "Network": 19.99,
-      "Classic": 22.2,
-      "Gateway": 19.99
-    },
-    "Amazon EFS": {
-      "Standard": 0.36,
-      "One Zone": 0.19
-    },
-    "Amazon FSx": {
-      "Windows": 0.16,
-      "Lustre": 0.17
-    },
-    "Amazon Redshift": {
-      "dc2.large": 222.03,
-      "ra3.xlplus": 963.63
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 246.01,
-      "db.t3.medium": 63.95
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 309.07
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 39.97,
-      "Endpoint": 8.88
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 44.41
-    },
-    "AWS VPN": {
-      "Connection": 44.41
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 22.2
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.65,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.49
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.87
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.22
-    },
-    "AWS Shield": {
-      "Advanced": 3649.87
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 42.63
-    },
-    "Amazon Athena": {
-      "Query": 6.08
-    },
-    "AWS Glue": {
-      "DPU": 39.08
-    },
-    "Amazon Kinesis": {
-      "Shard": 13.32
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 186.51
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 64.83
-    },
-    "Amazon EventBridge": {
-      "Events": 1.22
-    },
-    "AWS Step Functions": {
-      "Standard": 30.42
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 25.76
-    }
-  },
-  "ap-southeast-1": {
-    "Amazon EC2": {
-      "t3.micro": 9.61,
-      "t3.medium": 36.04,
-      "m5.large": 84.1,
-      "m5.xlarge": 168.21,
-      "c5.large": 74.49,
-      "c5.xlarge": 148.99,
-      "r5.large": 110.54
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 14.42,
-      "db.t3.medium": 57.67,
-      "db.m5.large": 156.19,
-      "db.r5.large": 204.25,
-      "db.r5.xlarge": 408.51
-    },
-    "Amazon S3": {
-      "Standard": 27.63,
-      "Intelligent-Tiering": 25.24,
-      "Standard-IA": 14.42,
-      "One Zone-IA": 12.01,
-      "Glacier": 4.81
-    },
-    "AWS Lambda": {
-      "128MB": 2.4,
-      "512MB": 9.61,
-      "1024MB": 19.22,
-      "2048MB": 38.45,
-      "4096MB": 76.9
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 30.04,
-      "Provisioned": 18.02
-    },
-    "Amazon EKS": {
-      "Standard": 87.71,
-      "Fargate": 108.13
-    },
-    "Amazon ECS": {
-      "Standard": 54.07
-    },
-    "Amazon CloudFront": {
-      "Standard": 60.07
-    },
-    "Amazon API Gateway": {
-      "Standard": 30.04
-    },
-    "Amazon ElastiCache": {
-      "Standard": 108.13
-    },
-    "Amazon SQS": {
-      "Standard": 12.01
-    },
-    "Amazon SNS": {
-      "Standard": 12.01
-    },
-    "Amazon Route 53": {
-      "Standard": 6.01
-    },
-    "AWS Fargate": {
-      "Standard": 132.16
-    },
-    "AWS WAF": {
-      "Standard": 24.03
-    },
-    "AWS KMS": {
-      "Standard": 6.01
-    },
-    "Amazon EBS": {
-      "gp3": 0.1,
-      "gp2": 0.12,
-      "io1": 0.15,
-      "io2": 0.15,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 19.99,
-      "Network": 19.99,
-      "Classic": 22.21,
-      "Gateway": 19.99
-    },
-    "Amazon EFS": {
-      "Standard": 0.37,
-      "One Zone": 0.19
-    },
-    "Amazon FSx": {
-      "Windows": 0.16,
-      "Lustre": 0.17
-    },
-    "Amazon Redshift": {
-      "dc2.large": 222.05,
-      "ra3.xlplus": 963.71
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 246.04,
-      "db.t3.medium": 63.95
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 309.1
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 39.97,
-      "Endpoint": 8.88
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 44.41
-    },
-    "AWS VPN": {
-      "Connection": 44.41
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 22.21
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.65,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.49
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.87
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.22
-    },
-    "AWS Shield": {
-      "Advanced": 3650.2
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 42.63
-    },
-    "Amazon Athena": {
-      "Query": 6.08
-    },
-    "AWS Glue": {
-      "DPU": 39.08
-    },
-    "Amazon Kinesis": {
-      "Shard": 13.32
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 186.53
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 64.84
-    },
-    "Amazon EventBridge": {
-      "Events": 1.22
-    },
-    "AWS Step Functions": {
-      "Standard": 30.42
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 25.76
-    }
-  },
-  "ap-southeast-2": {
-    "Amazon EC2": {
-      "t3.micro": 9.05,
-      "t3.medium": 33.93,
-      "m5.large": 79.18,
-      "m5.xlarge": 158.38,
-      "c5.large": 70.13,
-      "c5.xlarge": 140.28,
-      "r5.large": 104.08
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 13.58,
-      "db.t3.medium": 54.3,
-      "db.m5.large": 147.06,
-      "db.r5.large": 192.31,
-      "db.r5.xlarge": 384.62
-    },
-    "Amazon S3": {
-      "Standard": 26.02,
-      "Intelligent-Tiering": 23.76,
-      "Standard-IA": 13.58,
-      "One Zone-IA": 11.31,
+      "Standard": 26.09,
+      "Intelligent-Tiering": 23.82,
+      "Standard-IA": 13.61,
+      "One Zone-IA": 11.34,
       "Glacier": 4.53
     },
     "AWS Lambda": {
-      "128MB": 2.26,
-      "512MB": 9.05,
-      "1024MB": 18.1,
-      "2048MB": 36.2,
-      "4096MB": 72.4
+      "128MB": 2.27,
+      "512MB": 9.08,
+      "1024MB": 18.15,
+      "2048MB": 36.3,
+      "4096MB": 72.6
     },
     "Amazon DynamoDB": {
-      "On-Demand": 28.28,
-      "Provisioned": 16.97
+      "On-Demand": 28.37,
+      "Provisioned": 17.01
     },
     "Amazon EKS": {
-      "Standard": 82.58,
-      "Fargate": 101.81
+      "Standard": 82.81,
+      "Fargate": 102.09
     },
     "Amazon ECS": {
-      "Standard": 50.91
+      "Standard": 51.05
     },
     "Amazon CloudFront": {
-      "Standard": 56.56
+      "Standard": 56.71
     },
     "Amazon API Gateway": {
-      "Standard": 28.28
+      "Standard": 28.37
     },
     "Amazon ElastiCache": {
-      "Standard": 101.81
+      "Standard": 102.09
     },
     "Amazon SQS": {
-      "Standard": 11.31
+      "Standard": 11.34
     },
     "Amazon SNS": {
-      "Standard": 11.31
+      "Standard": 11.34
     },
     "Amazon Route 53": {
-      "Standard": 5.66
+      "Standard": 5.67
     },
     "AWS Fargate": {
-      "Standard": 124.43
+      "Standard": 124.78
     },
     "AWS WAF": {
-      "Standard": 22.63
+      "Standard": 22.68
     },
     "AWS KMS": {
-      "Standard": 5.66
+      "Standard": 5.67
     },
     "Amazon EBS": {
       "gp3": 0.09,
-      "gp2": 0.11,
+      "gp2": 0.12,
       "io1": 0.14,
       "io2": 0.14,
       "st1": 0.05,
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 18.82,
-      "Network": 18.82,
-      "Classic": 20.91,
-      "Gateway": 18.82
+      "Application": 18.88,
+      "Network": 18.88,
+      "Classic": 20.97,
+      "Gateway": 18.88
     },
     "Amazon EFS": {
       "Standard": 0.34,
-      "One Zone": 0.18
+      "One Zone": 0.19
     },
     "Amazon FSx": {
       "Windows": 0.15,
       "Lustre": 0.16
     },
     "Amazon Redshift": {
-      "dc2.large": 209.07,
-      "ra3.xlplus": 907.35
+      "dc2.large": 209.65,
+      "ra3.xlplus": 909.88
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 231.65,
-      "db.t3.medium": 60.21
+      "db.r5.large": 232.29,
+      "db.t3.medium": 60.38
     },
     "Amazon Neptune": {
-      "db.r5.large": 291.02
+      "db.r5.large": 291.83
     },
     "Amazon VPC": {
-      "NAT Gateway": 37.63,
-      "Endpoint": 8.36
+      "NAT Gateway": 37.74,
+      "Endpoint": 8.39
     },
     "AWS Transit Gateway": {
-      "Attachment": 41.81
+      "Attachment": 41.93
     },
     "AWS VPN": {
-      "Connection": 41.81
+      "Connection": 41.93
     },
     "AWS Global Accelerator": {
-      "Accelerator": 20.91
+      "Accelerator": 20.97
     },
     "Amazon CloudWatch": {
       "Dashboard": 3.44,
-      "Alarms": 0.11
+      "Alarms": 0.12
     },
     "AWS Secrets Manager": {
       "Secret": 0.46
     },
     "Amazon GuardDuty": {
-      "Analysis": 4.58
+      "Analysis": 4.59
     },
     "Amazon Macie": {
       "Data Discovery": 1.15
     },
     "AWS Shield": {
-      "Advanced": 3436.73
+      "Advanced": 3446.28
     },
     "Amazon EMR": {
-      "m5.xlarge": 40.14
+      "m5.xlarge": 40.26
     },
     "Amazon Athena": {
-      "Query": 5.73
+      "Query": 5.74
     },
     "AWS Glue": {
-      "DPU": 36.8
+      "DPU": 36.9
     },
     "Amazon Kinesis": {
-      "Shard": 12.54
+      "Shard": 12.58
     },
     "Amazon MSK": {
-      "kafka.m5.large": 175.62
+      "kafka.m5.large": 176.1
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 61.05
+      "t3.medium.search": 61.22
     },
     "Amazon EventBridge": {
       "Events": 1.15
     },
     "AWS Step Functions": {
-      "Standard": 28.64
+      "Standard": 28.72
     },
     "Amazon MQ": {
-      "mq.t3.micro": 24.25
-    }
-  },
-  "ap-northeast-1": {
-    "Amazon EC2": {
-      "t3.micro": 9.22,
-      "t3.medium": 34.57,
-      "m5.large": 80.66,
-      "m5.xlarge": 161.33,
-      "c5.large": 71.44,
-      "c5.xlarge": 142.89,
-      "r5.large": 106.02
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 13.83,
-      "db.t3.medium": 55.31,
-      "db.m5.large": 149.8,
-      "db.r5.large": 195.9,
-      "db.r5.xlarge": 391.79
-    },
-    "Amazon S3": {
-      "Standard": 26.5,
-      "Intelligent-Tiering": 24.2,
-      "Standard-IA": 13.83,
-      "One Zone-IA": 11.52,
-      "Glacier": 4.61
-    },
-    "AWS Lambda": {
-      "128MB": 2.3,
-      "512MB": 9.22,
-      "1024MB": 18.44,
-      "2048MB": 36.88,
-      "4096MB": 73.75
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 28.81,
-      "Provisioned": 17.28
-    },
-    "Amazon EKS": {
-      "Standard": 84.13,
-      "Fargate": 103.71
-    },
-    "Amazon ECS": {
-      "Standard": 51.86
-    },
-    "Amazon CloudFront": {
-      "Standard": 57.61
-    },
-    "Amazon API Gateway": {
-      "Standard": 28.81
-    },
-    "Amazon ElastiCache": {
-      "Standard": 103.71
-    },
-    "Amazon SQS": {
-      "Standard": 11.52
-    },
-    "Amazon SNS": {
-      "Standard": 11.52
-    },
-    "Amazon Route 53": {
-      "Standard": 5.76
-    },
-    "AWS Fargate": {
-      "Standard": 126.75
-    },
-    "AWS WAF": {
-      "Standard": 23.05
-    },
-    "AWS KMS": {
-      "Standard": 5.76
-    },
-    "Amazon EBS": {
-      "gp3": 0.09,
-      "gp2": 0.12,
-      "io1": 0.14,
-      "io2": 0.14,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 19.17,
-      "Network": 19.17,
-      "Classic": 21.3,
-      "Gateway": 19.17
-    },
-    "Amazon EFS": {
-      "Standard": 0.35,
-      "One Zone": 0.19
-    },
-    "Amazon FSx": {
-      "Windows": 0.15,
-      "Lustre": 0.16
-    },
-    "Amazon Redshift": {
-      "dc2.large": 212.97,
-      "ra3.xlplus": 924.29
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 235.97,
-      "db.t3.medium": 61.34
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 296.45
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 38.33,
-      "Endpoint": 8.52
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 42.59
-    },
-    "AWS VPN": {
-      "Connection": 42.59
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 21.3
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.5,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.47
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.67
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.17
-    },
-    "AWS Shield": {
-      "Advanced": 3500.87
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 40.89
-    },
-    "Amazon Athena": {
-      "Query": 5.83
-    },
-    "AWS Glue": {
-      "DPU": 37.48
-    },
-    "Amazon Kinesis": {
-      "Shard": 12.78
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 178.89
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 62.19
-    },
-    "Amazon EventBridge": {
-      "Events": 1.17
-    },
-    "AWS Step Functions": {
-      "Standard": 29.17
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 24.7
-    }
-  },
-  "ca-central-1": {
-    "Amazon EC2": {
-      "t3.micro": 10.59,
-      "t3.medium": 39.69,
-      "m5.large": 92.62,
-      "m5.xlarge": 185.26,
-      "c5.large": 82.04,
-      "c5.xlarge": 164.09,
-      "r5.large": 121.74
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 15.88,
-      "db.t3.medium": 63.52,
-      "db.m5.large": 172.02,
-      "db.r5.large": 224.95,
-      "db.r5.xlarge": 449.9
-    },
-    "Amazon S3": {
-      "Standard": 30.43,
-      "Intelligent-Tiering": 27.79,
-      "Standard-IA": 15.88,
-      "One Zone-IA": 13.23,
-      "Glacier": 5.29
-    },
-    "AWS Lambda": {
-      "128MB": 2.64,
-      "512MB": 10.59,
-      "1024MB": 21.17,
-      "2048MB": 42.34,
-      "4096MB": 84.69
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 33.09,
-      "Provisioned": 19.85
-    },
-    "Amazon EKS": {
-      "Standard": 96.6,
-      "Fargate": 119.09
-    },
-    "Amazon ECS": {
-      "Standard": 59.55
-    },
-    "Amazon CloudFront": {
-      "Standard": 66.16
-    },
-    "Amazon API Gateway": {
-      "Standard": 33.09
-    },
-    "Amazon ElastiCache": {
-      "Standard": 119.09
-    },
-    "Amazon SQS": {
-      "Standard": 13.23
-    },
-    "Amazon SNS": {
-      "Standard": 13.23
-    },
-    "Amazon Route 53": {
-      "Standard": 6.62
-    },
-    "AWS Fargate": {
-      "Standard": 145.55
-    },
-    "AWS WAF": {
-      "Standard": 26.47
-    },
-    "AWS KMS": {
-      "Standard": 6.62
-    },
-    "Amazon EBS": {
-      "gp3": 0.11,
-      "gp2": 0.13,
-      "io1": 0.16,
-      "io2": 0.16,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 22.02,
-      "Network": 22.02,
-      "Classic": 24.46,
-      "Gateway": 22.02
-    },
-    "Amazon EFS": {
-      "Standard": 0.4,
-      "One Zone": 0.21
-    },
-    "Amazon FSx": {
-      "Windows": 0.17,
-      "Lustre": 0.19
-    },
-    "Amazon Redshift": {
-      "dc2.large": 244.55,
-      "ra3.xlplus": 1061.37
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 270.97,
-      "db.t3.medium": 70.43
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 340.42
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 44.02,
-      "Endpoint": 9.78
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 48.91
-    },
-    "AWS VPN": {
-      "Connection": 48.91
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 24.46
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 4.02,
-      "Alarms": 0.13
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.54
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 5.36
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.34
-    },
-    "AWS Shield": {
-      "Advanced": 4020.07
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 46.95
-    },
-    "Amazon Athena": {
-      "Query": 6.7
-    },
-    "AWS Glue": {
-      "DPU": 43.04
-    },
-    "Amazon Kinesis": {
-      "Shard": 14.67
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 205.43
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 71.41
-    },
-    "Amazon EventBridge": {
-      "Events": 1.34
-    },
-    "AWS Step Functions": {
-      "Standard": 33.5
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 28.37
-    }
-  },
-  "eu-central-1": {
-    "Amazon EC2": {
-      "t3.micro": 9.47,
-      "t3.medium": 35.52,
-      "m5.large": 82.89,
-      "m5.xlarge": 165.79,
-      "c5.large": 73.42,
-      "c5.xlarge": 146.84,
-      "r5.large": 108.95
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 14.21,
-      "db.t3.medium": 56.84,
-      "db.m5.large": 153.94,
-      "db.r5.large": 201.31,
-      "db.r5.xlarge": 402.62
-    },
-    "Amazon S3": {
-      "Standard": 27.23,
-      "Intelligent-Tiering": 24.87,
-      "Standard-IA": 14.21,
-      "One Zone-IA": 11.84,
-      "Glacier": 4.74
-    },
-    "AWS Lambda": {
-      "128MB": 2.36,
-      "512MB": 9.47,
-      "1024MB": 18.95,
-      "2048MB": 37.89,
-      "4096MB": 75.79
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 29.61,
-      "Provisioned": 17.76
-    },
-    "Amazon EKS": {
-      "Standard": 86.45,
-      "Fargate": 106.57
-    },
-    "Amazon ECS": {
-      "Standard": 53.29
-    },
-    "Amazon CloudFront": {
-      "Standard": 59.2
-    },
-    "Amazon API Gateway": {
-      "Standard": 29.61
-    },
-    "Amazon ElastiCache": {
-      "Standard": 106.57
-    },
-    "Amazon SQS": {
-      "Standard": 11.84
-    },
-    "Amazon SNS": {
-      "Standard": 11.84
-    },
-    "Amazon Route 53": {
-      "Standard": 5.92
-    },
-    "AWS Fargate": {
-      "Standard": 130.26
-    },
-    "AWS WAF": {
-      "Standard": 23.68
-    },
-    "AWS KMS": {
-      "Standard": 5.92
-    },
-    "Amazon EBS": {
-      "gp3": 0.1,
-      "gp2": 0.12,
-      "io1": 0.14,
-      "io2": 0.14,
-      "st1": 0.05,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 19.7,
-      "Network": 19.7,
-      "Classic": 21.89,
-      "Gateway": 19.7
-    },
-    "Amazon EFS": {
-      "Standard": 0.36,
-      "One Zone": 0.19
-    },
-    "Amazon FSx": {
-      "Windows": 0.16,
-      "Lustre": 0.17
-    },
-    "Amazon Redshift": {
-      "dc2.large": 218.85,
-      "ra3.xlplus": 949.83
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 242.49,
-      "db.t3.medium": 63.03
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 304.65
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 39.39,
-      "Endpoint": 8.75
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 43.77
-    },
-    "AWS VPN": {
-      "Connection": 43.77
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 21.89
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.6,
-      "Alarms": 0.12
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.48
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.8
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.2
-    },
-    "AWS Shield": {
-      "Advanced": 3597.61
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 42.02
-    },
-    "Amazon Athena": {
-      "Query": 6
-    },
-    "AWS Glue": {
-      "DPU": 38.52
-    },
-    "Amazon Kinesis": {
-      "Shard": 13.13
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 183.84
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 63.91
-    },
-    "Amazon EventBridge": {
-      "Events": 1.2
-    },
-    "AWS Step Functions": {
-      "Standard": 29.98
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 25.39
-    }
-  },
-  "eu-west-1": {
-    "Amazon EC2": {
-      "t3.micro": 8.55,
-      "t3.medium": 32.06,
-      "m5.large": 74.81,
-      "m5.xlarge": 149.63,
-      "c5.large": 66.26,
-      "c5.xlarge": 132.53,
-      "r5.large": 98.33
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 12.83,
-      "db.t3.medium": 51.3,
-      "db.m5.large": 138.93,
-      "db.r5.large": 181.68,
-      "db.r5.xlarge": 363.37
-    },
-    "Amazon S3": {
-      "Standard": 24.58,
-      "Intelligent-Tiering": 22.45,
-      "Standard-IA": 12.83,
-      "One Zone-IA": 10.68,
-      "Glacier": 4.28
-    },
-    "AWS Lambda": {
-      "128MB": 2.13,
-      "512MB": 8.55,
-      "1024MB": 17.1,
-      "2048MB": 34.2,
-      "4096MB": 68.4
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 26.72,
-      "Provisioned": 16.03
-    },
-    "Amazon EKS": {
-      "Standard": 78.02,
-      "Fargate": 96.18
-    },
-    "Amazon ECS": {
-      "Standard": 48.1
-    },
-    "Amazon CloudFront": {
-      "Standard": 53.43
-    },
-    "Amazon API Gateway": {
-      "Standard": 26.72
-    },
-    "Amazon ElastiCache": {
-      "Standard": 96.18
-    },
-    "Amazon SQS": {
-      "Standard": 10.68
-    },
-    "Amazon SNS": {
-      "Standard": 10.68
-    },
-    "Amazon Route 53": {
-      "Standard": 5.35
-    },
-    "AWS Fargate": {
-      "Standard": 117.56
-    },
-    "AWS WAF": {
-      "Standard": 21.38
-    },
-    "AWS KMS": {
-      "Standard": 5.35
-    },
-    "Amazon EBS": {
-      "gp3": 0.09,
-      "gp2": 0.11,
-      "io1": 0.13,
-      "io2": 0.13,
-      "st1": 0.04,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 17.78,
-      "Network": 17.78,
-      "Classic": 19.75,
-      "Gateway": 17.78
-    },
-    "Amazon EFS": {
-      "Standard": 0.32,
-      "One Zone": 0.17
-    },
-    "Amazon FSx": {
-      "Windows": 0.14,
-      "Lustre": 0.15
-    },
-    "Amazon Redshift": {
-      "dc2.large": 197.52,
-      "ra3.xlplus": 857.22
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 218.85,
-      "db.t3.medium": 56.88
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 274.94
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 35.55,
-      "Endpoint": 7.9
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 39.5
-    },
-    "AWS VPN": {
-      "Connection": 39.5
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 19.75
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.25,
-      "Alarms": 0.11
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.43
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.33
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.08
-    },
-    "AWS Shield": {
-      "Advanced": 3246.85
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 37.92
-    },
-    "Amazon Athena": {
-      "Query": 5.41
-    },
-    "AWS Glue": {
-      "DPU": 34.76
-    },
-    "Amazon Kinesis": {
-      "Shard": 11.85
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 165.91
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 57.67
-    },
-    "Amazon EventBridge": {
-      "Events": 1.08
-    },
-    "AWS Step Functions": {
-      "Standard": 27.06
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 22.91
-    }
-  },
-  "eu-west-2": {
-    "Amazon EC2": {
-      "t3.micro": 8.89,
-      "t3.medium": 33.32,
-      "m5.large": 77.75,
-      "m5.xlarge": 155.51,
-      "c5.large": 68.86,
-      "c5.xlarge": 137.74,
-      "r5.large": 102.19
-    },
-    "Amazon RDS": {
-      "db.t3.micro": 13.33,
-      "db.t3.medium": 53.32,
-      "db.m5.large": 144.4,
-      "db.r5.large": 188.83,
-      "db.r5.xlarge": 377.66
-    },
-    "Amazon S3": {
-      "Standard": 25.55,
-      "Intelligent-Tiering": 23.33,
-      "Standard-IA": 13.33,
-      "One Zone-IA": 11.1,
-      "Glacier": 4.44
-    },
-    "AWS Lambda": {
-      "128MB": 2.22,
-      "512MB": 8.89,
-      "1024MB": 17.77,
-      "2048MB": 35.55,
-      "4096MB": 71.09
-    },
-    "Amazon DynamoDB": {
-      "On-Demand": 27.77,
-      "Provisioned": 16.66
-    },
-    "Amazon EKS": {
-      "Standard": 81.09,
-      "Fargate": 99.97
-    },
-    "Amazon ECS": {
-      "Standard": 49.99
-    },
-    "Amazon CloudFront": {
-      "Standard": 55.53
-    },
-    "Amazon API Gateway": {
-      "Standard": 27.77
-    },
-    "Amazon ElastiCache": {
-      "Standard": 99.97
-    },
-    "Amazon SQS": {
-      "Standard": 11.1
-    },
-    "Amazon SNS": {
-      "Standard": 11.1
-    },
-    "Amazon Route 53": {
-      "Standard": 5.56
-    },
-    "AWS Fargate": {
-      "Standard": 122.18
-    },
-    "AWS WAF": {
-      "Standard": 22.22
-    },
-    "AWS KMS": {
-      "Standard": 5.56
-    },
-    "Amazon EBS": {
-      "gp3": 0.09,
-      "gp2": 0.11,
-      "io1": 0.13,
-      "io2": 0.13,
-      "st1": 0.04,
-      "sc1": 0.01
-    },
-    "Elastic Load Balancing": {
-      "Application": 18.48,
-      "Network": 18.48,
-      "Classic": 20.53,
-      "Gateway": 18.48
-    },
-    "Amazon EFS": {
-      "Standard": 0.34,
-      "One Zone": 0.18
-    },
-    "Amazon FSx": {
-      "Windows": 0.15,
-      "Lustre": 0.16
-    },
-    "Amazon Redshift": {
-      "dc2.large": 205.29,
-      "ra3.xlplus": 890.95
-    },
-    "Amazon DocumentDB": {
-      "db.r5.large": 227.46,
-      "db.t3.medium": 59.12
-    },
-    "Amazon Neptune": {
-      "db.r5.large": 285.76
-    },
-    "Amazon VPC": {
-      "NAT Gateway": 36.95,
-      "Endpoint": 8.21
-    },
-    "AWS Transit Gateway": {
-      "Attachment": 41.06
-    },
-    "AWS VPN": {
-      "Connection": 41.06
-    },
-    "AWS Global Accelerator": {
-      "Accelerator": 20.53
-    },
-    "Amazon CloudWatch": {
-      "Dashboard": 3.37,
-      "Alarms": 0.11
-    },
-    "AWS Secrets Manager": {
-      "Secret": 0.45
-    },
-    "Amazon GuardDuty": {
-      "Analysis": 4.5
-    },
-    "Amazon Macie": {
-      "Data Discovery": 1.12
-    },
-    "AWS Shield": {
-      "Advanced": 3374.6
-    },
-    "Amazon EMR": {
-      "m5.xlarge": 39.42
-    },
-    "Amazon Athena": {
-      "Query": 5.62
-    },
-    "AWS Glue": {
-      "DPU": 36.13
-    },
-    "Amazon Kinesis": {
-      "Shard": 12.32
-    },
-    "Amazon MSK": {
-      "kafka.m5.large": 172.44
-    },
-    "Amazon OpenSearch Service": {
-      "t3.medium.search": 59.94
-    },
-    "Amazon EventBridge": {
-      "Events": 1.12
-    },
-    "AWS Step Functions": {
-      "Standard": 28.12
-    },
-    "Amazon MQ": {
-      "mq.t3.micro": 23.81
+      "mq.t3.micro": 24.32
     }
   },
   "eu-south-1": {
     "Amazon EC2": {
-      "t3.micro": 8.73,
-      "t3.medium": 32.75,
-      "m5.large": 76.41,
-      "m5.xlarge": 152.84,
-      "c5.large": 67.68,
-      "c5.xlarge": 135.37,
-      "r5.large": 100.44
+      "t3.micro": 8.76,
+      "t3.medium": 32.82,
+      "m5.large": 76.58,
+      "m5.xlarge": 153.16,
+      "c5.large": 67.82,
+      "c5.xlarge": 135.66,
+      "r5.large": 100.65
     },
     "Amazon RDS": {
-      "db.t3.micro": 13.1,
-      "db.t3.medium": 52.4,
-      "db.m5.large": 141.91,
-      "db.r5.large": 185.58,
-      "db.r5.xlarge": 371.17
+      "db.t3.micro": 13.13,
+      "db.t3.medium": 52.52,
+      "db.m5.large": 142.22,
+      "db.r5.large": 185.98,
+      "db.r5.xlarge": 371.96
     },
     "Amazon S3": {
-      "Standard": 25.11,
-      "Intelligent-Tiering": 22.93,
-      "Standard-IA": 13.1,
-      "One Zone-IA": 10.91,
+      "Standard": 25.16,
+      "Intelligent-Tiering": 22.97,
+      "Standard-IA": 13.13,
+      "One Zone-IA": 10.93,
       "Glacier": 4.37
     },
     "AWS Lambda": {
-      "128MB": 2.18,
-      "512MB": 8.73,
-      "1024MB": 17.47,
-      "2048MB": 34.93,
-      "4096MB": 69.87
+      "128MB": 2.19,
+      "512MB": 8.76,
+      "1024MB": 17.5,
+      "2048MB": 35.01,
+      "4096MB": 70.02
     },
     "Amazon DynamoDB": {
-      "On-Demand": 27.3,
-      "Provisioned": 16.37
+      "On-Demand": 27.36,
+      "Provisioned": 16.4
     },
     "Amazon EKS": {
-      "Standard": 79.7,
-      "Fargate": 98.25
+      "Standard": 79.87,
+      "Fargate": 98.46
     },
     "Amazon ECS": {
-      "Standard": 49.13
+      "Standard": 49.23
     },
     "Amazon CloudFront": {
-      "Standard": 54.58
+      "Standard": 54.69
     },
     "Amazon API Gateway": {
-      "Standard": 27.3
+      "Standard": 27.36
     },
     "Amazon ElastiCache": {
-      "Standard": 98.25
+      "Standard": 98.46
     },
     "Amazon SQS": {
-      "Standard": 10.91
+      "Standard": 10.93
     },
     "Amazon SNS": {
-      "Standard": 10.91
+      "Standard": 10.93
     },
     "Amazon Route 53": {
-      "Standard": 5.46
+      "Standard": 5.47
     },
     "AWS Fargate": {
-      "Standard": 120.08
+      "Standard": 120.34
     },
     "AWS WAF": {
-      "Standard": 21.83
+      "Standard": 21.88
     },
     "AWS KMS": {
-      "Standard": 5.46
+      "Standard": 5.47
     },
     "Amazon EBS": {
       "gp3": 0.09,
       "gp2": 0.11,
-      "io1": 0.13,
-      "io2": 0.13,
-      "st1": 0.04,
+      "io1": 0.14,
+      "io2": 0.14,
+      "st1": 0.05,
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 18.16,
-      "Network": 18.16,
-      "Classic": 20.18,
-      "Gateway": 18.16
+      "Application": 18.21,
+      "Network": 18.21,
+      "Classic": 20.22,
+      "Gateway": 18.21
     },
     "Amazon EFS": {
       "Standard": 0.33,
       "One Zone": 0.18
     },
     "Amazon FSx": {
-      "Windows": 0.14,
-      "Lustre": 0.15
+      "Windows": 0.15,
+      "Lustre": 0.16
     },
     "Amazon Redshift": {
-      "dc2.large": 201.76,
-      "ra3.xlplus": 875.62
+      "dc2.large": 202.19,
+      "ra3.xlplus": 877.51
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 223.55,
-      "db.t3.medium": 58.11
+      "db.r5.large": 224.02,
+      "db.t3.medium": 58.23
     },
     "Amazon Neptune": {
-      "db.r5.large": 280.84
+      "db.r5.large": 281.45
     },
     "Amazon VPC": {
-      "NAT Gateway": 36.32,
-      "Endpoint": 8.07
+      "NAT Gateway": 36.4,
+      "Endpoint": 8.09
     },
     "AWS Transit Gateway": {
-      "Attachment": 40.35
+      "Attachment": 40.44
     },
     "AWS VPN": {
-      "Connection": 40.35
+      "Connection": 40.44
     },
     "AWS Global Accelerator": {
-      "Accelerator": 20.18
+      "Accelerator": 20.22
     },
     "Amazon CloudWatch": {
       "Dashboard": 3.32,
@@ -2673,113 +2673,113 @@
       "Secret": 0.44
     },
     "Amazon GuardDuty": {
-      "Analysis": 4.42
+      "Analysis": 4.43
     },
     "Amazon Macie": {
       "Data Discovery": 1.11
     },
     "AWS Shield": {
-      "Advanced": 3316.54
+      "Advanced": 3323.68
     },
     "Amazon EMR": {
-      "m5.xlarge": 38.74
+      "m5.xlarge": 38.82
     },
     "Amazon Athena": {
-      "Query": 5.53
+      "Query": 5.54
     },
     "AWS Glue": {
-      "DPU": 35.51
+      "DPU": 35.58
     },
     "Amazon Kinesis": {
-      "Shard": 12.11
+      "Shard": 12.13
     },
     "Amazon MSK": {
-      "kafka.m5.large": 169.48
+      "kafka.m5.large": 169.84
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 58.91
+      "t3.medium.search": 59.04
     },
     "Amazon EventBridge": {
       "Events": 1.11
     },
     "AWS Step Functions": {
-      "Standard": 27.64
+      "Standard": 27.7
     },
     "Amazon MQ": {
-      "mq.t3.micro": 23.4
+      "mq.t3.micro": 23.45
     }
   },
   "eu-west-3": {
     "Amazon EC2": {
-      "t3.micro": 9.46,
-      "t3.medium": 35.47,
-      "m5.large": 82.78,
-      "m5.xlarge": 165.57,
-      "c5.large": 73.32,
-      "c5.xlarge": 146.65,
-      "r5.large": 108.8
+      "t3.micro": 9.1,
+      "t3.medium": 34.11,
+      "m5.large": 79.61,
+      "m5.xlarge": 159.21,
+      "c5.large": 70.5,
+      "c5.xlarge": 141.02,
+      "r5.large": 104.63
     },
     "Amazon RDS": {
-      "db.t3.micro": 14.19,
-      "db.t3.medium": 56.77,
-      "db.m5.large": 153.74,
-      "db.r5.large": 201.04,
-      "db.r5.xlarge": 402.08
+      "db.t3.micro": 13.65,
+      "db.t3.medium": 54.59,
+      "db.m5.large": 147.83,
+      "db.r5.large": 193.33,
+      "db.r5.xlarge": 386.65
     },
     "Amazon S3": {
-      "Standard": 27.2,
-      "Intelligent-Tiering": 24.84,
-      "Standard-IA": 14.19,
-      "One Zone-IA": 11.82,
-      "Glacier": 4.73
+      "Standard": 26.15,
+      "Intelligent-Tiering": 23.88,
+      "Standard-IA": 13.65,
+      "One Zone-IA": 11.36,
+      "Glacier": 4.55
     },
     "AWS Lambda": {
-      "128MB": 2.36,
-      "512MB": 9.46,
-      "1024MB": 18.92,
-      "2048MB": 37.84,
-      "4096MB": 75.69
+      "128MB": 2.27,
+      "512MB": 9.1,
+      "1024MB": 18.19,
+      "2048MB": 36.39,
+      "4096MB": 72.79
     },
     "Amazon DynamoDB": {
-      "On-Demand": 29.57,
-      "Provisioned": 17.74
+      "On-Demand": 28.44,
+      "Provisioned": 17.05
     },
     "Amazon EKS": {
-      "Standard": 86.34,
-      "Fargate": 106.43
+      "Standard": 83.02,
+      "Fargate": 102.34
     },
     "Amazon ECS": {
-      "Standard": 53.22
+      "Standard": 51.18
     },
     "Amazon CloudFront": {
-      "Standard": 59.13
+      "Standard": 56.85
     },
     "Amazon API Gateway": {
-      "Standard": 29.57
+      "Standard": 28.44
     },
     "Amazon ElastiCache": {
-      "Standard": 106.43
+      "Standard": 102.34
     },
     "Amazon SQS": {
-      "Standard": 11.82
+      "Standard": 11.36
     },
     "Amazon SNS": {
-      "Standard": 11.82
+      "Standard": 11.36
     },
     "Amazon Route 53": {
-      "Standard": 5.92
+      "Standard": 5.69
     },
     "AWS Fargate": {
-      "Standard": 130.08
+      "Standard": 125.1
     },
     "AWS WAF": {
-      "Standard": 23.65
+      "Standard": 22.74
     },
     "AWS KMS": {
-      "Standard": 5.92
+      "Standard": 5.69
     },
     "Amazon EBS": {
-      "gp3": 0.1,
+      "gp3": 0.09,
       "gp2": 0.12,
       "io1": 0.14,
       "io2": 0.14,
@@ -2787,473 +2787,473 @@
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 19.68,
-      "Network": 19.68,
-      "Classic": 21.86,
-      "Gateway": 19.68
+      "Application": 18.92,
+      "Network": 18.92,
+      "Classic": 21.02,
+      "Gateway": 18.92
     },
     "Amazon EFS": {
-      "Standard": 0.36,
+      "Standard": 0.34,
       "One Zone": 0.19
     },
     "Amazon FSx": {
-      "Windows": 0.16,
-      "Lustre": 0.17
+      "Windows": 0.15,
+      "Lustre": 0.16
     },
     "Amazon Redshift": {
-      "dc2.large": 218.56,
-      "ra3.xlplus": 948.56
+      "dc2.large": 210.18,
+      "ra3.xlplus": 912.16
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 242.17,
-      "db.t3.medium": 62.95
+      "db.r5.large": 232.87,
+      "db.t3.medium": 60.53
     },
     "Amazon Neptune": {
-      "db.r5.large": 304.24
+      "db.r5.large": 292.56
     },
     "Amazon VPC": {
-      "NAT Gateway": 39.34,
-      "Endpoint": 8.74
+      "NAT Gateway": 37.84,
+      "Endpoint": 8.41
     },
     "AWS Transit Gateway": {
-      "Attachment": 43.71
+      "Attachment": 42.04
     },
     "AWS VPN": {
-      "Connection": 43.71
+      "Connection": 42.04
     },
     "AWS Global Accelerator": {
-      "Accelerator": 21.86
+      "Accelerator": 21.02
     },
     "Amazon CloudWatch": {
-      "Dashboard": 3.59,
+      "Dashboard": 3.45,
       "Alarms": 0.12
     },
     "AWS Secrets Manager": {
-      "Secret": 0.48
+      "Secret": 0.46
     },
     "Amazon GuardDuty": {
-      "Analysis": 4.79
+      "Analysis": 4.6
     },
     "Amazon Macie": {
-      "Data Discovery": 1.2
+      "Data Discovery": 1.15
     },
     "AWS Shield": {
-      "Advanced": 3592.8
+      "Advanced": 3454.92
     },
     "Amazon EMR": {
-      "m5.xlarge": 41.96
+      "m5.xlarge": 40.36
     },
     "Amazon Athena": {
-      "Query": 5.99
+      "Query": 5.76
     },
     "AWS Glue": {
-      "DPU": 38.47
+      "DPU": 36.99
     },
     "Amazon Kinesis": {
-      "Shard": 13.11
+      "Shard": 12.61
     },
     "Amazon MSK": {
-      "kafka.m5.large": 183.59
+      "kafka.m5.large": 176.54
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 63.82
+      "t3.medium.search": 61.38
     },
     "Amazon EventBridge": {
-      "Events": 1.2
+      "Events": 1.15
     },
     "AWS Step Functions": {
-      "Standard": 29.94
+      "Standard": 28.79
     },
     "Amazon MQ": {
-      "mq.t3.micro": 25.35
+      "mq.t3.micro": 24.38
     }
   },
   "eu-north-1": {
     "Amazon EC2": {
-      "t3.micro": 8.8,
-      "t3.medium": 32.99,
-      "m5.large": 76.99,
-      "m5.xlarge": 153.99,
-      "c5.large": 68.19,
-      "c5.xlarge": 136.39,
-      "r5.large": 101.2
+      "t3.micro": 8.86,
+      "t3.medium": 33.22,
+      "m5.large": 77.52,
+      "m5.xlarge": 155.05,
+      "c5.large": 68.66,
+      "c5.xlarge": 137.33,
+      "r5.large": 101.89
     },
     "Amazon RDS": {
-      "db.t3.micro": 13.2,
-      "db.t3.medium": 52.8,
-      "db.m5.large": 142.99,
-      "db.r5.large": 186.99,
-      "db.r5.xlarge": 373.97
+      "db.t3.micro": 13.29,
+      "db.t3.medium": 53.17,
+      "db.m5.large": 143.97,
+      "db.r5.large": 188.27,
+      "db.r5.xlarge": 376.54
     },
     "Amazon S3": {
-      "Standard": 25.3,
-      "Intelligent-Tiering": 23.1,
-      "Standard-IA": 13.2,
-      "One Zone-IA": 10.99,
-      "Glacier": 4.4
+      "Standard": 25.47,
+      "Intelligent-Tiering": 23.26,
+      "Standard-IA": 13.29,
+      "One Zone-IA": 11.07,
+      "Glacier": 4.43
     },
     "AWS Lambda": {
-      "128MB": 2.19,
-      "512MB": 8.8,
-      "1024MB": 17.6,
-      "2048MB": 35.2,
-      "4096MB": 70.4
+      "128MB": 2.21,
+      "512MB": 8.86,
+      "1024MB": 17.72,
+      "2048MB": 35.44,
+      "4096MB": 70.88
     },
     "Amazon DynamoDB": {
-      "On-Demand": 27.5,
-      "Provisioned": 16.5
+      "On-Demand": 27.7,
+      "Provisioned": 16.61
     },
     "Amazon EKS": {
-      "Standard": 80.3,
-      "Fargate": 98.99
+      "Standard": 80.85,
+      "Fargate": 99.67
     },
     "Amazon ECS": {
-      "Standard": 49.5
+      "Standard": 49.84
     },
     "Amazon CloudFront": {
-      "Standard": 54.99
+      "Standard": 55.37
     },
     "Amazon API Gateway": {
-      "Standard": 27.5
+      "Standard": 27.7
     },
     "Amazon ElastiCache": {
-      "Standard": 98.99
+      "Standard": 99.67
     },
     "Amazon SQS": {
-      "Standard": 10.99
+      "Standard": 11.07
     },
     "Amazon SNS": {
-      "Standard": 10.99
+      "Standard": 11.07
     },
     "Amazon Route 53": {
-      "Standard": 5.5
+      "Standard": 5.54
     },
     "AWS Fargate": {
-      "Standard": 120.99
+      "Standard": 121.82
     },
     "AWS WAF": {
-      "Standard": 22
+      "Standard": 22.14
     },
     "AWS KMS": {
-      "Standard": 5.5
+      "Standard": 5.54
     },
     "Amazon EBS": {
       "gp3": 0.09,
       "gp2": 0.11,
-      "io1": 0.13,
-      "io2": 0.13,
-      "st1": 0.04,
+      "io1": 0.14,
+      "io2": 0.14,
+      "st1": 0.05,
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 18.3,
-      "Network": 18.3,
-      "Classic": 20.33,
-      "Gateway": 18.3
+      "Application": 18.43,
+      "Network": 18.43,
+      "Classic": 20.47,
+      "Gateway": 18.43
     },
     "Amazon EFS": {
       "Standard": 0.33,
       "One Zone": 0.18
     },
     "Amazon FSx": {
-      "Windows": 0.14,
+      "Windows": 0.15,
       "Lustre": 0.16
     },
     "Amazon Redshift": {
-      "dc2.large": 203.28,
-      "ra3.xlplus": 882.24
+      "dc2.large": 204.68,
+      "ra3.xlplus": 888.31
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 225.24,
-      "db.t3.medium": 58.55
+      "db.r5.large": 226.78,
+      "db.t3.medium": 58.95
     },
     "Amazon Neptune": {
-      "db.r5.large": 282.97
+      "db.r5.large": 284.91
     },
     "Amazon VPC": {
-      "NAT Gateway": 36.59,
-      "Endpoint": 8.13
+      "NAT Gateway": 36.85,
+      "Endpoint": 8.19
     },
     "AWS Transit Gateway": {
-      "Attachment": 40.66
+      "Attachment": 40.94
     },
     "AWS VPN": {
-      "Connection": 40.66
+      "Connection": 40.94
     },
     "AWS Global Accelerator": {
-      "Accelerator": 20.33
+      "Accelerator": 20.47
     },
     "Amazon CloudWatch": {
-      "Dashboard": 3.34,
+      "Dashboard": 3.36,
       "Alarms": 0.11
     },
     "AWS Secrets Manager": {
       "Secret": 0.45
     },
     "Amazon GuardDuty": {
-      "Analysis": 4.46
+      "Analysis": 4.48
     },
     "Amazon Macie": {
-      "Data Discovery": 1.11
+      "Data Discovery": 1.12
     },
     "AWS Shield": {
-      "Advanced": 3341.62
+      "Advanced": 3364.57
     },
     "Amazon EMR": {
-      "m5.xlarge": 39.03
+      "m5.xlarge": 39.3
     },
     "Amazon Athena": {
-      "Query": 5.57
+      "Query": 5.61
     },
     "AWS Glue": {
-      "DPU": 35.78
+      "DPU": 36.02
     },
     "Amazon Kinesis": {
-      "Shard": 12.2
+      "Shard": 12.28
     },
     "Amazon MSK": {
-      "kafka.m5.large": 170.76
+      "kafka.m5.large": 171.93
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 59.36
+      "t3.medium.search": 59.77
     },
     "Amazon EventBridge": {
-      "Events": 1.11
+      "Events": 1.12
     },
     "AWS Step Functions": {
-      "Standard": 27.85
+      "Standard": 28.04
     },
     "Amazon MQ": {
-      "mq.t3.micro": 23.58
+      "mq.t3.micro": 23.74
     }
   },
   "me-south-1": {
     "Amazon EC2": {
-      "t3.micro": 10.03,
-      "t3.medium": 37.61,
-      "m5.large": 87.76,
-      "m5.xlarge": 175.54,
-      "c5.large": 77.73,
-      "c5.xlarge": 155.48,
-      "r5.large": 115.35
+      "t3.micro": 11.58,
+      "t3.medium": 43.39,
+      "m5.large": 101.24,
+      "m5.xlarge": 202.49,
+      "c5.large": 89.67,
+      "c5.xlarge": 179.35,
+      "r5.large": 133.07
     },
     "Amazon RDS": {
-      "db.t3.micro": 15.05,
-      "db.t3.medium": 60.18,
-      "db.m5.large": 162.99,
-      "db.r5.large": 213.15,
-      "db.r5.xlarge": 426.3
+      "db.t3.micro": 17.36,
+      "db.t3.medium": 69.43,
+      "db.m5.large": 188.02,
+      "db.r5.large": 245.87,
+      "db.r5.xlarge": 491.75
     },
     "Amazon S3": {
-      "Standard": 28.84,
-      "Intelligent-Tiering": 26.33,
-      "Standard-IA": 15.05,
-      "One Zone-IA": 12.53,
-      "Glacier": 5.02
+      "Standard": 33.26,
+      "Intelligent-Tiering": 30.37,
+      "Standard-IA": 17.36,
+      "One Zone-IA": 14.45,
+      "Glacier": 5.78
     },
     "AWS Lambda": {
-      "128MB": 2.5,
-      "512MB": 10.03,
-      "1024MB": 20.06,
-      "2048MB": 40.12,
-      "4096MB": 80.25
+      "128MB": 2.89,
+      "512MB": 11.58,
+      "1024MB": 23.14,
+      "2048MB": 46.28,
+      "4096MB": 92.57
     },
     "Amazon DynamoDB": {
-      "On-Demand": 31.35,
-      "Provisioned": 18.8
+      "On-Demand": 36.17,
+      "Provisioned": 21.69
     },
     "Amazon EKS": {
-      "Standard": 91.53,
-      "Fargate": 112.84
+      "Standard": 105.59,
+      "Fargate": 130.16
     },
     "Amazon ECS": {
-      "Standard": 56.43
+      "Standard": 65.09
     },
     "Amazon CloudFront": {
-      "Standard": 62.69
+      "Standard": 72.31
     },
     "Amazon API Gateway": {
-      "Standard": 31.35
+      "Standard": 36.17
     },
     "Amazon ElastiCache": {
-      "Standard": 112.84
+      "Standard": 130.16
     },
     "Amazon SQS": {
-      "Standard": 12.53
+      "Standard": 14.45
     },
     "Amazon SNS": {
-      "Standard": 12.53
+      "Standard": 14.45
     },
     "Amazon Route 53": {
-      "Standard": 6.27
+      "Standard": 7.23
     },
     "AWS Fargate": {
-      "Standard": 137.92
+      "Standard": 159.1
     },
     "AWS WAF": {
-      "Standard": 25.08
+      "Standard": 28.92
     },
     "AWS KMS": {
-      "Standard": 6.27
+      "Standard": 7.23
     },
     "Amazon EBS": {
-      "gp3": 0.1,
-      "gp2": 0.13,
-      "io1": 0.15,
-      "io2": 0.15,
-      "st1": 0.05,
+      "gp3": 0.12,
+      "gp2": 0.15,
+      "io1": 0.18,
+      "io2": 0.18,
+      "st1": 0.06,
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 20.86,
-      "Network": 20.86,
-      "Classic": 23.17,
-      "Gateway": 20.86
+      "Application": 24.07,
+      "Network": 24.07,
+      "Classic": 26.73,
+      "Gateway": 24.07
     },
     "Amazon EFS": {
-      "Standard": 0.38,
-      "One Zone": 0.2
+      "Standard": 0.43,
+      "One Zone": 0.24
     },
     "Amazon FSx": {
-      "Windows": 0.17,
-      "Lustre": 0.18
+      "Windows": 0.19,
+      "Lustre": 0.21
     },
     "Amazon Redshift": {
-      "dc2.large": 231.72,
-      "ra3.xlplus": 1005.68
+      "dc2.large": 267.31,
+      "ra3.xlplus": 1160.1
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 256.75,
-      "db.t3.medium": 66.74
+      "db.r5.large": 296.17,
+      "db.t3.medium": 76.98
     },
     "Amazon Neptune": {
-      "db.r5.large": 322.56
+      "db.r5.large": 372.08
     },
     "Amazon VPC": {
-      "NAT Gateway": 41.71,
-      "Endpoint": 9.27
+      "NAT Gateway": 48.12,
+      "Endpoint": 10.69
     },
     "AWS Transit Gateway": {
-      "Attachment": 46.34
+      "Attachment": 53.47
     },
     "AWS VPN": {
-      "Connection": 46.34
+      "Connection": 53.47
     },
     "AWS Global Accelerator": {
-      "Accelerator": 23.17
+      "Accelerator": 26.73
     },
     "Amazon CloudWatch": {
-      "Dashboard": 3.81,
-      "Alarms": 0.13
+      "Dashboard": 4.39,
+      "Alarms": 0.15
     },
     "AWS Secrets Manager": {
-      "Secret": 0.51
+      "Secret": 0.58
     },
     "Amazon GuardDuty": {
-      "Analysis": 5.08
+      "Analysis": 5.86
     },
     "Amazon Macie": {
-      "Data Discovery": 1.27
+      "Data Discovery": 1.47
     },
     "AWS Shield": {
-      "Advanced": 3809.17
+      "Advanced": 4394.02
     },
     "Amazon EMR": {
-      "m5.xlarge": 44.49
+      "m5.xlarge": 51.33
     },
     "Amazon Athena": {
-      "Query": 6.35
+      "Query": 7.32
     },
     "AWS Glue": {
-      "DPU": 40.78
+      "DPU": 47.04
     },
     "Amazon Kinesis": {
-      "Shard": 13.9
+      "Shard": 16.04
     },
     "Amazon MSK": {
-      "kafka.m5.large": 194.65
+      "kafka.m5.large": 224.53
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 67.66
+      "t3.medium.search": 78.06
     },
     "Amazon EventBridge": {
-      "Events": 1.27
+      "Events": 1.47
     },
     "AWS Step Functions": {
-      "Standard": 31.74
+      "Standard": 36.62
     },
     "Amazon MQ": {
-      "mq.t3.micro": 26.88
+      "mq.t3.micro": 31
     }
   },
   "sa-east-1": {
     "Amazon EC2": {
-      "t3.micro": 10.87,
-      "t3.medium": 40.75,
-      "m5.large": 95.09,
-      "m5.xlarge": 190.19,
-      "c5.large": 84.22,
-      "c5.xlarge": 168.45,
-      "r5.large": 124.98
+      "t3.micro": 10.75,
+      "t3.medium": 40.3,
+      "m5.large": 94.03,
+      "m5.xlarge": 188.06,
+      "c5.large": 83.28,
+      "c5.xlarge": 166.57,
+      "r5.large": 123.59
     },
     "Amazon RDS": {
-      "db.t3.micro": 16.3,
-      "db.t3.medium": 65.21,
-      "db.m5.large": 176.6,
-      "db.r5.large": 230.94,
-      "db.r5.xlarge": 461.87
+      "db.t3.micro": 16.12,
+      "db.t3.medium": 64.48,
+      "db.m5.large": 174.62,
+      "db.r5.large": 228.35,
+      "db.r5.xlarge": 456.71
     },
     "Amazon S3": {
-      "Standard": 31.24,
-      "Intelligent-Tiering": 28.53,
-      "Standard-IA": 16.3,
-      "One Zone-IA": 13.58,
-      "Glacier": 5.43
+      "Standard": 30.89,
+      "Intelligent-Tiering": 28.21,
+      "Standard-IA": 16.12,
+      "One Zone-IA": 13.42,
+      "Glacier": 5.37
     },
     "AWS Lambda": {
-      "128MB": 2.71,
-      "512MB": 10.87,
-      "1024MB": 21.74,
-      "2048MB": 43.47,
-      "4096MB": 86.94
+      "128MB": 2.68,
+      "512MB": 10.75,
+      "1024MB": 21.49,
+      "2048MB": 42.98,
+      "4096MB": 85.98
     },
     "Amazon DynamoDB": {
-      "On-Demand": 33.97,
-      "Provisioned": 20.37
+      "On-Demand": 33.59,
+      "Provisioned": 20.14
     },
     "Amazon EKS": {
-      "Standard": 99.17,
-      "Fargate": 122.26
+      "Standard": 98.06,
+      "Fargate": 120.89
     },
     "Amazon ECS": {
-      "Standard": 61.14
+      "Standard": 60.45
     },
     "Amazon CloudFront": {
-      "Standard": 67.92
+      "Standard": 67.16
     },
     "Amazon API Gateway": {
-      "Standard": 33.97
+      "Standard": 33.59
     },
     "Amazon ElastiCache": {
-      "Standard": 122.26
+      "Standard": 120.89
     },
     "Amazon SQS": {
-      "Standard": 13.58
+      "Standard": 13.42
     },
     "Amazon SNS": {
-      "Standard": 13.58
+      "Standard": 13.42
     },
     "Amazon Route 53": {
-      "Standard": 6.8
+      "Standard": 6.72
     },
     "AWS Fargate": {
-      "Standard": 149.43
+      "Standard": 147.76
     },
     "AWS WAF": {
-      "Standard": 27.17
+      "Standard": 26.86
     },
     "AWS KMS": {
-      "Standard": 6.8
+      "Standard": 6.72
     },
     "Amazon EBS": {
       "gp3": 0.11,
@@ -3264,13 +3264,13 @@
       "sc1": 0.01
     },
     "Elastic Load Balancing": {
-      "Application": 22.6,
-      "Network": 22.6,
-      "Classic": 25.11,
-      "Gateway": 22.6
+      "Application": 22.35,
+      "Network": 22.35,
+      "Classic": 24.83,
+      "Gateway": 22.35
     },
     "Amazon EFS": {
-      "Standard": 0.41,
+      "Standard": 0.4,
       "One Zone": 0.22
     },
     "Amazon FSx": {
@@ -3278,71 +3278,71 @@
       "Lustre": 0.19
     },
     "Amazon Redshift": {
-      "dc2.large": 251.06,
-      "ra3.xlplus": 1089.61
+      "dc2.large": 248.26,
+      "ra3.xlplus": 1077.44
     },
     "Amazon DocumentDB": {
-      "db.r5.large": 278.18,
-      "db.t3.medium": 72.31
+      "db.r5.large": 275.06,
+      "db.t3.medium": 71.5
     },
     "Amazon Neptune": {
-      "db.r5.large": 349.48
+      "db.r5.large": 345.57
     },
     "Amazon VPC": {
-      "NAT Gateway": 45.19,
-      "Endpoint": 10.04
+      "NAT Gateway": 44.69,
+      "Endpoint": 9.93
     },
     "AWS Transit Gateway": {
-      "Attachment": 50.21
+      "Attachment": 49.66
     },
     "AWS VPN": {
-      "Connection": 50.21
+      "Connection": 49.66
     },
     "AWS Global Accelerator": {
-      "Accelerator": 25.11
+      "Accelerator": 24.83
     },
     "Amazon CloudWatch": {
-      "Dashboard": 4.13,
+      "Dashboard": 4.08,
       "Alarms": 0.14
     },
     "AWS Secrets Manager": {
-      "Secret": 0.55
+      "Secret": 0.54
     },
     "Amazon GuardDuty": {
-      "Analysis": 5.5
+      "Analysis": 5.44
     },
     "Amazon Macie": {
-      "Data Discovery": 1.38
+      "Data Discovery": 1.36
     },
     "AWS Shield": {
-      "Advanced": 4127.04
+      "Advanced": 4080.92
     },
     "Amazon EMR": {
-      "m5.xlarge": 48.2
+      "m5.xlarge": 47.67
     },
     "Amazon Athena": {
-      "Query": 6.88
+      "Query": 6.8
     },
     "AWS Glue": {
-      "DPU": 44.19
+      "DPU": 43.69
     },
     "Amazon Kinesis": {
-      "Shard": 15.06
+      "Shard": 14.9
     },
     "Amazon MSK": {
-      "kafka.m5.large": 210.89
+      "kafka.m5.large": 208.53
     },
     "Amazon OpenSearch Service": {
-      "t3.medium.search": 73.31
+      "t3.medium.search": 72.5
     },
     "Amazon EventBridge": {
-      "Events": 1.38
+      "Events": 1.36
     },
     "AWS Step Functions": {
-      "Standard": 34.39
+      "Standard": 34.01
     },
     "Amazon MQ": {
-      "mq.t3.micro": 29.12
+      "mq.t3.micro": 28.79
     }
   }
 }
