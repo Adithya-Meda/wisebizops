@@ -23,13 +23,12 @@ jobs:
       - name: Run Fetch Script
         run: node src/scripts/fetch-aws-prices.js
         
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "chore: daily AWS pricing & currency update"
-          title: "Automated AWS Pricing Update"
-          body: "This is an auto-generated PR with the latest AWS pricing and currency rates."
-          branch: "update-pricing"
-          base: "main"
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add src/data/aws-pricing.json
+          git commit -m "chore: Daily AWS Pricing & Currency Update" || echo "No changes to commit"
+          git push
 
 
