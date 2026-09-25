@@ -73,11 +73,11 @@ const main = async () => {
     }
   }
 
-  const outputPath = path.join(__dirname, '../data/aws-pricing.json');
   fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
   console.log(`Successfully generated localized AWS pricing cache at ${outputPath}`);
 };
 
 main();
+
 
 
