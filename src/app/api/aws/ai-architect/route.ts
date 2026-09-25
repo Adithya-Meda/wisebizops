@@ -128,3 +128,4 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
     return NextResponse.json({ error: error.message || "Failed to process AI request" }, { status: 500 });
   }
 }
+
