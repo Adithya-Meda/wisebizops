@@ -71,6 +71,7 @@ export async function POST(req: Request) {
       let unitCost = 0;
       let unsupported = false;
       if (error && error.code !== 'PGRST116') console.error("Supabase Error for " + serviceName + ": ", error);
+      if (data && !error) {
         unitCost = parseFloat(data.price_usd);
       } else {
         // Fallback query without region if not found
