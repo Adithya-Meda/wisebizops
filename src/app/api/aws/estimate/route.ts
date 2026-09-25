@@ -7,6 +7,15 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(req: Request) {
   try {
+    // 1. Security Check: CORS Enforcement
+    const origin = req.headers.get('origin');
+    const allowedDomains = ['https://tools.wisebiz.online', 'http://localhost:3000'];
+    
+    if (origin && !allowedDomains.includes(origin)) {
+      console.warn("Blocked unauthorized cross-origin request from:", origin);
+      return NextResponse.json({ error: "Unauthorized Traffic" }, { status: 403 });
+    }
+
     const { region, resources } = await req.json();
     
     if (!supabaseUrl || !supabaseKey) {
@@ -87,6 +96,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
 
 
 
