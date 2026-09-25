@@ -60,7 +60,18 @@ export async function POST(req: Request) {
         }
       }
 
-      const cost = unitCost * quantity * storage;
+      let cost = unitCost * quantity;
+      
+      // Handle storage math correctly depending on the service type
+      if (serviceName.includes("S3") || serviceName.includes("EBS") || serviceName.includes("EFS")) {
+         // Storage services: unit cost is per TB. Convert input GB to TB.
+         const storageInTB = storage / 1000;
+         cost = unitCost * quantity * storageInTB;
+      } else if (storage > 1) {
+         // Compute services (RDS, etc): compute is separate from storage. Add storage as .10/GB flat fee.
+         cost = (unitCost * quantity) + (0.10 * storage);
+      }
+      
       total += cost;
       breakdown.push({ service: resStr, cost, quantity, unitCost, storage });
     }
@@ -75,5 +86,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
 
 
