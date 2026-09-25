@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: '20'
           
+      - name: Install dependencies
+        run: npm install
+
       - name: Run Fetch Script
         run: node src/scripts/fetch-aws-prices.js
         
@@ -61,15 +64,3 @@ jobs:
             # Since it's approved, trigger the merge!
             gh pr merge "$BRANCH_NAME" --merge --admin --delete-branch
           fi
-
-
-
-
-
-
-
-
-
-
-
-
