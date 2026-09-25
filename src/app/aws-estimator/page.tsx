@@ -125,10 +125,9 @@ export default function AwsEstimator() {
         const classMatch = match[2].match(/instance_class\s*=\s*"([^"]+)"/);
         const inst = classMatch ? classMatch[1] : "db.t3.micro";
         const engineMatch = match[2].match(/engine\s*=\s*"([^"]+)"/);
-        const engine = engineMatch ? (engineMatch[1].lower().find("postgres") != -1 ? "PostgreSQL" : "MySQL") : "PostgreSQL";
+        const engine = engineMatch ? (engineMatch[1].toLowerCase().includes("postgres") ? "PostgreSQL" : "MySQL") : "PostgreSQL";
         resources.push({ name: `Amazon RDS (${engine}, ${inst}, Single-AZ)`, quantity: 1 });
       }
-    }
 
     const s3Matches = text.matchAll(/resource\s+"aws_s3_bucket"/g);
     for (const match of s3Matches) { resources.push({ name: "Amazon S3 (Standard)", quantity: 1 }); }
