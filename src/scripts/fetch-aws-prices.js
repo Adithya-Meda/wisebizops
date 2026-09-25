@@ -6,7 +6,7 @@ console.log("Fetching latest AWS pricing index and dynamic exchange rates...");
 
 const fetchExchangeRates = () => {
   return new Promise((resolve, reject) => {
-    https.get('https://api.frankfurter.app/latest?from=USD', (res) => {
+    https.get('https://open.er-api.com/v6/latest/USD', (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -86,3 +86,4 @@ const main = async () => {
 };
 
 main();
+
