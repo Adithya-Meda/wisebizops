@@ -126,6 +126,20 @@ const main = async () => {
   // Security
   liveBaselineCosts["AWS WAF"]["Standard"] = 20.0;
   liveBaselineCosts["AWS KMS"]["Standard"] = 5.0;
+  
+  // Storage & Networking Additions
+  liveBaselineCosts["Amazon EBS"] = {};
+  liveBaselineCosts["Amazon EBS"]["Standard"] = (await getLivePrice("AmazonEC2", [
+    { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
+    { Type: "TERM_MATCH", Field: "volumeApiName", Value: "gp3" },
+    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" }
+  ]) || 0.08) * 1000;
+  
+  liveBaselineCosts["Elastic Load Balancing"] = {};
+  liveBaselineCosts["Elastic Load Balancing"]["Standard"] = (await getLivePrice("AWSELB", [
+    { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" },
+    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" }
+  ]) || 0.0225) * 730;
 
   console.log("Successfully fetched and compiled live data!");
 
@@ -159,3 +173,4 @@ const main = async () => {
 };
 
 main();
+
