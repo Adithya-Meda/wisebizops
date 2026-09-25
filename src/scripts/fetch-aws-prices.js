@@ -41,24 +41,17 @@ const main = async () => {
     "eu-south-1", "eu-west-3", "eu-north-1", "me-south-1", "sa-east-1"
   ];
 
-  const baselineCosts = {
-    "Amazon EC2": { "t3.micro": 8, "t3.medium": 30, "m5.large": 70, "m5.xlarge": 140, "c5.large": 62, "c5.xlarge": 124, "r5.large": 92 },
-    "Amazon RDS": { "db.t3.micro": 12, "db.t3.medium": 48, "db.m5.large": 130, "db.r5.large": 170, "db.r5.xlarge": 340 },
-    "Amazon S3": { "Standard": 23, "Intelligent-Tiering": 21, "Standard-IA": 12, "One Zone-IA": 10, "Glacier": 4 },
-    "AWS Lambda": { "128MB": 2, "512MB": 8, "1024MB": 16, "2048MB": 32, "4096MB": 64 },
-    "Amazon DynamoDB": { "On-Demand": 25, "Provisioned": 15 },
-    "Amazon EKS": { "Standard": 73, "Fargate": 90 },
-    "Amazon ECS": { "Standard": 45 },
-    "Amazon CloudFront": { "Standard": 50 },
-    "Amazon API Gateway": { "Standard": 25 },
-    "Amazon ElastiCache": { "Standard": 90 },
-    "Amazon SQS": { "Standard": 10 },
-    "Amazon SNS": { "Standard": 10 },
-    "Amazon Route 53": { "Standard": 5 },
-    "AWS Fargate": { "Standard": 110 },
-    "AWS WAF": { "Standard": 20 },
-    "AWS KMS": { "Standard": 5 }
-  };
+  const outputPath = path.join(__dirname, '../data/aws-pricing.json');
+  let currentData = {};
+  try {
+    currentData = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+  } catch(e) {
+    console.error("Failed to read existing aws-pricing.json");
+    process.exit(1);
+  }
+
+  // Use us-east-1 from the existing file as the baseline to avoid deleting manually added services
+  const baselineCosts = currentData["us-east-1"];
 
   const output = {
     meta: { exchangeRates }
@@ -86,4 +79,5 @@ const main = async () => {
 };
 
 main();
+
 
