@@ -46,16 +46,19 @@ jobs:
             git commit -m "chore: daily AWS pricing & currency update"
             git push origin $BRANCH_NAME
             
+            CURRENT_DATE=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+            
             # Use native GitHub CLI to open the PR
             gh pr create \
               --title "Automated AWS Pricing Update" \
-              --body "This is an auto-generated PR with the latest AWS pricing and currency rates." \
+              --body "This is an auto-generated PR with the latest AWS pricing and currency rates. Update ran on: **$CURRENT_DATE**" \
               --base main \
               --head $BRANCH_NAME
               
             # Enable auto-merge so it merges automatically once CI passes
             gh pr merge --auto --squash "$BRANCH_NAME"
           fi
+
 
 
 
