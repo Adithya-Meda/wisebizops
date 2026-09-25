@@ -1,10 +1,8 @@
 const { PricingClient, GetProductsCommand } = require("@aws-sdk/client-pricing");
 const { createClient } = require('@supabase/supabase-js');
-const https = require('https');
 
 const client = new PricingClient({ region: "us-east-1" });
 
-// Initialize Supabase Client
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -23,7 +21,6 @@ async function getLivePrice(serviceCode, filters) {
       MaxResults: 1
     });
     const response = await client.send(command);
-    
     if (response.PriceList && response.PriceList.length > 0) {
       const priceItem = JSON.parse(response.PriceList[0]);
       const onDemand = priceItem.terms.OnDemand;
@@ -36,31 +33,22 @@ async function getLivePrice(serviceCode, filters) {
     }
     return null;
   } catch (error) {
-    console.error("SDK Error for " + serviceCode + ":", error.message);
     return null;
   }
 }
 
 const main = async () => {
-  console.log("Querying AWS Pricing API (this may take a minute due to 50+ queries)...");
-  
   const liveBaselineCosts = {
     "Amazon EC2": {}, "Amazon RDS": {}, "Amazon S3": {}, "AWS Lambda": {},
     "Amazon DynamoDB": {}, "Amazon EKS": {}, "Amazon ECS": {}, "Amazon CloudFront": {},
     "Amazon API Gateway": {}, "Amazon ElastiCache": {}, "Amazon SQS": {}, "Amazon SNS": {},
     "Amazon Route 53": {}, "AWS Fargate": {}, "AWS WAF": {}, "AWS KMS": {},
-    "Amazon EBS": {}, "Elastic Load Balancing": {}
+    "Amazon EBS": {}, "Elastic Load Balancing": {}, "Amazon VPC": {}
   };
 
-  // 1. Amazon EC2 (Now covering all OS combinations)
+  // 1. EC2
   const ec2Instances = ["t3.micro", "t3.medium", "m5.large", "m5.xlarge", "c5.large", "c5.xlarge", "r5.large"];
-  const operatingSystems = {
-    "Linux": "Linux",
-    "Ubuntu": "Linux", // Ubuntu uses standard Linux pricing on AWS
-    "RHEL": "RHEL",
-    "Windows": "Windows"
-  };
-  
+  const operatingSystems = { "Linux": "Linux", "Ubuntu": "Linux", "RHEL": "RHEL", "Windows": "Windows" };
   for (const inst of ec2Instances) {
     for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
       const hourly = await getLivePrice("AmazonEC2", [
@@ -72,83 +60,90 @@ const main = async () => {
         { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
       ]);
       const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
-      // We combine the instance type and OS into the configuration string for the database
       liveBaselineCosts["Amazon EC2"][${inst}, ] = baseCost;
     }
   }
 
-  // 2. Amazon RDS
+  // 2. RDS (Engine, Instance, Deployment)
+  const rdsEngines = ["PostgreSQL", "MySQL", "Aurora", "MariaDB", "Oracle", "SQL Server"];
   const rdsInstances = ["db.t3.micro", "db.t3.medium", "db.m5.large", "db.r5.large", "db.r5.xlarge"];
-  for (const inst of rdsInstances) {
-    const hourly = await getLivePrice("AmazonRDS", [
-      { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-      { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-      { Type: "TERM_MATCH", Field: "databaseEngine", Value: "MySQL" }
-    ]);
-    liveBaselineCosts["Amazon RDS"][inst] = hourly ? hourly * 730 : (inst.includes('micro') ? 12 : 130);
+  const rdsDeployments = ["Single-AZ", "Multi-AZ"];
+  
+  for (const engine of rdsEngines) {
+    for (const inst of rdsInstances) {
+      for (const deployment of rdsDeployments) {
+        let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
+        if (engine === "SQL Server") apiEngine = "SQL Server Express";
+        
+        let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
+        
+        const hourly = await getLivePrice("AmazonRDS", [
+          { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+          { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
+          { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
+          { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment }
+        ]);
+        
+        const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 15 : 150);
+        liveBaselineCosts["Amazon RDS"][${engine}, , ] = baseCost;
+      }
+    }
   }
 
-  // 3. Amazon S3
-  liveBaselineCosts["Amazon S3"]["Standard"] = (await getLivePrice("AmazonS3", [
-    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-    { Type: "TERM_MATCH", Field: "volumeType", Value: "Standard" }
-  ]) || 0.023) * 1000;
-  liveBaselineCosts["Amazon S3"]["Standard-IA"] = (await getLivePrice("AmazonS3", [
-    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-    { Type: "TERM_MATCH", Field: "volumeType", Value: "Standard - Infrequent Access" }
-  ]) || 0.0125) * 1000;
-  liveBaselineCosts["Amazon S3"]["Glacier"] = 4.0; // Hardcoded fallback
+  // 3. S3
+  liveBaselineCosts["Amazon S3"]["Standard"] = 23.0; // Per TB
+  liveBaselineCosts["Amazon S3"]["Intelligent-Tiering"] = 23.0;
+  liveBaselineCosts["Amazon S3"]["Standard-IA"] = 12.5;
+  liveBaselineCosts["Amazon S3"]["One Zone-IA"] = 10.0;
+  liveBaselineCosts["Amazon S3"]["Glacier"] = 4.0; 
 
-  // 4. AWS Lambda
-  const lambdaGBs = await getLivePrice("AWSLambda", [
-    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-    { Type: "TERM_MATCH", Field: "group", Value: "AWS-Lambda-Duration" }
-  ]) || 0.0000166667;
-  liveBaselineCosts["AWS Lambda"]["128MB"] = lambdaGBs * (128/1024) * 5000000;
-  liveBaselineCosts["AWS Lambda"]["512MB"] = lambdaGBs * (512/1024) * 5000000;
-  liveBaselineCosts["AWS Lambda"]["1024MB"] = lambdaGBs * (1) * 5000000;
-  liveBaselineCosts["AWS Lambda"]["2048MB"] = lambdaGBs * (2) * 5000000;
+  // 4. Lambda
+  const archs = ["x86_64", "arm64"];
+  const mems = ["128MB", "512MB", "1024MB", "2048MB", "4096MB"];
+  for(const a of archs) {
+    for(const m of mems) {
+      const gb = parseInt(m.replace("MB","")) / 1024;
+      liveBaselineCosts["AWS Lambda"][${a}, ] = gb * 5000000 * 0.0000166667; 
+    }
+  }
 
   // 5. DynamoDB
-  liveBaselineCosts["Amazon DynamoDB"]["Provisioned"] = (await getLivePrice("AmazonDynamoDB", [
-    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-    { Type: "TERM_MATCH", Field: "group", Value: "DDB-WriteUnits" }
-  ]) || 0.00065) * 730 * 100;
+  liveBaselineCosts["Amazon DynamoDB"]["Provisioned"] = 47.45;
   liveBaselineCosts["Amazon DynamoDB"]["On-Demand"] = 25.0;
 
-  // Serverless / Orchestration
+  // 6. EKS & ECS & Fargate
   liveBaselineCosts["Amazon EKS"]["Standard"] = 73.0; 
-  liveBaselineCosts["Amazon EKS"]["Fargate"] = 90.0;
-  liveBaselineCosts["Amazon ECS"]["Standard"] = 45.0;
+  liveBaselineCosts["Amazon EKS"]["Fargate"] = 73.0; 
+  
+  // EBS
+  liveBaselineCosts["Amazon EBS"]["gp3"] = 80.0; // per TB
+  liveBaselineCosts["Amazon EBS"]["gp2"] = 100.0;
+  liveBaselineCosts["Amazon EBS"]["io1"] = 125.0;
+  liveBaselineCosts["Amazon EBS"]["io2"] = 125.0;
+  liveBaselineCosts["Amazon EBS"]["st1"] = 45.0;
+  liveBaselineCosts["Amazon EBS"]["sc1"] = 15.0;
+
+  // ELB
+  liveBaselineCosts["Elastic Load Balancing"]["Application"] = 16.42;
+  liveBaselineCosts["Elastic Load Balancing"]["Network"] = 16.42;
+  liveBaselineCosts["Elastic Load Balancing"]["Classic"] = 18.25;
+  liveBaselineCosts["Elastic Load Balancing"]["Gateway"] = 9.49;
+
+  // VPC
+  liveBaselineCosts["Amazon VPC"]["NAT Gateway"] = 32.85;
+  liveBaselineCosts["Amazon VPC"]["Endpoint"] = 7.30;
+  
+  // Others
+  liveBaselineCosts["Amazon ECS"]["Standard"] = 0; // Control plane is free
   liveBaselineCosts["AWS Fargate"]["Standard"] = 110.0;
-
-  // Networking & Edge
-  liveBaselineCosts["Amazon CloudFront"]["Standard"] = 50.0; 
-  liveBaselineCosts["Amazon API Gateway"]["Standard"] = 25.0;
-  liveBaselineCosts["Amazon Route 53"]["Standard"] = 5.0;
-
-  // Databases & Messaging
+  liveBaselineCosts["Amazon CloudFront"]["Standard"] = 85.0; 
+  liveBaselineCosts["Amazon API Gateway"]["Standard"] = 3.50; // per million
+  liveBaselineCosts["Amazon Route 53"]["Standard"] = 0.50; // per zone
   liveBaselineCosts["Amazon ElastiCache"]["Standard"] = 90.0;
-  liveBaselineCosts["Amazon SQS"]["Standard"] = 10.0;
-  liveBaselineCosts["Amazon SNS"]["Standard"] = 10.0;
-
-  // Security
-  liveBaselineCosts["AWS WAF"]["Standard"] = 20.0;
-  liveBaselineCosts["AWS KMS"]["Standard"] = 5.0;
-  
-  // Storage & Networking Additions
-  liveBaselineCosts["Amazon EBS"]["Standard"] = (await getLivePrice("AmazonEC2", [
-    { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-    { Type: "TERM_MATCH", Field: "volumeApiName", Value: "gp3" },
-    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" }
-  ]) || 0.08) * 1000;
-  
-  liveBaselineCosts["Elastic Load Balancing"]["Standard"] = (await getLivePrice("AWSELB", [
-    { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" },
-    { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" }
-  ]) || 0.0225) * 730;
-
-  console.log("Successfully fetched all live data!");
+  liveBaselineCosts["Amazon SQS"]["Standard"] = 0.40; // per million
+  liveBaselineCosts["Amazon SNS"]["Standard"] = 0.50; // per million
+  liveBaselineCosts["AWS WAF"]["Standard"] = 5.0;
+  liveBaselineCosts["AWS KMS"]["Standard"] = 1.0;
 
   const regions = ["us-east-1", "us-east-2", "us-west-1", "us-west-2",
     "eu-central-1", "eu-west-1", "ap-southeast-1", "ap-northeast-1"];
@@ -172,9 +167,8 @@ const main = async () => {
     }
   }
 
-  console.log("Upserting " + dbRecords.length + " records into Supabase...");
+  console.log('Upserting ' + dbRecords.length + ' records into Supabase...');
   
-  // Supabase upsert will automatically update based on the UNIQUE(service_name, region, configuration) constraint
   const { data, error } = await supabase
     .from('aws_prices')
     .upsert(dbRecords, { onConflict: 'service_name,region,configuration' });
@@ -183,11 +177,6 @@ const main = async () => {
     console.error("Error upserting to Supabase:", error);
     process.exit(1);
   }
-
-  console.log("Supabase successfully updated!");
 };
 
 main();
-
-
-
