@@ -118,7 +118,6 @@ export default function AwsEstimator() {
         const ebsMatch = match[2].match(/volume_size\s*=\s*(\d+)/);
         if (ebsMatch) resources.push({ name: `Amazon EBS (gp3)`, quantity: 1, storage: parseInt(ebsMatch[1]) });
       }
-    }
 
     const rdsMatches = text.matchAll(/resource\s+"aws_db_instance"\s+"([^"]+)"\s+\{([\s\S]*?)\}/g);
       for (const match of rdsMatches) {
