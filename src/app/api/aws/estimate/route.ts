@@ -32,8 +32,7 @@ export async function POST(req: Request) {
       }
 
       const serviceName = match[1].trim();
-      const configs = match[2] ? match[2].split(',').map((s: any) => s.trim()) : [];
-      let primaryConfig = configs.length > 0 ? configs[0] : "Standard";
+      let primaryConfig = match[2] ? match[2] : "Standard";
 
       // Query Supabase
       const { data, error } = await supabase
@@ -76,4 +75,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
 
