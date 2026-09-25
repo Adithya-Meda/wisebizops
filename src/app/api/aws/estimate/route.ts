@@ -7,7 +7,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(req: Request) {
   try {
-    // 1. Security Check: CORS Enforcement
+    // 1. Security Check: Strict CORS Enforcement
     const origin = req.headers.get('origin');
     const allowedDomains = ['https://tools.wisebiz.online', 'http://localhost:3000'];
     
@@ -16,8 +16,24 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Unauthorized Traffic" }, { status: 403 });
     }
 
-    const { region, resources } = await req.json();
+    // 2. Data Privacy & Parsing
+    const body = await req.json();
+    const region = body?.region;
+    const resources = body?.resources;
+
+    // 3. Enterprise Compliance: Strict Input Validation & Anti-DoS Protection
+    if (!Array.isArray(resources)) {
+      return NextResponse.json({ error: "Invalid payload format. Resources must be an array." }, { status: 400 });
+    }
     
+    if (resources.length > 50) {
+      return NextResponse.json({ error: "Payload too large. Maximum 50 resources allowed per request." }, { status: 413 });
+    }
+
+    if (typeof region !== 'string' || region.length > 20) {
+      return NextResponse.json({ error: "Invalid region parameter." }, { status: 400 });
+    }
+
     if (!supabaseUrl || !supabaseKey) {
       return NextResponse.json({ error: "Supabase credentials missing" }, { status: 500 });
     }
@@ -96,6 +112,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
 
 
 
