@@ -110,22 +110,24 @@ export default function AwsEstimator() {
     const resources: any[] = [];
     
     const ec2Matches = text.matchAll(/resource\s+"aws_instance"\s+"([^"]+)"\s+\{([\s\S]*?)\}/g);
-    for (const match of ec2Matches) {
-      let displayName = "Amazon EC2";
-      const typeMatch = match[2].match(/instance_type\s*=\s*"([^"]+)"/);
-      if (typeMatch) displayName += ` (${typeMatch[1]})`;
-      resources.push({ name: displayName, quantity: 1 });
-      
-      const ebsMatch = match[2].match(/volume_size\s*=\s*(\d+)/);
-      if (ebsMatch) resources.push({ name: `Amazon EBS (gp3)`, quantity: 1, storage: parseInt(ebsMatch[1]) });
+      for (const match of ec2Matches) {
+        const typeMatch = match[2].match(/instance_type\s*=\s*"([^"]+)"/);
+        const inst = typeMatch ? typeMatch[1] : "t3.medium";
+        resources.push({ name: Amazon EC2 (, Linux), quantity: 1 });
+        
+        const ebsMatch = match[2].match(/volume_size\s*=\s*(\d+)/);
+        if (ebsMatch) resources.push({ name: Amazon EBS (gp3), quantity: 1, storage: parseInt(ebsMatch[1]) });
+      }
     }
 
     const rdsMatches = text.matchAll(/resource\s+"aws_db_instance"\s+"([^"]+)"\s+\{([\s\S]*?)\}/g);
-    for (const match of rdsMatches) {
-      let displayName = "Amazon RDS";
-      const classMatch = match[2].match(/instance_class\s*=\s*"([^"]+)"/);
-      if (classMatch) displayName += ` (${classMatch[1]})`;
-      resources.push({ name: displayName, quantity: 1 });
+      for (const match of rdsMatches) {
+        const classMatch = match[2].match(/instance_class\s*=\s*"([^"]+)"/);
+        const inst = classMatch ? classMatch[1] : "db.t3.micro";
+        const engineMatch = match[2].match(/engine\s*=\s*"([^"]+)"/);
+        const engine = engineMatch ? (engineMatch[1].lower().find("postgres") != -1 ? "PostgreSQL" : "MySQL") : "PostgreSQL";
+        resources.push({ name: Amazon RDS (, , Single-AZ), quantity: 1 });
+      }
     }
 
     const s3Matches = text.matchAll(/resource\s+"aws_s3_bucket"/g);
