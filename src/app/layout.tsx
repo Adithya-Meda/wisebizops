@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -195,6 +196,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ThemeProvider>
         <Toaster position="top-center" richColors theme="system" />
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
@@ -205,6 +207,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
  
 
  
+
 
 
 
