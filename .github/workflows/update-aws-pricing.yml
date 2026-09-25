@@ -26,13 +26,37 @@ jobs:
       - name: Run Fetch Script
         run: node src/scripts/fetch-aws-prices.js
         
-      - name: Commit and Push changes
+      - name: Commit, Push and Create PR
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_BYPASS_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Create a unique branch name
+          BRANCH_NAME="update-pricing-${{ github.run_id }}"
+          git checkout -b $BRANCH_NAME
+          
           git add src/data/aws-pricing.json
-          git commit -m "chore: Daily AWS Pricing & Currency Update" || echo "No changes to commit"
-          git push
+          
+          # Check if there are changes before committing
+          if git diff --staged --quiet; then
+            echo "No pricing changes to commit"
+          else
+            git commit -m "chore: daily AWS pricing & currency update"
+            git push origin $BRANCH_NAME
+            
+            # Use native GitHub CLI to open the PR
+            gh pr create \
+              --title "Automated AWS Pricing Update" \
+              --body "This is an auto-generated PR with the latest AWS pricing and currency rates." \
+              --base main \
+              --head $BRANCH_NAME
+              
+            # Enable auto-merge so it merges automatically once CI passes
+            gh pr merge --auto --squash "$BRANCH_NAME"
+          fi
+
 
 
 
