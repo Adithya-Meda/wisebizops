@@ -60,7 +60,7 @@ const main = async () => {
         { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
       ]);
       const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
-      liveBaselineCosts["Amazon EC2"][${inst}, ] = baseCost;
+      liveBaselineCosts["Amazon EC2"][`${inst}, ${osName}`] = baseCost;
     }
   }
 
@@ -85,7 +85,7 @@ const main = async () => {
         ]);
         
         const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 15 : 150);
-        liveBaselineCosts["Amazon RDS"][${engine}, , ] = baseCost;
+        liveBaselineCosts["Amazon RDS"][`${engine}, ${inst}, ${deployment}`] = baseCost;
       }
     }
   }
@@ -103,7 +103,7 @@ const main = async () => {
   for(const a of archs) {
     for(const m of mems) {
       const gb = parseInt(m.replace("MB","")) / 1024;
-      liveBaselineCosts["AWS Lambda"][${a}, ] = gb * 5000000 * 0.0000166667; 
+      liveBaselineCosts["AWS Lambda"][`${a}, ${m}`] = gb * 5000000 * 0.0000166667; 
     }
   }
 
@@ -180,3 +180,4 @@ const main = async () => {
 };
 
 main();
+
