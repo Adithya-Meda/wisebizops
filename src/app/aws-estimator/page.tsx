@@ -441,8 +441,8 @@ export default function AwsEstimator() {
                     const inst = match[2];
                     const isMacInst = inst.startsWith("mac");
                     const isMacOS = os === "macOS";
-                    if (isMacInst && !isMacOS) curr.name = \Amazon EC2 (macOS, \)\;
-                    else if (!isMacInst && isMacOS) curr.name = \Amazon EC2 (Linux, \)\;
+                    if (isMacInst && !isMacOS) curr.name = `Amazon EC2 (macOS, ${inst})`;
+                    else if (!isMacInst && isMacOS) curr.name = `Amazon EC2 (Linux, ${inst})`;
                 }
             }
             const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);
