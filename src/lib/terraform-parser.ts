@@ -44,10 +44,12 @@ export function parseTerraformDeterministically(text: string) {
     const storageMatch = match[2].match(/allocated_storage\s*=\s*(\d+)/);
     const storage = storageMatch ? parseInt(storageMatch[1]) : undefined;
     
+    resources.push({ name: `Amazon RDS (${engine}, ${inst}, ${deployment})`, quantity: 1 });
+    
     if (storage) {
-      resources.push({ name: `Amazon RDS (${engine}, ${inst}, ${deployment})`, quantity: 1, storage });
-    } else {
-      resources.push({ name: `Amazon RDS (${engine}, ${inst}, ${deployment})`, quantity: 1 });
+      const volTypeMatch = match[2].match(/storage_type\s*=\s*"([^"]+)"/);
+      const volType = volTypeMatch ? volTypeMatch[1] : "gp2";
+      resources.push({ name: `Amazon EBS (${volType})`, quantity: 1, storage });
     }
   }
 
