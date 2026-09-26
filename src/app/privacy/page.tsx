@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
 
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">4. Third-Party Subprocessors</h2>
-          <p>We partner with Google Gemini as our secure AI engine for log analysis and architecture description. No PII is intentionally transmitted, and all inputs are processed statelessly without being used for foundational model training.</p>
+          <p>We utilize secure, enterprise-grade AI engines for log analysis and architecture description. No PII is intentionally transmitted, and all inputs are processed statelessly without being used for foundational model training.</p>
         </section>
         
         <section className="space-y-3">
