@@ -1,5 +1,5 @@
-import { parseTerraformDeterministically } from '@/lib/terraform-parser';
 "use client";
+import { parseTerraformDeterministically } from '@/lib/terraform-parser';
 import { CustomSelect } from "@/components/custom-select";
 import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
@@ -559,6 +559,7 @@ export default function AwsEstimator() {
 
 
  
+
 
 
 
