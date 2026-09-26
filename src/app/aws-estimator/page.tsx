@@ -433,7 +433,19 @@ export default function AwsEstimator() {
                         setAddedResources(() => {
         // Overwrite the cart with the fresh AI architecture instead of appending
         const grouped = data.resources.reduce((acc: any[], curr: any) => {
-          const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);
+            // AI Validation: Intercept LLM hallucinations and enforce macOS constraints
+            if (curr.name.startsWith("Amazon EC2 (")) {
+                const match = curr.name.match(/Amazon EC2 \(([^,]+),\s*(.+)\)/);
+                if (match) {
+                    const os = match[1];
+                    const inst = match[2];
+                    const isMacInst = inst.startsWith("mac");
+                    const isMacOS = os === "macOS";
+                    if (isMacInst && !isMacOS) curr.name = \Amazon EC2 (macOS, \)\;
+                    else if (!isMacInst && isMacOS) curr.name = \Amazon EC2 (Linux, \)\;
+                }
+            }
+            const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);
           if (existing) {
             existing.quantity += (curr.quantity || 1);
           } else {
@@ -543,6 +555,7 @@ export default function AwsEstimator() {
 
 
  
+
 
 
 
