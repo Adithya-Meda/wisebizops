@@ -59,7 +59,7 @@ ALLOWED SERVICES:
 CONFIG EXAMPLES: 
 - EC2: "Amazon EC2 (t3.medium, Linux)"
 - EBS: "Amazon EBS (gp3)" with an added "storage" key for GB size.
-- RDS: "Amazon RDS (db.m5.large, PostgreSQL)"
+- RDS: "Amazon RDS (PostgreSQL, db.m5.large, Multi-AZ)" (Order strictly: Engine, Instance, Deployment)
 - ELB: "Elastic Load Balancing (Application)"
 
 RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
@@ -67,7 +67,7 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
   { "name": "Amazon EC2 (t3.medium, Linux)", "quantity": 3 },
   { "name": "Amazon EBS (gp3)", "quantity": 3, "storage": 50 },
   { "name": "Elastic Load Balancing (Application)", "quantity": 1 },
-  { "name": "Amazon RDS (db.m5.large, PostgreSQL)", "quantity": 1 }
+  { "name": "Amazon RDS (PostgreSQL, db.m5.large, Multi-AZ)", "quantity": 1 }
 ]`;
 
     const models = ['gemini-2.0-flash-lite', 'gemini-2.5-flash', 'gemini-3.1-flash-lite', 'gemini-3.5-flash-lite', 'gemini-3.5-flash', 'gemini-3.8-flash'];
