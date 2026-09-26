@@ -32,4 +32,4 @@ jobs:
         with:
           name: aws-price-changes
           path: price_changes.txt
-          retention-days: 30
+          retention-days: 2
