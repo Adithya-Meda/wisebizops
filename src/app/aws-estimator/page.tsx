@@ -77,6 +77,22 @@ export default function AwsEstimator() {
     setQuantity(1);
   }, [selectedService]);
 
+  useEffect(() => {
+    // UI Validation: Strictly enforce that macOS can only be selected with Mac bare-metal instances (and vice versa)
+    if (selectedService === "Amazon EC2" && selectedConfig["Operating System"] && selectedConfig["Instance Type"]) {
+        const isMacOS = selectedConfig["Operating System"] === "macOS";
+        const isMacInst = selectedConfig["Instance Type"].startsWith("mac");
+
+        if (isMacOS && !isMacInst) {
+            // Force OS back to Linux if user selects macOS on a non-Mac instance
+            setSelectedConfig(prev => ({...prev, "Operating System": "Linux"}));
+        } else if (!isMacOS && isMacInst) {
+            // Force OS to macOS if user selects a Mac instance
+            setSelectedConfig(prev => ({...prev, "Operating System": "macOS"}));
+        }
+    }
+  }, [selectedConfig, selectedService]);
+
   // Reactive calculation
   useEffect(() => {
     if (addedResources.length > 0) {
