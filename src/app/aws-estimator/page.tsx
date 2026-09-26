@@ -123,67 +123,7 @@ export default function AwsEstimator() {
   }, [awsRegion, addedResources, activeTab]);
 
   
-  const parseTerraformDeterministically = (text: string) => {
-    const resources: any[] = [];
-    
-    const ec2Matches = text.matchAll(/resource\s+"aws_instance"\s+"([^"]+)"\s+\{([\s\S]*?)\}/g);
-      for (const match of ec2Matches) {
-        const typeMatch = match[2].match(/instance_type\s*=\s*"([^"]+)"/);
-        const inst = typeMatch ? typeMatch[1] : "t3.medium";
-          const os = inst.includes("mac") ? "macOS" : "Linux";
-          resources.push({ name: `Amazon EC2 (${inst}, ${os})`, quantity: 1 });
-        
-        const ebsMatch = match[2].match(/volume_size\s*=\s*(\d+)/);
-        if (ebsMatch) resources.push({ name: `Amazon EBS (gp3)`, quantity: 1, storage: parseInt(ebsMatch[1]) });
-      }
-
-    const rdsMatches = text.matchAll(/resource\s+"aws_db_instance"\s+"([^"]+)"\s+\{([\s\S]*?)\}/g);
-      for (const match of rdsMatches) {
-        const classMatch = match[2].match(/instance_class\s*=\s*"([^"]+)"/);
-        const inst = classMatch ? classMatch[1] : "db.t3.micro";
-        const engineMatch = match[2].match(/engine\s*=\s*"([^"]+)"/);
-        const engine = engineMatch ? (engineMatch[1].toLowerCase().includes("postgres") ? "PostgreSQL" : "MySQL") : "PostgreSQL";
-        resources.push({ name: `Amazon RDS (${engine}, ${inst}, Single-AZ)`, quantity: 1 });
-      }
-
-    const s3Matches = text.matchAll(/resource\s+"aws_s3_bucket"/g);
-    for (const match of s3Matches) { resources.push({ name: "Amazon S3 (Standard)", quantity: 1 }); }
-
-    const eksMatches = text.matchAll(/resource\s+"aws_eks_cluster"/g);
-    for (const match of eksMatches) { resources.push({ name: "Amazon EKS (Standard)", quantity: 1 }); }
-    
-    const lbMatches = text.matchAll(/resource\s+"aws_lb"\s+"([^"]+)"\s+\{([\s\S]*?)\}/g);
-    for (const match of lbMatches) { 
-      let displayName = "Elastic Load Balancing";
-      const typeMatch = match[2].match(/load_balancer_type\s*=\s*"([^"]+)"/);
-      if (typeMatch && typeMatch[1] === "network") displayName += " (Network)";
-      else displayName += " (Application)";
-      resources.push({ name: displayName, quantity: 1 }); 
-    }
-    
-    const vpcNatMatches = text.matchAll(/resource\s+"aws_nat_gateway"/g);
-    for (const match of vpcNatMatches) { resources.push({ name: "Amazon VPC (NAT Gateway)", quantity: 1 }); }
-
-    if (resources.length === 0) {
-      toast.error("No supported AWS resources found in Terraform code.");
-    } else {
-      setAddedResources(() => {
-        const grouped = resources.reduce((acc: any[], curr: any) => {
-          const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);
-          if (existing) {
-            existing.quantity += curr.quantity;
-          } else {
-            acc.push({ ...curr });
-          }
-          return acc;
-        }, []);
-        return grouped;
-      });
-      toast.success(`Successfully parsed resources!`);
-    }
-  };
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
       const reader = new FileReader();
@@ -567,6 +507,7 @@ export default function AwsEstimator() {
 
 
  
+
 
 
 
