@@ -12,8 +12,8 @@ export default function TermsOfService() {
         </section>
         
         <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Estimation Accuracy & Liability</h2>
-          <p>The AWS Cost Estimator is provided for informational and planning purposes only.</p>
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Tool Accuracy & Liability</h2>
+          <p>Any financial or architectural estimations provided by the WiseBizOps suite are for informational and planning purposes only.</p>
           <ul className="list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-400">
             <li>Estimations are calculated based on public cloud pricing models and heuristics.</li>
             <li>We are <strong>not liable</strong> for any discrepancies between our estimates and your actual cloud provider billing.</li>
