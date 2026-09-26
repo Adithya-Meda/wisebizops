@@ -83,7 +83,7 @@ const main = async () => {
     "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge",
     "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge",
     "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge",
-    "mac1.metal", "mac2.metal"
+    "mac1.metal", "mac2.metal", "mac2-m2.metal", "mac2-m2pro.metal"
   ];
   const operatingSystems = { "Linux": "Linux", "Ubuntu": "Linux", "RHEL": "RHEL", "Windows": "Windows" };
 
