@@ -25,3 +25,11 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node src/scripts/fetch-aws-prices.js
 
+
+      - name: Upload Price Changes Artifact
+        uses: actions/upload-artifact@v4
+        if: hashFiles('price_changes.txt') != ''
+        with:
+          name: aws-price-changes
+          path: price_changes.txt
+          retention-days: 30
