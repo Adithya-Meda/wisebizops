@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 Your objective is to design a HIGHLY REALISTIC, PRODUCTION-READY AWS architecture and return the precise resources required in a strictly formatted JSON array.
 
 CRITICAL ARCHITECTURAL DIRECTIVES:
-1. INCLUDE ALL DEPENDENT RESOURCES: Do not leave the user with an incomplete architecture. If you provision EC2 instances, you MUST provision their dependent Amazon EBS storage volumes. If you provision a highly-available web tier, you MUST include an Elastic Load Balancing (ALB/NLB) resource. If you provision private subnets, consider Amazon VPC (NAT Gateway).
+1. BE LITERAL AND EXACT: Do not hallucinate or over-provision resources that the user did not ask for. If the user only asks for an EC2 instance, ONLY return an EC2 instance. Do not automatically append VPCs, EBS volumes, or Load Balancers unless the user's prompt implies a full architecture, high availability, or explicitly asks for storage/networking.
 2. REALISTIC SIZING: Provision quantities and instance classes (e.g., t3.medium, c5.large, db.r5.large) that logically match the user's scale, traffic, and redundancy requirements (e.g., Multi-AZ).
 3. SECURITY SERVICES (WAF, KMS): ONLY provision AWS WAF or AWS KMS if the user explicitly mentions security, encryption, firewalls, or compliance. Do not automatically append them to generic architectures.
 4. STRICT SCHEMA ADHERENCE: You must ONLY output services from the exact list below.
