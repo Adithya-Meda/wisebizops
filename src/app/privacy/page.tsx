@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Data Processing (In-Memory Only)</h2>
           <p>When you use the Kubernetes Analyzer or AWS Cost Estimator:</p>
           <ul className="list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-400">
-            <li><strong>AWS OIDC Tokens:</strong> Processed entirely in-memory during your active session. They are never written to disk or stored in any database.</li>
+            <li><strong>No Cloud Credentials Required:</strong> WiseBizOps operates entirely disconnected. We never ask for, process, or store your AWS API Keys, IAM Roles, or Kubernetes cluster credentials.</li>
             <li><strong>Terraform Files:</strong> Uploaded state files are parsed in-memory strictly for cost estimation and are destroyed immediately after the calculation.</li>
             <li><strong>Log Diagnostics:</strong> Kubectl logs are processed statelessly. We do not retain history of your cluster logs.</li>
           </ul>
@@ -26,13 +26,13 @@ export default function PrivacyPolicy() {
           <p>Before any data is analyzed by our systems or sent to secure AI models, it passes through a strict scrubbing protocol:</p>
           <ul className="list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-400">
             <li><strong>PII Scrubbing:</strong> All IPv4/IPv6 addresses, MAC addresses, Email addresses, and credentials (e.g., API keys, Bearer tokens) are automatically detected and replaced with [REDACTED] tags.</li>
-            <li><strong>Encryption at Rest:</strong> In the event that any diagnostic data must be temporarily cached, it is heavily encrypted using military-grade AES-256-GCM encryption.</li>
+            <li><strong>Zero Persistence:</strong> We operate entirely statelessly. No diagnostic data, logs, or Terraform configurations are ever saved to a database, cached, or written to disk.</li>
           </ul>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">4. Third-Party Subprocessors</h2>
-          <p>We may use secure LLM APIs  for AI-driven log analysis and architecture description. No PII is transmitted to these providers, and inputs are opted out of model training where applicable.</p>
+          <p>We partner with Google Gemini as our secure AI engine for log analysis and architecture description. No PII is intentionally transmitted, and all inputs are processed statelessly without being used for foundational model training.</p>
         </section>
         
         <section className="space-y-3">
