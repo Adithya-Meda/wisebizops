@@ -43,7 +43,8 @@ describe('Terraform Parser - Essential Edge Cases', () => {
       }
     `;
     const res = parseTerraformDeterministically(tf);
-    expect(res).toContainEqual({ name: 'Amazon RDS (PostgreSQL, db.r6g.xlarge, Multi-AZ)', quantity: 1, storage: 1000 });
+    expect(res).toContainEqual({ name: 'Amazon RDS (PostgreSQL, db.r6g.xlarge, Multi-AZ)', quantity: 1 });
+    expect(res).toContainEqual({ name: 'Amazon EBS (gp2)', quantity: 1, storage: 1000 });
     expect(res).toContainEqual({ name: 'Amazon RDS (MySQL, db.t4g.large, Single-AZ)', quantity: 1 });
   });
 
