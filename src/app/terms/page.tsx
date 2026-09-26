@@ -28,7 +28,7 @@ export default function TermsOfService() {
         
                 <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">4. Warranty Disclaimer (AS-IS)</h2>
-          <p className="uppercase text-xs font-semibold">The software and services are provided "as is" and "as available", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.</p>
+          <p>The software and services are provided "as is" and "as available", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the software or the use or other dealings in the software.</p>
         </section>
 
         <section className="space-y-3">
