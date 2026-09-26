@@ -163,14 +163,14 @@ const main = async () => {
         { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
         { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType }
       ]);
-      const baseCost = gbCost ? gbCost * 1024 : (volType === 'gp3' ? 80 : 100);
-      dbRecords.push({
-        service_name: "Amazon EBS",
-        region: regionCode,
-        configuration: volType,
-        price_usd: parseFloat(baseCost.toFixed(2)),
-        pricing_unit: "per TB-month"
-      });
+      const baseCost = gbCost ? gbCost : (volType === 'gp3' ? 0.08 : 0.10);
+        dbRecords.push({
+          service_name: "Amazon EBS",
+          region: regionCode,
+          configuration: volType,
+          price_usd: parseFloat(baseCost.toFixed(4)),
+          pricing_unit: "per GB-month"
+        });
     }
 
     // 4. S3
@@ -180,14 +180,14 @@ const main = async () => {
           { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
           { Type: "TERM_MATCH", Field: "storageClass", Value: apiName }
        ]);
-       const baseCost = gbCost ? gbCost * 1024 : 23.0;
-       dbRecords.push({
-          service_name: "Amazon S3",
-          region: regionCode,
-          configuration: tier,
-          price_usd: parseFloat(baseCost.toFixed(2)),
-          pricing_unit: "per TB-month"
-       });
+       const baseCost = gbCost ? gbCost : 0.023;
+         dbRecords.push({
+            service_name: "Amazon S3",
+            region: regionCode,
+            configuration: tier,
+            price_usd: parseFloat(baseCost.toFixed(4)),
+            pricing_unit: "per GB-month"
+         });
     }
 
     // Fallbacks for minor services
