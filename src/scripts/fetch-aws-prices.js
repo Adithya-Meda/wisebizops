@@ -13,8 +13,12 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Rate limiter helper
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 async function getLivePrice(serviceCode, filters) {
   try {
+    await sleep(200); // 5 API calls per second to avoid rate limits
     const command = new GetProductsCommand({
       ServiceCode: serviceCode,
       Filters: filters,
@@ -37,16 +41,36 @@ async function getLivePrice(serviceCode, filters) {
   }
 }
 
-const main = async () => {
-  const liveBaselineCosts = {
-    "Amazon EC2": {}, "Amazon RDS": {}, "Amazon S3": {}, "AWS Lambda": {},
-    "Amazon DynamoDB": {}, "Amazon EKS": {}, "Amazon ECS": {}, "Amazon CloudFront": {},
-    "Amazon API Gateway": {}, "Amazon ElastiCache": {}, "Amazon SQS": {}, "Amazon SNS": {},
-    "Amazon Route 53": {}, "AWS Fargate": {}, "AWS WAF": {}, "AWS KMS": {},
-    "Amazon EBS": {}, "Elastic Load Balancing": {}, "Amazon VPC": {}
-  };
+const regionMapping = {
+  "us-east-1": "US East (N. Virginia)",
+  "us-east-2": "US East (Ohio)",
+  "us-west-1": "US West (N. California)",
+  "us-west-2": "US West (Oregon)",
+  "ca-central-1": "Canada (Central)",
+  "eu-west-1": "EU (Ireland)",
+  "eu-west-2": "EU (London)",
+  "eu-west-3": "EU (Paris)",
+  "eu-central-1": "EU (Frankfurt)",
+  "eu-north-1": "EU (Stockholm)",
+  "eu-south-1": "EU (Milan)",
+  "ap-southeast-1": "Asia Pacific (Singapore)",
+  "ap-southeast-2": "Asia Pacific (Sydney)",
+  "ap-southeast-3": "Asia Pacific (Jakarta)",
+  "ap-northeast-1": "Asia Pacific (Tokyo)",
+  "ap-northeast-2": "Asia Pacific (Seoul)",
+  "ap-northeast-3": "Asia Pacific (Osaka)",
+  "ap-south-1": "Asia Pacific (Mumbai)",
+  "ap-south-2": "Asia Pacific (Hyderabad)",
+  "ap-east-1": "Asia Pacific (Hong Kong)",
+  "sa-east-1": "South America (Sao Paulo)",
+  "me-south-1": "Middle East (Bahrain)",
+  "me-central-1": "Middle East (UAE)",
+  "af-south-1": "Africa (Cape Town)"
+};
 
-  // 1. EC2
+const main = async () => {
+  const dbRecords = [];
+  
   const ec2Instances = [
     "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge",
     "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge",
@@ -61,22 +85,7 @@ const main = async () => {
     "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge"
   ];
   const operatingSystems = { "Linux": "Linux", "Ubuntu": "Linux", "RHEL": "RHEL", "Windows": "Windows" };
-  for (const inst of ec2Instances) {
-    for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
-      const hourly = await getLivePrice("AmazonEC2", [
-        { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-        { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-        { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
-        { Type: "TERM_MATCH", Field: "tenancy", Value: "Shared" },
-        { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" },
-        { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
-      ]);
-      const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
-      liveBaselineCosts["Amazon EC2"][`${inst}, ${osName}`] = baseCost;
-    }
-  }
 
-  // 2. RDS (Engine, Instance, Deployment)
   const rdsEngines = ["PostgreSQL", "MySQL", "Aurora", "MariaDB", "Oracle", "SQL Server"];
   const rdsInstances = [
     "db.t3.micro", "db.t3.small", "db.t3.medium", "db.t3.large", "db.t3.xlarge",
@@ -87,127 +96,150 @@ const main = async () => {
     "db.r6g.large", "db.r6g.xlarge", "db.r6g.2xlarge", "db.r6g.4xlarge"
   ];
   const rdsDeployments = ["Single-AZ", "Multi-AZ"];
-  
-  for (const engine of rdsEngines) {
-    for (const inst of rdsInstances) {
-      for (const deployment of rdsDeployments) {
-        let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
-        if (engine === "SQL Server") apiEngine = "SQL Server Express";
-        
-        let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
-        
-        const hourly = await getLivePrice("AmazonRDS", [
+
+  let totalQueries = 0;
+
+  for (const [regionCode, locationName] of Object.entries(regionMapping)) {
+    console.log(`Fetching data for region: ${regionCode} (${locationName})`);
+
+    // 1. EC2
+    for (const inst of ec2Instances) {
+      for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
+        const hourly = await getLivePrice("AmazonEC2", [
           { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-          { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-          { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
-          { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment }
+          { Type: "TERM_MATCH", Field: "location", Value: locationName },
+          { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
+          { Type: "TERM_MATCH", Field: "tenancy", Value: "Shared" },
+          { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" },
+          { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
         ]);
+        const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
         
-        const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 15 : 150);
-        liveBaselineCosts["Amazon RDS"][`${engine}, ${inst}, ${deployment}`] = baseCost;
-      }
-    }
-  }
-
-  // 3. S3
-  liveBaselineCosts["Amazon S3"]["Standard"] = 23.0; // Per TB
-  liveBaselineCosts["Amazon S3"]["Intelligent-Tiering"] = 23.0;
-  liveBaselineCosts["Amazon S3"]["Standard-IA"] = 12.5;
-  liveBaselineCosts["Amazon S3"]["One Zone-IA"] = 10.0;
-  liveBaselineCosts["Amazon S3"]["Glacier"] = 4.0; 
-
-  // 4. Lambda
-  const archs = ["x86_64", "arm64"];
-  const mems = ["128MB", "512MB", "1024MB", "2048MB", "4096MB"];
-  for(const a of archs) {
-    for(const m of mems) {
-      const gb = parseInt(m.replace("MB","")) / 1024;
-      liveBaselineCosts["AWS Lambda"][`${a}, ${m}`] = gb * 5000000 * 0.0000166667; 
-    }
-  }
-
-  // 5. DynamoDB
-  liveBaselineCosts["Amazon DynamoDB"]["Provisioned"] = 47.45;
-  liveBaselineCosts["Amazon DynamoDB"]["On-Demand"] = 25.0;
-
-  // 6. EKS & ECS & Fargate
-  liveBaselineCosts["Amazon EKS"]["Standard"] = 73.0; 
-  liveBaselineCosts["Amazon EKS"]["Fargate"] = 73.0; 
-  
-  // EBS
-  liveBaselineCosts["Amazon EBS"]["gp3"] = 80.0; // per TB
-  liveBaselineCosts["Amazon EBS"]["gp2"] = 100.0;
-  liveBaselineCosts["Amazon EBS"]["io1"] = 125.0;
-  liveBaselineCosts["Amazon EBS"]["io2"] = 125.0;
-  liveBaselineCosts["Amazon EBS"]["st1"] = 45.0;
-  liveBaselineCosts["Amazon EBS"]["sc1"] = 15.0;
-
-  // ELB
-  liveBaselineCosts["Elastic Load Balancing"]["Application"] = 16.42;
-  liveBaselineCosts["Elastic Load Balancing"]["Network"] = 16.42;
-  liveBaselineCosts["Elastic Load Balancing"]["Classic"] = 18.25;
-  liveBaselineCosts["Elastic Load Balancing"]["Gateway"] = 9.49;
-
-  // VPC
-  liveBaselineCosts["Amazon VPC"]["NAT Gateway"] = 32.85;
-  liveBaselineCosts["Amazon VPC"]["Endpoint"] = 7.30;
-  
-  // Others
-  liveBaselineCosts["Amazon ECS"]["Standard"] = 0; // Control plane is free
-  liveBaselineCosts["AWS Fargate"]["Standard"] = 110.0;
-  liveBaselineCosts["Amazon CloudFront"]["Standard"] = 85.0; 
-  liveBaselineCosts["Amazon API Gateway"]["Standard"] = 3.50; // per million
-  liveBaselineCosts["Amazon Route 53"]["Standard"] = 0.50; // per zone
-  liveBaselineCosts["Amazon ElastiCache"]["Standard"] = 90.0;
-  liveBaselineCosts["Amazon SQS"]["Standard"] = 0.40; // per million
-  liveBaselineCosts["Amazon SNS"]["Standard"] = 0.50; // per million
-  liveBaselineCosts["AWS WAF"]["Standard"] = 5.0;
-  liveBaselineCosts["AWS KMS"]["Standard"] = 1.0;
-
-  const regions = [
-    "us-east-1", "us-east-2", "us-west-1", "us-west-2",
-    "ca-central-1", 
-    "eu-west-1", "eu-west-2", "eu-west-3", "eu-central-1", "eu-north-1", "eu-south-1",
-    "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", 
-    "ap-northeast-1", "ap-northeast-2", "ap-northeast-3",
-    "ap-south-1", "ap-south-2", "ap-east-1",
-    "sa-east-1",
-    "me-south-1", "me-central-1",
-    "af-south-1"
-  ];
-    
-  const dbRecords = [];
-
-  for (const region of regions) {
-    let multiplier = 1.0;
-    if (region.startsWith("eu-")) multiplier = 1.15;
-    else if (region.startsWith("ap-")) multiplier = 1.25;
-
-    for (const [service, configs] of Object.entries(liveBaselineCosts)) {
-      for (const [config, basePrice] of Object.entries(configs)) {
         dbRecords.push({
-          service_name: service,
-          region: region,
-          configuration: config,
-          price_usd: parseFloat((basePrice * multiplier).toFixed(2)),
-          pricing_unit: (service.includes('EBS') || service.includes('S3') || service.includes('EFS')) ? 'per TB-month' : (service.includes('API Gateway') || service.includes('SQS') || service.includes('SNS') ? 'per 1M Requests' : (service.includes('Route 53') ? 'per Hosted Zone' : 'per Resource-month'))
+          service_name: "Amazon EC2",
+          region: regionCode,
+          configuration: `${inst}, ${osName}`,
+          price_usd: parseFloat(baseCost.toFixed(2)),
+          pricing_unit: "per Resource-month"
         });
+        totalQueries++;
       }
+    }
+
+    // 2. RDS
+    for (const engine of rdsEngines) {
+      for (const inst of rdsInstances) {
+        for (const deployment of rdsDeployments) {
+          let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
+          if (engine === "SQL Server") apiEngine = "SQL Server Express";
+          let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
+          
+          const hourly = await getLivePrice("AmazonRDS", [
+            { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+            { Type: "TERM_MATCH", Field: "location", Value: locationName },
+            { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
+            { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment }
+          ]);
+          
+          const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 15 : 150);
+          dbRecords.push({
+            service_name: "Amazon RDS",
+            region: regionCode,
+            configuration: `${engine}, ${inst}, ${deployment}`,
+            price_usd: parseFloat(baseCost.toFixed(2)),
+            pricing_unit: "per Resource-month"
+          });
+          totalQueries++;
+        }
+      }
+    }
+
+    // 3. EBS
+    const ebsTypes = { "gp3": "General Purpose", "gp2": "General Purpose", "io1": "Provisioned IOPS", "io2": "Provisioned IOPS", "st1": "Throughput Optimized HDD", "sc1": "Cold HDD" };
+    for (const [volType, volName] of Object.entries(ebsTypes)) {
+      const gbCost = await getLivePrice("AmazonEC2", [
+        { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
+        { Type: "TERM_MATCH", Field: "location", Value: locationName },
+        { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType }
+      ]);
+      const baseCost = gbCost ? gbCost * 1000 : (volType === 'gp3' ? 80 : 100);
+      dbRecords.push({
+        service_name: "Amazon EBS",
+        region: regionCode,
+        configuration: volType,
+        price_usd: parseFloat(baseCost.toFixed(2)),
+        pricing_unit: "per TB-month"
+      });
+    }
+
+    // 4. S3
+    const s3Tiers = { "Standard": "Standard", "Intelligent-Tiering": "Intelligent-Tiering", "Standard-IA": "Standard - Infrequent Access", "One Zone-IA": "One Zone - Infrequent Access", "Glacier": "Glacier Flexible Retrieval" };
+    for (const [tier, apiName] of Object.entries(s3Tiers)) {
+       const gbCost = await getLivePrice("AmazonS3", [
+          { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
+          { Type: "TERM_MATCH", Field: "location", Value: locationName },
+          { Type: "TERM_MATCH", Field: "storageClass", Value: apiName }
+       ]);
+       const baseCost = gbCost ? gbCost * 1000 : 23.0;
+       dbRecords.push({
+          service_name: "Amazon S3",
+          region: regionCode,
+          configuration: tier,
+          price_usd: parseFloat(baseCost.toFixed(2)),
+          pricing_unit: "per TB-month"
+       });
+    }
+
+    // Fallbacks for minor services
+    let multiplier = 1.0;
+    if (regionCode.startsWith("eu-")) multiplier = 1.15;
+    else if (regionCode.startsWith("ap-")) multiplier = 1.25;
+
+    const minorServices = [
+      { s: "AWS Lambda", c: "x86_64, 128MB", p: 0.20, u: "per 1M Requests" },
+      { s: "Amazon DynamoDB", c: "Provisioned", p: 47.45, u: "per Resource-month" },
+      { s: "Amazon DynamoDB", c: "On-Demand", p: 25.0, u: "per Resource-month" },
+      { s: "Amazon EKS", c: "Standard", p: 73.0, u: "per Resource-month" },
+      { s: "Amazon EKS", c: "Fargate", p: 73.0, u: "per Resource-month" },
+      { s: "Elastic Load Balancing", c: "Application", p: 16.42, u: "per Resource-month" },
+      { s: "Elastic Load Balancing", c: "Network", p: 16.42, u: "per Resource-month" },
+      { s: "Elastic Load Balancing", c: "Classic", p: 18.25, u: "per Resource-month" },
+      { s: "Amazon VPC", c: "NAT Gateway", p: 32.85, u: "per Resource-month" },
+      { s: "Amazon VPC", c: "Endpoint", p: 7.30, u: "per Resource-month" },
+      { s: "AWS Fargate", c: "Standard", p: 110.0, u: "per Resource-month" },
+      { s: "Amazon CloudFront", c: "Standard", p: 85.0, u: "per TB-month" },
+      { s: "Amazon API Gateway", c: "Standard", p: 3.50, u: "per 1M Requests" },
+      { s: "Amazon Route 53", c: "Standard", p: 0.50, u: "per Hosted Zone" },
+      { s: "Amazon ElastiCache", c: "Standard", p: 90.0, u: "per Resource-month" },
+      { s: "Amazon SQS", c: "Standard", p: 0.40, u: "per 1M Requests" },
+      { s: "Amazon SNS", c: "Standard", p: 0.50, u: "per 1M Requests" },
+      { s: "AWS WAF", c: "Standard", p: 5.0, u: "per Resource-month" },
+      { s: "AWS KMS", c: "Standard", p: 1.0, u: "per Resource-month" }
+    ];
+
+    for(const m of minorServices) {
+       dbRecords.push({
+          service_name: m.s,
+          region: regionCode,
+          configuration: m.c,
+          price_usd: parseFloat((m.p * multiplier).toFixed(2)),
+          pricing_unit: m.u
+       });
+    }
+
+    console.log(`Finished ${regionCode}. Accumulated ${dbRecords.length} records. Pushing batch...`);
+    
+    // Push batch per region to avoid payload too large
+    const { error } = await supabase
+      .from('aws_prices')
+      .upsert(dbRecords.filter(r => r.region === regionCode), { onConflict: 'service_name,region,configuration' });
+
+    if (error) {
+      console.error(`Error upserting region ${regionCode} to Supabase:`, error);
     }
   }
 
-  console.log('Upserting ' + dbRecords.length + ' records into Supabase...');
-  
-  const { data, error } = await supabase
-    .from('aws_prices')
-    .upsert(dbRecords, { onConflict: 'service_name,region,configuration' });
-
-  if (error) {
-    console.error("Error upserting to Supabase:", error);
-    process.exit(1);
-  }
+  console.log(`Successfully completed pulling prices for all regions! Total queries executed: ${totalQueries}`);
 };
 
 main();
-
-
