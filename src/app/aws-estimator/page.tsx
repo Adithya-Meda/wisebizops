@@ -189,7 +189,11 @@ export default function AwsEstimator() {
       const reader = new FileReader();
       reader.onload = (event) => {
         const text = event.target?.result as string;
-        if (text) parseTerraformDeterministically(text);
+        if (text) {
+          const parsed = parseTerraformDeterministically(text);
+          if (parsed.length > 0) setAddedResources(parsed);
+          else toast.error("No supported AWS resources found in Terraform code.");
+        }
       };
       reader.readAsText(file);
     };
@@ -205,7 +209,11 @@ export default function AwsEstimator() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const text = event.target?.result as string;
-      if (text) parseTerraformDeterministically(text);
+        if (text) {
+          const parsed = parseTerraformDeterministically(text);
+          if (parsed.length > 0) setAddedResources(parsed);
+          else toast.error("No supported AWS resources found in Terraform code.");
+        }
     };
     reader.readAsText(file);
   };
@@ -559,6 +567,7 @@ export default function AwsEstimator() {
 
 
  
+
 
 
 
