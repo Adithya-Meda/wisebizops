@@ -105,15 +105,18 @@ const main = async () => {
 
     // 1. EC2
     for (const inst of ec2Instances) {
-      for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
-        const hourly = await getLivePrice("AmazonEC2", [
+      const operatingSystemsWithMac = { ...operatingSystems, "macOS": "Linux" };
+      for (const [osName, osApiValue] of Object.entries(operatingSystemsWithMac)) {
+        const isMac = osName === "macOS";
+        const ec2Filters = [
           { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
           { Type: "TERM_MATCH", Field: "location", Value: locationName },
           { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
-          { Type: "TERM_MATCH", Field: "tenancy", Value: "Shared" },
-          { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" },
-          { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
-        ]);
+          { Type: "TERM_MATCH", Field: "tenancy", Value: isMac ? "Host" : "Shared" },
+          { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" }
+        ];
+        if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
+        const hourly = await getLivePrice("AmazonEC2", ec2Filters);
         const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
         
         dbRecords.push({
@@ -136,8 +139,6 @@ const main = async () => {
           let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
           
           const hourly = await getLivePrice("AmazonRDS", [
-            { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-            { Type: "TERM_MATCH", Field: "location", Value: locationName },
             { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
             { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment }
           ]);
@@ -160,7 +161,6 @@ const main = async () => {
     for (const [volType, volName] of Object.entries(ebsTypes)) {
       const gbCost = await getLivePrice("AmazonEC2", [
         { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-        { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType }
       ]);
       const baseCost = gbCost ? gbCost * 1024 : (volType === 'gp3' ? 80 : 100);
@@ -178,7 +178,6 @@ const main = async () => {
     for (const [tier, apiName] of Object.entries(s3Tiers)) {
        const gbCost = await getLivePrice("AmazonS3", [
           { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-          { Type: "TERM_MATCH", Field: "location", Value: locationName },
           { Type: "TERM_MATCH", Field: "storageClass", Value: apiName }
        ]);
        const baseCost = gbCost ? gbCost * 1024 : 23.0;
