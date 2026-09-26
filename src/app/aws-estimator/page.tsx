@@ -113,7 +113,8 @@ export default function AwsEstimator() {
       for (const match of ec2Matches) {
         const typeMatch = match[2].match(/instance_type\s*=\s*"([^"]+)"/);
         const inst = typeMatch ? typeMatch[1] : "t3.medium";
-        resources.push({ name: `Amazon EC2 (${inst}, Linux)`, quantity: 1 });
+          const os = inst.includes("mac") ? "macOS" : "Linux";
+          resources.push({ name: `Amazon EC2 (${inst}, ${os})`, quantity: 1 });
         
         const ebsMatch = match[2].match(/volume_size\s*=\s*(\d+)/);
         if (ebsMatch) resources.push({ name: `Amazon EBS (gp3)`, quantity: 1, storage: parseInt(ebsMatch[1]) });
