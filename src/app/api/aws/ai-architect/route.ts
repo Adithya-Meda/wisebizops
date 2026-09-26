@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     
     const apiKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: "Google Gemini API key not configured on the server." }, { status: 500 });
+      return NextResponse.json({ error: `Google Gemini API key not configured on the server. Looked for GOOGLE_API_KEY or GEMINI_API_KEY. Found: ${Object.keys(process.env).filter(k => k.includes("API") || k.includes("GEMINI") || k.includes("GOOGLE")).join(", ")}` }, { status: 500 });
     }
 
     const systemPrompt = `You are an elite, senior AWS Cloud Solutions Architect. The user will describe a business requirement, application architecture, or provide Terraform configurations.
