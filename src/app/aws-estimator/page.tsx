@@ -6,8 +6,8 @@ import { toast } from "sonner";
 type ConfigOption = { label: string; options: string[] };
 const serviceConfigs: Record<string, ConfigOption[]> = {
   "Amazon EC2": [
-    { label: "Instance Type", options: ["t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge", "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge", "m5.large", "m5.xlarge", "m5.2xlarge", "m5.4xlarge", "m6g.large", "m6g.xlarge", "m6g.2xlarge", "m6g.4xlarge", "m7i.large", "m7i.xlarge", "m7i.2xlarge", "m7i.4xlarge", "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge", "c6g.large", "c6g.xlarge", "c6g.2xlarge", "c6g.4xlarge", "c7g.large", "c7g.xlarge", "c7g.2xlarge", "c7g.4xlarge", "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge", "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge", "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge"] },
-    { label: "Operating System", options: ["Linux", "Windows", "Ubuntu", "RHEL"] }
+    { label: "Instance Type", options: ["t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge", "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge", "m5.large", "m5.xlarge", "m5.2xlarge", "m5.4xlarge", "m6g.large", "m6g.xlarge", "m6g.2xlarge", "m6g.4xlarge", "m7i.large", "m7i.xlarge", "m7i.2xlarge", "m7i.4xlarge", "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge", "c6g.large", "c6g.xlarge", "c6g.2xlarge", "c6g.4xlarge", "c7g.large", "c7g.xlarge", "c7g.2xlarge", "c7g.4xlarge", "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge", "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge", "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge", "mac1.metal", "mac2.metal"] },
+    { label: "Operating System", options: ["Linux", "Windows", "Ubuntu", "RHEL", "macOS"] }
   ],
   "Amazon RDS": [
     { label: "Database Engine", options: ["PostgreSQL", "MySQL", "Aurora", "MariaDB", "Oracle", "SQL Server"] },
