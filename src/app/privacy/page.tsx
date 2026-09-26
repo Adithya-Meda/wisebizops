@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Data Processing (In-Memory Only)</h2>
           <p>When you use any diagnostic or estimation tools within the WiseBizOps suite:</p>
-          <ul className="list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-400">
+          <ul className="list-disc pl-5 space-y-1">
             <li><strong>No Cloud Credentials Required:</strong> WiseBizOps operates entirely disconnected. We never ask for, process, or store your AWS API Keys, IAM Roles, or Kubernetes cluster credentials.</li>
             <li><strong>Terraform Files:</strong> Uploaded state files are parsed in-memory strictly for cost estimation and are destroyed immediately after the calculation.</li>
             <li><strong>Log Diagnostics:</strong> Kubectl logs are processed statelessly. We do not retain history of your cluster logs.</li>
@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">3. Automated PII Redaction & Encryption</h2>
           <p>Before any data is analyzed by our systems or sent to secure AI models, it passes through a strict scrubbing protocol:</p>
-          <ul className="list-disc pl-5 space-y-1 text-zinc-600 dark:text-zinc-400">
+          <ul className="list-disc pl-5 space-y-1">
             <li><strong>PII Scrubbing:</strong> All IPv4/IPv6 addresses, MAC addresses, Email addresses, and credentials (e.g., API keys, Bearer tokens) are automatically detected and replaced with [REDACTED] tags.</li>
             <li><strong>Zero Persistence:</strong> We operate entirely statelessly. No diagnostic data, logs, or Terraform configurations are ever saved to a database, cached, or written to disk.</li>
           </ul>
