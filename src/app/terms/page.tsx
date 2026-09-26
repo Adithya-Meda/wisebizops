@@ -23,7 +23,7 @@ export default function TermsOfService() {
 
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">3. Infrastructure Security</h2>
-          <p>You are solely responsible for ensuring you have the legal right and authorization to access the AWS and Kubernetes environments you connect to this platform. Using this platform to attempt unauthorized access to infrastructure is strictly prohibited.</p>
+          <p>WiseBizOps is a disconnected, offline parser. It does not connect to your live AWS or Kubernetes environments. You are solely responsible for ensuring you have the right to copy and upload the textual logs and Terraform code you process through our tools.</p>
         </section>
         
         <section className="space-y-3">
