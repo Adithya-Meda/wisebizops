@@ -162,7 +162,7 @@ const main = async () => {
         { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType }
       ]);
-      const baseCost = gbCost ? gbCost * 1000 : (volType === 'gp3' ? 80 : 100);
+      const baseCost = gbCost ? gbCost * 1024 : (volType === 'gp3' ? 80 : 100);
       dbRecords.push({
         service_name: "Amazon EBS",
         region: regionCode,
@@ -180,7 +180,7 @@ const main = async () => {
           { Type: "TERM_MATCH", Field: "location", Value: locationName },
           { Type: "TERM_MATCH", Field: "storageClass", Value: apiName }
        ]);
-       const baseCost = gbCost ? gbCost * 1000 : 23.0;
+       const baseCost = gbCost ? gbCost * 1024 : 23.0;
        dbRecords.push({
           service_name: "Amazon S3",
           region: regionCode,
