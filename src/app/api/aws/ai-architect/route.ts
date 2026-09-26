@@ -48,7 +48,8 @@ export async function POST(req: Request) {
 
 CRITICAL ARCHITECTURAL DIRECTIVES:
 1. BE LITERAL AND EXACT: Do not hallucinate or over-provision resources that the user did not ask for. If the user only asks for an EC2 instance, ONLY return an EC2 instance.
-2. STRICT SCHEMA ADHERENCE: You MUST format the "name" property exactly using the templates below. DO NOT invent your own formats. The format is always "Service Name (Configuration)". If a configuration is missing, use "(Standard)".
+2. SMART STORAGE DIVISION: If a user asks for a "total" amount of storage across multiple instances (e.g., "3 EC2 instances with 500GB total storage"), you MUST divide the total storage by the quantity of instances. In that example, output quantity 3 and storage 167. Do NOT output quantity 3 and storage 500.
+3. STRICT SCHEMA ADHERENCE: You MUST format the "name" property exactly using the templates below. DO NOT invent your own formats. The format is always "Service Name (Configuration)". If a configuration is missing, use "(Standard)".
 
 SUPPORTED SERVICES AND EXACT FORMAT TEMPLATES:
 - EC2: "Amazon EC2 (INSTANCE_TYPE, OS)" -> e.g., "Amazon EC2 (t3.medium, Linux)" or "Amazon EC2 (c5.large, Windows)"
