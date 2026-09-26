@@ -139,9 +139,10 @@ const main = async () => {
           let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
           
           const hourly = await getLivePrice("AmazonRDS", [
-            { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
-            { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment }
-          ]);
+              { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
+              { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment },
+              { Type: "TERM_MATCH", Field: "instanceType", Value: inst }
+            ]);
           
           const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 15 : 150);
           dbRecords.push({
@@ -243,3 +244,4 @@ const main = async () => {
 };
 
 main();
+
