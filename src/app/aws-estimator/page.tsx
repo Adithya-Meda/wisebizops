@@ -352,6 +352,9 @@ export default function AwsEstimator() {
                     </div>
                     <h3 className="text-sm font-medium text-primary-600 dark:text-primary-500 mb-1 transition-colors">{isDragging ? 'Drop file to parse' : (isProcessing ? 'Processing...' : 'Upload or Drop .tf Files')}</h3>
                     <p className="text-[11px] text-zinc-500 mb-2">Click or drag and drop your Terraform file.</p>
+                    <p className="text-[10px] text-amber-600 dark:text-amber-500/80 mb-2 font-medium bg-amber-50 dark:bg-amber-900/20 px-2 py-1.5 rounded inline-block">
+                      Note: The offline parser evaluates static, declarative resource blocks only. Variables, loops, and remote modules are not resolved.
+                    </p>
                     <div className="mt-4 p-3 bg-black/5 dark:bg-white/5 rounded-lg text-left text-[11px] text-zinc-500 dark:text-zinc-400">
                       <strong>Supported Auto-Parsing:</strong> EC2 Instances (w/ dependent EBS root volumes), RDS Databases, S3 Buckets, EKS Clusters, ALBs/NLBs, and NAT Gateways.
                     </div>
@@ -556,6 +559,7 @@ export default function AwsEstimator() {
 
 
  
+
 
 
 
