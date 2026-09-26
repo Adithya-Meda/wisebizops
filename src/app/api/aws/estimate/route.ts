@@ -44,16 +44,14 @@ export async function POST(req: Request) {
     let total = 0;
     const breakdown = [];
 
-    for (const res of resources) {
+    const results = await Promise.all(resources.map(async (res: any) => {
       let resStr = typeof res === 'object' ? res.name : res;
       let quantity = typeof res === 'object' ? (res.quantity || 1) : 1;
       let storage = typeof res === 'object' ? res.storage : undefined;
 
       const match = resStr.match(/^([^(]+?)(?:\s*\(([^)]+)\))?$/);
       if (!match) {
-        breakdown.push({ service: resStr, cost: 0, quantity, ...(storage !== undefined && {storage}), error: true, message: 'Invalid or unsupported format' });
-        // total += 50 * quantity; // DO NOT add to total
-        continue;
+        return { service: resStr, cost: 0, quantity, ...(storage !== undefined && {storage}), error: true, message: 'Invalid or unsupported format' };
       }
 
       const serviceName = match[1].trim();
@@ -90,11 +88,10 @@ export async function POST(req: Request) {
       }
 
       if (unsupported) {
-        breakdown.push({ service: resStr, cost: 0, quantity, unitCost: 0, error: true, message: 'Configuration unsupported or missing from DB' });
-        continue;
+        return { service: resStr, cost: 0, quantity, unitCost: 0, error: true, message: 'Configuration unsupported or missing from DB' };
       }
       let cost = unitCost * quantity;
-      
+
       // Handle storage math correctly depending on the service type
       if (serviceName.includes("S3") || serviceName.includes("EBS") || serviceName.includes("EFS")) {
          // Storage services: unit cost is per TB. Convert input GB to TB.
@@ -104,9 +101,15 @@ export async function POST(req: Request) {
          // Compute services (RDS, etc): compute is separate from storage. Add storage as .10/GB flat fee.
         cost = (unitCost * quantity) + (0.10 * storage);
       }
-      
-      total += cost;
-        breakdown.push({ service: resStr, cost, quantity, unitCost, ...(storage !== undefined && {storage}) });
+
+      return { service: resStr, cost, quantity, unitCost, ...(storage !== undefined && {storage}) };
+    }));
+
+    for (const item of results) {
+      breakdown.push(item);
+      if (!item.error) {
+        total += item.cost;
+      }
     }
 
     return NextResponse.json({
