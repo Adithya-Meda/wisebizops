@@ -95,7 +95,7 @@ export async function POST(req: Request) {
       // Handle storage math correctly depending on the service type
       if (serviceName.includes("S3") || serviceName.includes("EBS") || serviceName.includes("EFS")) {
          // Storage services: unit cost is per TB. Convert input GB to TB (using 1024 GiB = 1 TiB, which is how AWS calculates it).
-        cost = unitCost * quantity * (storage || 0);
+        cost = unitCost * quantity * ((storage || 0) / 1024);
       } else if (storage !== undefined && storage > 0) {
          // Compute services (RDS, etc): compute is separate from storage. Add storage as .10/GB flat fee.
         cost = (unitCost * quantity) + (0.10 * storage);
@@ -121,6 +121,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
 
 
 
