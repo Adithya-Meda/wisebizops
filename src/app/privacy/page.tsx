@@ -42,7 +42,7 @@ export default function PrivacyPolicy() {
         
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">6. Contact Us</h2>
-          <p>For any security or privacy concerns, please contact our security team at <a href='mailto:connect@wisebiz.online' className='text-zinc-900 dark:text-zinc-100 underline hover:no-underline transition-colors'>connect@wisebiz.online</a>.</p>
+          <p>For any security or privacy concerns, please contact us at <a href='mailto:connect@wisebiz.online' className='text-zinc-900 dark:text-zinc-100 underline hover:no-underline transition-colors'>connect@wisebiz.online</a>.</p>
         </section>
       </div>
     </div>
