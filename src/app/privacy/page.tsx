@@ -30,13 +30,18 @@ export default function PrivacyPolicy() {
           </ul>
         </section>
 
+                <section className="space-y-3">
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">4. No Tracking, Analytics, or Data Selling</h2>
+          <p>We respect your right to privacy. WiseBizOps operates entirely without user accounts, tracking cookies, or invasive analytics pixels. We do not aggregate your usage data, and we will never sell, rent, or distribute any information to third-party advertisers or data brokers.</p>
+        </section>
+
         <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">4. Third-Party Subprocessors</h2>
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">5. Third-Party Subprocessors</h2>
           <p>We utilize secure, enterprise-grade AI engines for log analysis and architecture description. No PII is intentionally transmitted, and all inputs are processed statelessly without being used for foundational model training.</p>
         </section>
         
         <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">5. Contact Us</h2>
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">6. Contact Us</h2>
           <p>For any security or privacy concerns, please contact our security team at <a href='mailto:connect@wisebiz.online' className='text-zinc-900 dark:text-zinc-100 underline hover:no-underline transition-colors'>connect@wisebiz.online</a>.</p>
         </section>
       </div>
