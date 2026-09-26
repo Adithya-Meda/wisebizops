@@ -131,7 +131,19 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const text = event.target?.result as string;
         if (text) {
           const parsed = parseTerraformDeterministically(text);
-          if (parsed.length > 0) setAddedResources(parsed);
+          if (parsed.length > 0) {
+          const grouped = parsed.reduce((acc: any[], curr: any) => {
+            const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);
+            if (existing) {
+              existing.quantity += curr.quantity;
+            } else {
+              acc.push({ ...curr });
+            }
+            return acc;
+          }, []);
+          setAddedResources(grouped);
+          toast.success('Successfully parsed resources!');
+          }
           else toast.error("No supported AWS resources found in Terraform code.");
         }
       };
@@ -151,7 +163,19 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
       const text = event.target?.result as string;
         if (text) {
           const parsed = parseTerraformDeterministically(text);
-          if (parsed.length > 0) setAddedResources(parsed);
+          if (parsed.length > 0) {
+          const grouped = parsed.reduce((acc: any[], curr: any) => {
+            const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);
+            if (existing) {
+              existing.quantity += curr.quantity;
+            } else {
+              acc.push({ ...curr });
+            }
+            return acc;
+          }, []);
+          setAddedResources(grouped);
+          toast.success('Successfully parsed resources!');
+          }
           else toast.error("No supported AWS resources found in Terraform code.");
         }
     };
@@ -507,6 +531,7 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 
  
+
 
 
 
