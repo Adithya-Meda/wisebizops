@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Logs exceed maximum allowed length of 10000 characters. Please truncate the output." }, { status: 400 });
     }
     
-    const apiKey = process.env.GOOGLE_API_KEY;
+    const apiKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: "Google Gemini API key not configured on the server." }, { status: 500 });
     }
