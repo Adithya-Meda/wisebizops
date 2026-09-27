@@ -20,7 +20,7 @@ export function calculatePricing(
 
       const match = resStr.match(/^([^(]+?)(?:\s*\(([^)]+)\))?$/);
       if (!match) {
-        return { service: resStr, cost: 0, quantity, ...(storage !== undefined && { storage }), error: true, message: 'Invalid or unsupported format' };
+        return { service: resStr, cost: 0, quantity, unitCost: 0, ...(storage !== undefined && { storage }), error: true, message: 'Invalid or unsupported format' };
       }
 
       const serviceName = match[1].trim();
