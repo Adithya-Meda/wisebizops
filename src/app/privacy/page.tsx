@@ -3,7 +3,7 @@ export default function PrivacyPolicy() {
     <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in duration-1000">
       <div>
         <h1 className="text-3xl font-medium tracking-tight text-zinc-900 dark:text-zinc-100 mb-2 transition-colors">Privacy Policy</h1>
-        </div>
+      </div>
 
       <div className="space-y-8 text-sm text-zinc-700 dark:text-zinc-300 transition-colors">
         <section className="space-y-3">
@@ -12,37 +12,45 @@ export default function PrivacyPolicy() {
         </section>
         
         <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Data Processing (In-Memory Only)</h2>
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Data Processing & Transmission</h2>
           <p>When you use any diagnostic or estimation tools within the WiseBizOps suite:</p>
           <ul className="list-disc pl-5 space-y-1">
-            <li><strong>No Cloud Credentials Required:</strong> WiseBizOps operates entirely disconnected. We never ask for, process, or store your AWS API Keys, IAM Roles, or Kubernetes cluster credentials.</li>
-            <li><strong>Terraform Files:</strong> Uploaded state files are parsed in-memory strictly for cost estimation and are destroyed immediately after the calculation.</li>
-            <li><strong>Log Diagnostics:</strong> Kubectl logs are processed statelessly. We do not retain history of your cluster logs.</li>
-          </ul>
-                </section>
-
-        <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">3. Automated PII Redaction & Encryption</h2>
-          <p>Before any data is analyzed by our systems or sent to secure AI models, it passes through a strict scrubbing protocol:</p>
-          <ul className="list-disc pl-5 space-y-1">
-            <li><strong>PII Scrubbing:</strong> All IPv4/IPv6 addresses, MAC addresses, Email addresses, and credentials (e.g., API keys, Bearer tokens) are automatically detected and replaced with [REDACTED] tags.</li>
-            <li><strong>Zero Persistence:</strong> We operate entirely statelessly. No diagnostic data, logs, or Terraform configurations are ever saved to a database, cached, or written to disk.</li>
+            <li><strong>No Cloud Credentials Required:</strong> WiseBizOps never asks for, processes, or stores your AWS API Keys, IAM Roles, or Kubernetes cluster credentials.</li>
+            <li><strong>Stateless Operations:</strong> Terraform files and Kubernetes logs are parsed in-memory and are securely transmitted to our third-party subprocessors for analysis. We do not retain or persist history of your cluster logs or infrastructure code.</li>
           </ul>
         </section>
 
-                <section className="space-y-3">
+        <section className="space-y-3">
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">3. Best-Effort PII Redaction</h2>
+          <p>Before any data is analyzed by our systems or sent to secure AI models, it passes through an automated scrubbing protocol:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li><strong>Heuristic Scrubbing:</strong> We employ automated heuristics that attempt to detect and redact common PII, including IPv4/IPv6 addresses, MAC addresses, Email addresses, and standard credential patterns.</li>
+            <li><strong>User Responsibility:</strong> While we strive to mask sensitive data, our filters cannot guarantee the redaction of all proprietary information or novel token formats. You remain solely responsible for ensuring no sensitive credentials, trade secrets, or confidential PII are included in the logs or prompts you submit.</li>
+          </ul>
+        </section>
+
+        <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">4. No Tracking, Analytics, or Data Selling</h2>
           <p>We respect your right to privacy. WiseBizOps operates entirely without user accounts, tracking cookies, or invasive analytics pixels. We do not aggregate your usage data, and we will never sell, rent, or distribute any information to third-party advertisers or data brokers.</p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">5. Third-Party Subprocessors</h2>
-          <p>We utilize secure, enterprise-grade AI engines for log analysis and architecture description. No PII is intentionally transmitted, and all inputs are processed statelessly without being used for foundational model training.</p>
+          <p>To provide our services, data is processed statelessly over encrypted channels using the following enterprise-grade subprocessors:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li><strong>Google (Gemini API):</strong> Utilized for advanced AI log analysis and architectural generation. Data is processed statelessly and is strictly opted-out of foundational model training.</li>
+            <li><strong>Supabase:</strong> Utilized strictly for querying our publicly maintained AWS pricing database. User architecture inputs are not stored here.</li>
+          </ul>
         </section>
         
         <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">6. Contact Us</h2>
-          <p>For any security or privacy concerns, please contact us at <a href='mailto:connect@wisebiz.online' className='text-zinc-900 dark:text-zinc-100 underline hover:no-underline transition-colors'>connect@wisebiz.online</a>.</p>
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">6. International Data Transfers & Compliance</h2>
+          <p>By using our services, you acknowledge that your data may be processed in regions outside of your jurisdiction. We operate in compliance with standard industry practices, but we act solely as a processor of the telemetry you voluntarily provide.</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">7. Contact Us</h2>
+          <p>For any security, compliance, or privacy concerns, please contact our Data Protection Office at <a href='mailto:connect@wisebiz.online' className='text-zinc-900 dark:text-zinc-100 underline hover:no-underline transition-colors'>connect@wisebiz.online</a>.</p>
         </section>
       </div>
     </div>
