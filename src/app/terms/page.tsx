@@ -61,9 +61,10 @@ export default function TermsOfService() {
 
         <section className="space-y-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">9. Contact Information</h2>
-          <p>If you have any questions about these Terms, please contact us at <a href='mailto:connect@wisebiz.online' className='text-zinc-900 dark:text-zinc-100 underline hover:no-underline transition-colors'>connect@wisebiz.online</a>.</p>
+          <p>If you have any questions about these Terms, please contact us at .....</p>
         </section>
       </div>
     </div>
   );
 }
+
