@@ -72,7 +72,7 @@ Do not return any text outside of the JSON block.`;
     }
 
     if (!data) {
-      throw new Error(`All Gemini models in the cascade failed. Last error: ${last(error as Error)?.message}`);
+      throw new Error(`All Gemini models in the cascade failed. Last error: ${(lastError as Error)?.message}`);
     }
 
     let generatedDiagnosis = null;
@@ -80,7 +80,7 @@ Do not return any text outside of the JSON block.`;
       const textResponse = data.candidates[0].content.parts[0].text;
       generatedDiagnosis = JSON.parse(textResponse);
     } catch (parseError) {
-      console.error("Failed to parse Gemini JSON:", parse(error as Error)?.message || "Parse Error");
+      console.error("Failed to parse Gemini JSON:", (parseError as Error)?.message || "Parse Error");
       return NextResponse.json({ error: "AI failed to generate a valid diagnosis." }, { status: 500 });
     }
 
@@ -90,5 +90,6 @@ Do not return any text outside of the JSON block.`;
     return NextResponse.json({ error: error.message || "Failed to process AI request" }, { status: 500 });
   }
 }
+
 
 

@@ -15,6 +15,8 @@
   "dependencies": {
     "@aws-sdk/client-pricing": "^3.1140.0",
     "@supabase/supabase-js": "^2.117.2",
+    "@upstash/ratelimit": "^2.2.0",
+    "@upstash/redis": "^1.39.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "lucide-react": "^1.47.0",
