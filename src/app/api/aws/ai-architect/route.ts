@@ -97,7 +97,10 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
         const endpoint = `${baseUrl}/v1beta/models/${model}:generateContent?key=${apiKey}`;
         const response = await fetch(endpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            ...(gatewayUrl && process.env.CLOUDFLARE_AI_GATEWAY_TOKEN ? { 'cf-aig-authorization': process.env.CLOUDFLARE_AI_GATEWAY_TOKEN } : {})
+          },
           body: JSON.stringify({
             system_instruction: { parts: [{ text: systemPrompt }] },
             contents: [
@@ -151,3 +154,4 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
     return NextResponse.json({ error: errMsg }, { status: 500 });
   }
 }
+
