@@ -90,7 +90,29 @@ export function parseTerraformDeterministically(text: string) {
     resources.push({ name: `Amazon EKS (Fargate)`, quantity: 1 });
   }
 
+  // Minor Services
+  const elbMatches = text.matchAll(/resource\s+"aws_elb"\s+"([^"]+)"\s*\{([\s\S]*?)(?=\n\s*resource|$)/g);
+  for (const match of elbMatches) {
+    resources.push({ name: "Elastic Load Balancing (Classic)", quantity: 1 });
+  }
+  const dynamoMatches = text.matchAll(/resource\s+"aws_dynamodb_table"\s+"([^"]+)"\s*\{([\s\S]*?)(?=\n\s*resource|$)/g);
+  for (const match of dynamoMatches) {
+    const billingMatch = match[2].match(/billing_mode\s*=\s*"([^"]+)"/);
+    const billingMode = billingMatch && billingMatch[1].toUpperCase() === "PAY_PER_REQUEST" ? "On-Demand" : "Provisioned";
+    resources.push({ name: `Amazon DynamoDB (${billingMode})`, quantity: 1 });
+  }
+  const lambdaMatches = text.matchAll(/resource\s+"aws_lambda_function"\s+"([^"]+)"\s*\{([\s\S]*?)(?=\n\s*resource|$)/g);
+  for (const match of lambdaMatches) {
+    const archMatch = match[2].match(/architectures\s*=\s*\["([^"]+)"\]/);
+    const arch = archMatch && archMatch[1].toLowerCase().includes("arm64") ? "arm64" : "x86_64";
+    const memMatch = match[2].match(/memory_size\s*=\s*(\d+)/);
+    const mem = memMatch ? memMatch[1] : "128";
+    resources.push({ name: `AWS Lambda (${arch}, ${mem}MB)`, quantity: 1 });
+  }
+  const natMatches = text.matchAll(/resource\s+"aws_nat_gateway"\s+"([^"]+)"\s*\{([\s\S]*?)(?=\n\s*resource|$)/g);
+  for (const match of natMatches) {
+    resources.push({ name: "Amazon VPC (NAT Gateway)", quantity: 1 });
+  }
+
   return resources;
 }
-
-
