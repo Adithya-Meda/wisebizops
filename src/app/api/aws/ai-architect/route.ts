@@ -93,7 +93,7 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
     }
 
     if (!data) {
-      throw new Error(`All Gemini models in the cascade failed. Last error: ${lastError?.message}`);
+      throw new Error(`All Gemini models in the cascade failed. Last error: ${last(error as Error)?.message}`);
     }
 
     let generatedResources = [];
@@ -101,14 +101,15 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
       const textResponse = data.candidates[0].content.parts[0].text;
       generatedResources = JSON.parse(textResponse);
     } catch (parseError) {
-      console.error("Failed to parse Gemini JSON:", parseError?.message || "Parse Error");
+      console.error("Failed to parse Gemini JSON:", parse(error as Error)?.message || "Parse Error");
       return NextResponse.json({ error: "AI failed to generate a valid architecture map." }, { status: 500 });
     }
 
     return NextResponse.json({ resources: generatedResources });
   } catch (error: any) {
-    console.error("AI Architect API Error:", error?.message || "Unknown error");
+    console.error("AI Architect API Error:", (error as Error)?.message || "Unknown error");
     return NextResponse.json({ error: error.message || "Failed to process AI request" }, { status: 500 });
   }
 }
+
 
