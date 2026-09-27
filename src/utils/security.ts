@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || crypto.randomBytes(32).toString('hex'); // Must be 256 bits (32 bytes)
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 const IV_LENGTH = 16; // For AES, this is always 16
 
 /**
@@ -19,8 +19,8 @@ export function scrubPII(text: string): string {
   const emailRegex = /([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})/g;
   scrubbed = scrubbed.replace(emailRegex, '[REDACTED_EMAIL]');
 
-  // 3. Scrub MAC Addresses
-  const macRegex = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/g;
+  // 3. Scrub MAC Addresses (Fixed Regex to not enforce start/end of string)
+  const macRegex = /\b([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})\b/g;
   scrubbed = scrubbed.replace(macRegex, '[REDACTED_MAC]');
 
   // 4. Scrub common secrets/tokens (basic heuristics)
@@ -34,6 +34,7 @@ export function scrubPII(text: string): string {
  * Encrypts a string using AES-256-GCM.
  */
 export function encrypt(text: string): string {
+  if (!ENCRYPTION_KEY) throw new Error("ENCRYPTION_KEY is not defined in environment variables. Refusing to encrypt with a fallback ephemeral key.");
   const iv = crypto.randomBytes(IV_LENGTH);
   const key = Buffer.from(ENCRYPTION_KEY, 'hex').slice(0, 32); // Ensure it's exactly 32 bytes
   const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
@@ -49,6 +50,7 @@ export function encrypt(text: string): string {
  * Decrypts a string using AES-256-GCM.
  */
 export function decrypt(text: string): string {
+  if (!ENCRYPTION_KEY) throw new Error("ENCRYPTION_KEY is not defined in environment variables.");
   const textParts = text.split(':');
   const iv = Buffer.from(textParts[0], 'hex');
   const authTag = Buffer.from(textParts[1], 'hex');

@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { calculatePricing } from '@/lib/pricing-calculator';
 
 const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co';
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key';
+const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(req: Request) {
@@ -11,8 +11,9 @@ export async function POST(req: Request) {
     const origin = req.headers.get('origin');
     const allowedDomains = ['https://tools.wisebiz.online', 'http://localhost:3000'];
     
-    if (origin && !allowedDomains.includes(origin)) {
-      console.warn("Blocked unauthorized cross-origin request from:", origin);
+    // ENFORCED CORS: Reject if no origin is provided or if origin is not allowed
+    if (!origin || !allowedDomains.includes(origin)) {
+      console.warn("Blocked unauthorized cross-origin request from:", origin || "Missing Origin Header");
       return NextResponse.json({ error: "Unauthorized Traffic" }, { status: 403 });
     }
 

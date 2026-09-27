@@ -1,35 +1,7 @@
 import { NextResponse } from 'next/server';
 
-// Simple in-memory rate limiter (per instance)
-const rateLimit = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
-const MAX_REQUESTS = 5; // 5 requests per minute
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimit.get(ip);
-  if (!record) {
-    rateLimit.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-  if (now > record.resetTime) {
-    rateLimit.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-  if (record.count >= MAX_REQUESTS) {
-    return true;
-  }
-  record.count++;
-  return false;
-}
-
 export async function POST(req: Request) {
   try {
-    const ip = req.headers.get('x-forwarded-for') || 'anonymous';
-    if (isRateLimited(ip)) {
-      return NextResponse.json({ error: "Too many requests. Please wait a minute before trying again." }, { status: 429 });
-    }
-
     const { prompt } = await req.json();
     
     if (!prompt || typeof prompt !== 'string') {
@@ -41,7 +13,7 @@ export async function POST(req: Request) {
     
     const apiKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: `Google Gemini API key not configured on the server. Looked for GOOGLE_API_KEY or GEMINI_API_KEY. Found: ${Object.keys(process.env).filter(k => k.includes("API") || k.includes("GEMINI") || k.includes("GOOGLE")).join(", ")}` }, { status: 500 });
+      return NextResponse.json({ error: "Google Gemini API key not configured on the server." }, { status: 500 });
     }
 
     const systemPrompt = `You are an elite, senior AWS Cloud Solutions Architect. Your objective is to design a HIGHLY REALISTIC AWS architecture based on the user's prompt and return the precise resources in a strictly formatted JSON array.
@@ -90,28 +62,29 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
             contents: [
-              { role: "user", parts: [{ text: systemPrompt + "\n\nUser Architecture:\n" + prompt }] }
+              { role: "user", parts: [{ text: prompt }] }
             ],
             generationConfig: {
               temperature: 0.2,
               responseMimeType: "application/json"
             }
           }),
-          signal: AbortSignal.timeout(60000) // 60-second timeout to allow long K8s log processing
+          signal: AbortSignal.timeout(60000)
         });
 
         if (response.status === 429 || response.status === 503 || response.status === 404) {
           console.warn(`[AWS Architect] Model ${model} returned ${response.status}. Falling back...`);
           lastError = new Error(`Provider returned ${response.status} for ${model}`);
-          continue; // Try next model in cascade
+          continue;
         }
 
         data = await response.json();
         if (data.error) throw new Error(data.error.message);
         
         console.log(`[AWS Architect] Successfully used model: ${model}`);
-        break; // Success! Break out of the cascade.
+        break;
       } catch (e: any) {
         console.warn(`[AWS Architect] Model ${model} failed: ${e.message}. Falling back...`);
         lastError = e;
@@ -138,4 +111,3 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
     return NextResponse.json({ error: error.message || "Failed to process AI request" }, { status: 500 });
   }
 }
-

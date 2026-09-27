@@ -1,15 +1,24 @@
 import { NextResponse } from "next/server";
+import { parseTerraformDeterministically } from "@/lib/terraform-parser";
 
 export async function POST(req: Request) {
   try {
-    console.log("Parsing Terraform file in memory without saving to disk...");
+    const data = await req.formData();
+    const file = data.get('file') as File;
+    
+    if (!file) {
+      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
+    }
+    
+    const text = await file.text();
+    const parsedResources = parseTerraformDeterministically(text);
     
     return NextResponse.json({
       success: true,
-      resourcesDetected: ["aws_instance.web", "aws_s3_bucket.data"],
-      estimatedMonthlyCost: "$145.00"
+      resourcesDetected: parsedResources
     });
   } catch (error) {
+    console.error("TF Parse API Error:", error);
     return NextResponse.json({ error: "Failed to parse tf file" }, { status: 400 });
   }
 }

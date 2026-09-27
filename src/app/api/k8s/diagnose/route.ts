@@ -1,35 +1,8 @@
 import { NextResponse } from 'next/server';
-
-// Simple in-memory rate limiter (per instance)
-const rateLimit = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
-const MAX_REQUESTS = 10; // 10 requests per minute
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimit.get(ip);
-  if (!record) {
-    rateLimit.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-  if (now > record.resetTime) {
-    rateLimit.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-  if (record.count >= MAX_REQUESTS) {
-    return true;
-  }
-  record.count++;
-  return false;
-}
+import { scrubPII } from '@/utils/security';
 
 export async function POST(req: Request) {
   try {
-    const ip = req.headers.get('x-forwarded-for') || 'anonymous';
-    if (isRateLimited(ip)) {
-      return NextResponse.json({ error: "Too many requests. Please wait a minute before trying again." }, { status: 429 });
-    }
-
     const { logs } = await req.json();
     
     if (!logs || typeof logs !== 'string') {
@@ -38,6 +11,9 @@ export async function POST(req: Request) {
     if (logs.length > 10000) {
       return NextResponse.json({ error: "Logs exceed maximum allowed length of 10000 characters. Please truncate the output." }, { status: 400 });
     }
+    
+    // Scrub PII before sending to AI
+    const safeLogs = scrubPII(logs);
     
     const apiKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) {
@@ -65,28 +41,29 @@ Do not return any text outside of the JSON block.`;
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemPrompt }] },
             contents: [
-              { role: "user", parts: [{ text: systemPrompt + "\n\nKubernetes Logs:\n" + logs }] }
+              { role: "user", parts: [{ text: safeLogs }] }
             ],
             generationConfig: {
               temperature: 0.2,
               responseMimeType: "application/json"
             }
           }),
-          signal: AbortSignal.timeout(60000) // 60-second timeout to allow long K8s log processing
+          signal: AbortSignal.timeout(60000)
         });
 
         if (response.status === 429 || response.status === 503 || response.status === 404) {
           console.warn(`[K8s Analyzer] Model ${model} returned ${response.status}. Falling back...`);
           lastError = new Error(`Provider returned ${response.status} for ${model}`);
-          continue; // Try next model in cascade
+          continue;
         }
 
         data = await response.json();
         if (data.error) throw new Error(data.error.message);
         
         console.log(`[K8s Analyzer] Successfully used model: ${model}`);
-        break; // Success! Break out of the cascade.
+        break;
       } catch (e: any) {
         console.warn(`[K8s Analyzer] Model ${model} failed: ${e.message}. Falling back...`);
         lastError = e;
