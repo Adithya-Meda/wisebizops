@@ -110,10 +110,12 @@ const main = async () => {
         const isMac = osName === "macOS";
         const ec2Filters = [
           { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+                { Type: "TERM_MATCH", Field: "location", Value: regionMapping[regionCode] },
           { Type: "TERM_MATCH", Field: "location", Value: locationName },
           { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
           { Type: "TERM_MATCH", Field: "tenancy", Value: isMac ? "Host" : "Shared" },
-          { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" }
+          { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" },
+            { Type: "TERM_MATCH", Field: "location", Value: regionMapping[regionCode] }
         ];
         if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
         const hourly = await getLivePrice("AmazonEC2", ec2Filters);
@@ -162,7 +164,8 @@ const main = async () => {
     for (const [volType, volName] of Object.entries(ebsTypes)) {
       const gbCost = await getLivePrice("AmazonEC2", [
         { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-        { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType }
+        { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType },
+          { Type: "TERM_MATCH", Field: "location", Value: regionMapping[regionCode] }
       ]);
       const baseCost = gbCost ? gbCost : (volType === 'gp3' ? 0.08 : 0.10);
         dbRecords.push({
@@ -179,7 +182,8 @@ const main = async () => {
     for (const [tier, apiName] of Object.entries(s3Tiers)) {
        const gbCost = await getLivePrice("AmazonS3", [
           { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-          { Type: "TERM_MATCH", Field: "storageClass", Value: apiName }
+          { Type: "TERM_MATCH", Field: "storageClass", Value: apiName },
+            { Type: "TERM_MATCH", Field: "location", Value: regionMapping[regionCode] }
        ]);
        const baseCost = gbCost ? gbCost : 0.023;
          dbRecords.push({
