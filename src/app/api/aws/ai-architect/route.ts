@@ -1,7 +1,39 @@
 import { NextResponse } from 'next/server';
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
+
+// Graceful fallback if user hasn't set up Upstash Redis yet
+const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+  ? new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    })
+  : null;
+
+const ratelimit = redis ? new Ratelimit({
+  redis: redis,
+  limiter: Ratelimit.slidingWindow(10, "1 d"), // 10 requests per day per IP
+  analytics: true,
+}) : null;
 
 export async function POST(req: Request) {
   try {
+    // 1. Enforce Upstash Rate Limiting
+    if (ratelimit) {
+      const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+      const { success, limit, reset, remaining } = await ratelimit.limit(`ratelimit_aws_${ip}`);
+      if (!success) {
+        return NextResponse.json({ error: "Rate limit exceeded. Please try again tomorrow." }, { 
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": limit.toString(),
+            "X-RateLimit-Remaining": remaining.toString(),
+            "X-RateLimit-Reset": reset.toString()
+          }
+        });
+      }
+    }
+
     const { prompt } = await req.json();
     
     if (!prompt || typeof prompt !== 'string') {
@@ -56,9 +88,14 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
     let data = null;
     let lastError = null;
 
+    // 2. Determine base URL for Gemini (Direct vs Cloudflare AI Gateway Proxy)
+    const gatewayUrl = process.env.CLOUDFLARE_AI_GATEWAY_URL;
+    const baseUrl = gatewayUrl ? gatewayUrl : "https://generativelanguage.googleapis.com";
+
     for (const model of models) {
       try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+        const endpoint = `${baseUrl}/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const response = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -114,6 +151,3 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
     return NextResponse.json({ error: errMsg }, { status: 500 });
   }
 }
-
-
-
