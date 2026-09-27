@@ -72,7 +72,8 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ total, breakdown, exchangeRates });
   } catch (error) {
-    console.error("Pricing API Error:", error);
+    console.error("Pricing API Error:", error?.message || "Unknown error");
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+

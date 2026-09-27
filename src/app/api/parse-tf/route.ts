@@ -18,7 +18,8 @@ export async function POST(req: Request) {
       resourcesDetected: parsedResources
     });
   } catch (error) {
-    console.error("TF Parse API Error:", error);
+    console.error("TF Parse API Error:", error?.message || "Unknown error");
     return NextResponse.json({ error: "Failed to parse tf file" }, { status: 400 });
   }
 }
+

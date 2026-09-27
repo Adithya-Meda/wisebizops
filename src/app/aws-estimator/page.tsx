@@ -115,7 +115,7 @@ export default function AwsEstimator() {
       })
       .catch(err => {
         setIsProcessing(false);
-        console.error(err);
+        console.error("Client Error:", err?.message || "Unknown client error");
       });
     } else if (addedResources.length === 0) {
       setResult(null);
@@ -242,7 +242,7 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     } catch (e) {
-      console.error(e);
+      console.error("Client Error:", e?.message || "Unknown client error");
     }
   };
 
@@ -531,6 +531,7 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 
  
+
 
 
 

@@ -101,13 +101,14 @@ RETURN STRICTLY JSON MATCHING THIS STRUCTURE:
       const textResponse = data.candidates[0].content.parts[0].text;
       generatedResources = JSON.parse(textResponse);
     } catch (parseError) {
-      console.error("Failed to parse Gemini JSON", parseError);
+      console.error("Failed to parse Gemini JSON:", parseError?.message || "Parse Error");
       return NextResponse.json({ error: "AI failed to generate a valid architecture map." }, { status: 500 });
     }
 
     return NextResponse.json({ resources: generatedResources });
   } catch (error: any) {
-    console.error("AI Architect API Error:", error);
+    console.error("AI Architect API Error:", error?.message || "Unknown error");
     return NextResponse.json({ error: error.message || "Failed to process AI request" }, { status: 500 });
   }
 }
+
