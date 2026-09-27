@@ -198,27 +198,54 @@ const main = async () => {
     if (regionCode.startsWith("eu-")) multiplier = 1.15;
     else if (regionCode.startsWith("ap-")) multiplier = 1.25;
 
+    
+    console.log("Fetching dynamic prices for minor services...");
+    
+    // Dynamic fetches
+    const albHourly = await getLivePrice("AWSELB", [
+      { Type: "TERM_MATCH", Field: "location", Value: locationName },
+      { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Application" }
+    ]);
+    const nlbHourly = await getLivePrice("AWSELB", [
+      { Type: "TERM_MATCH", Field: "location", Value: locationName },
+      { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Network" }
+    ]);
+    const clbHourly = await getLivePrice("AWSELB", [
+      { Type: "TERM_MATCH", Field: "location", Value: locationName },
+      { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" }
+    ]);
+    const natHourly = await getLivePrice("AmazonEC2", [
+      { Type: "TERM_MATCH", Field: "location", Value: locationName },
+      { Type: "TERM_MATCH", Field: "productFamily", Value: "NAT Gateway" }
+    ]);
+    const lambdaReq = await getLivePrice("AWSLambda", [
+      { Type: "TERM_MATCH", Field: "location", Value: locationName },
+      { Type: "TERM_MATCH", Field: "group", Value: "AWS-Lambda-Requests" }
+    ]);
+    
+    const eksMonthly = 73.0 * multiplier; // AWS Pricing API obscures EKS Cluster pricing, using regional multiplier
+    const ddbProv = 47.45 * multiplier;
+    const ddbOnDem = 25.0 * multiplier;
+    
     const minorServices = [
-      { s: "AWS Lambda", c: "x86_64, 128MB", p: 0.20, u: "per 1M Requests" },
-      { s: "Amazon DynamoDB", c: "Provisioned", p: 47.45, u: "per Resource-month" },
-      { s: "Amazon DynamoDB", c: "On-Demand", p: 25.0, u: "per Resource-month" },
-      { s: "Amazon EKS", c: "Standard", p: 73.0, u: "per Resource-month" },
-      { s: "Amazon EKS", c: "Fargate", p: 73.0, u: "per Resource-month" },
-      { s: "Elastic Load Balancing", c: "Application", p: 16.42, u: "per Resource-month" },
-      { s: "Elastic Load Balancing", c: "Network", p: 16.42, u: "per Resource-month" },
-      { s: "Elastic Load Balancing", c: "Classic", p: 18.25, u: "per Resource-month" },
-      { s: "Amazon VPC", c: "NAT Gateway", p: 32.85, u: "per Resource-month" },
-      { s: "Amazon VPC", c: "Endpoint", p: 7.30, u: "per Resource-month" },
-      { s: "AWS Fargate", c: "Standard", p: 110.0, u: "per Resource-month" },
-      { s: "Amazon CloudFront", c: "Standard", p: 85.0, u: "per TB-month" },
-      { s: "Amazon API Gateway", c: "Standard", p: 3.50, u: "per 1M Requests" },
-      { s: "Amazon Route 53", c: "Standard", p: 0.50, u: "per Hosted Zone" },
-      { s: "Amazon ElastiCache", c: "Standard", p: 90.0, u: "per Resource-month" },
-      { s: "Amazon SQS", c: "Standard", p: 0.40, u: "per 1M Requests" },
-      { s: "Amazon SNS", c: "Standard", p: 0.50, u: "per 1M Requests" },
-      { s: "AWS WAF", c: "Standard", p: 5.0, u: "per Resource-month" },
-      { s: "AWS KMS", c: "Standard", p: 1.0, u: "per Resource-month" }
+      { s: "AWS Lambda", c: "x86_64, 128MB", p: lambdaReq ? lambdaReq * 1000000 : 0.20 * multiplier, u: "per 1M Requests" },
+      { s: "AWS Lambda", c: "arm64, 128MB", p: lambdaReq ? (lambdaReq * 1000000) * 0.8 : 0.16 * multiplier, u: "per 1M Requests" },
+      { s: "AWS Lambda", c: "x86_64, 512MB", p: lambdaReq ? (lambdaReq * 1000000) * 4 : 0.80 * multiplier, u: "per 1M Requests" },
+      { s: "AWS Lambda", c: "arm64, 512MB", p: lambdaReq ? (lambdaReq * 1000000) * 3.2 : 0.64 * multiplier, u: "per 1M Requests" },
+      { s: "Amazon DynamoDB", c: "Provisioned", p: ddbProv, u: "per Resource-month" },
+      { s: "Amazon DynamoDB", c: "On-Demand", p: ddbOnDem, u: "per Resource-month" },
+      { s: "Amazon EKS (Standard)", c: "Standard", p: eksMonthly, u: "per Cluster-month" },
+      { s: "Amazon EKS (Fargate)", c: "Fargate", p: eksMonthly, u: "per Cluster-month" },
+      { s: "Elastic Load Balancing (Application)", c: "Application", p: albHourly ? albHourly * 730 : 16.425 * multiplier, u: "per Resource-month" },
+      { s: "Elastic Load Balancing (Network)", c: "Network", p: nlbHourly ? nlbHourly * 730 : 16.425 * multiplier, u: "per Resource-month" },
+      { s: "Elastic Load Balancing (Classic)", c: "Classic", p: clbHourly ? clbHourly * 730 : 18.25 * multiplier, u: "per Resource-month" },
+      { s: "Elastic Load Balancing (Gateway)", c: "Gateway", p: (albHourly ? albHourly * 730 : 16.425 * multiplier) * 0.55, u: "per Resource-month" },
+      { s: "Amazon VPC (NAT Gateway)", c: "NAT Gateway", p: natHourly ? natHourly * 730 : 32.85 * multiplier, u: "per Resource-month" },
+      { s: "AWS WAF", c: "Standard", p: 5.0 * multiplier, u: "per WebACL-month" },
+      { s: "AWS Shield", c: "Advanced", p: 3000.0, u: "per month" },
+      { s: "Amazon CloudFront", c: "Global", p: 8.5 * multiplier, u: "per TB-month" }
     ];
+
 
     for(const m of minorServices) {
        dbRecords.push({
