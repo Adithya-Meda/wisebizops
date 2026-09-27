@@ -72,7 +72,8 @@ Do not return any text outside of the JSON block.`;
     }
 
     if (!data) {
-      throw new Error(`All Gemini models in the cascade failed. Last error: ${(lastError as Error)?.message}`);
+      const errMsg = lastError instanceof Error ? lastError.message : String(lastError);
+      throw new Error(`All Gemini models in the cascade failed. Last error: ${errMsg}`);
     }
 
     let generatedDiagnosis = null;
@@ -80,14 +81,16 @@ Do not return any text outside of the JSON block.`;
       const textResponse = data.candidates[0].content.parts[0].text;
       generatedDiagnosis = JSON.parse(textResponse);
     } catch (parseError) {
-      console.error("Failed to parse Gemini JSON:", (parseError as Error)?.message || "Parse Error");
+      const parseErrMsg = parseError instanceof Error ? parseError.message : String(parseError);
+      console.error("Failed to parse Gemini JSON:", parseErrMsg);
       return NextResponse.json({ error: "AI failed to generate a valid diagnosis." }, { status: 500 });
     }
 
     return NextResponse.json({ diagnosis: generatedDiagnosis });
   } catch (error: any) {
-    console.error("K8s Analyzer API Error:", (error as Error)?.message || "Unknown error");
-    return NextResponse.json({ error: error.message || "Failed to process AI request" }, { status: 500 });
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.error("K8s Analyzer API Error:", errMsg);
+    return NextResponse.json({ error: errMsg }, { status: 500 });
   }
 }
 
