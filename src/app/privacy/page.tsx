@@ -7,17 +7,17 @@ export default function PrivacyPolicy() {
 
       <div className="space-y-8 text-sm text-zinc-700 dark:text-zinc-300 transition-colors">
         <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">1. Zero-Trust Architecture</h2>
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">1. Zero-Trust Architecture & Edge Caching</h2>
           <p>WiseBizOps is designed with a strict zero-trust, privacy-first architecture. We understand that infrastructure credentials and architectural data are highly sensitive.</p>
-        </section>
-        
-        <section className="space-y-3">
-          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Data Processing & Transmission</h2>
-          <p>When you use any diagnostic or estimation tools within the WiseBizOps suite:</p>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>No Cloud Credentials Required:</strong> WiseBizOps never asks for, processes, or stores your AWS API Keys, IAM Roles, or Kubernetes cluster credentials.</li>
-            <li><strong>Stateless Operations:</strong> Terraform files and Kubernetes logs are parsed in-memory and are securely transmitted to our third-party subprocessors for analysis. We do not retain or persist history of your cluster logs or infrastructure code.</li>
+            <li><strong>Temporary Edge Caching:</strong> To provide ultra-low latency and optimize processing, telemetry data (such as anonymized log queries) may be temporarily cached at our Content Delivery Network (CDN) edge nodes. This cache is strictly ephemeral and automatically purged. We do not persist historical logs in primary databases.</li>
           </ul>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 transition-colors">2. Security Logs and IP Addresses</h2>
+          <p>For the strict purposes of mitigating Distributed Denial of Service (DDoS) attacks, preventing abuse, and enforcing API rate limits, we process and temporarily store User IP addresses. This data processing is conducted under the legal basis of "legitimate interest" to ensure network security and service reliability.</p>
         </section>
 
         <section className="space-y-3">
@@ -39,6 +39,8 @@ export default function PrivacyPolicy() {
           <p>To provide our services, data is processed statelessly over encrypted channels using the following enterprise-grade subprocessors:</p>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Google (Gemini API):</strong> Utilized for advanced AI log analysis and architectural generation. Data is processed statelessly and is strictly opted-out of foundational model training.</li>
+            <li><strong>Cloudflare:</strong> Operates our web application firewall (WAF) and AI Gateway proxy, responsible for securely routing LLM requests, caching duplicate prompt queries at the edge, and blocking malicious payloads.</li>
+            <li><strong>Upstash (Redis):</strong> Utilized strictly for real-time memory tracking of IP addresses to enforce API rate limits and prevent automated bot abuse.</li>
             <li><strong>Supabase:</strong> Utilized strictly for querying our publicly maintained AWS pricing database. User architecture inputs are not stored here.</li>
           </ul>
         </section>
