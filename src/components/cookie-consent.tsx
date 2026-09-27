@@ -25,7 +25,7 @@ export function CookieConsent() {
         <div>
           <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Cookie Consent</h4>
           <p className="text-[11px] text-zinc-500 mt-0.5 leading-relaxed">
-            We use local storage strictly for functional purposes, like saving your AWS architecture and Dark Mode preference.
+            We use local storage strictly for functional purposes, like saving your Dark Mode preference and basic tool configurations.
           </p>
         </div>
       </div>
@@ -35,3 +35,4 @@ export function CookieConsent() {
     </div>
   );
 }
+
