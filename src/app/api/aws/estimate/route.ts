@@ -33,7 +33,23 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid region parameter." }, { status: 400 });
     }
 
-    const exchangeRates = { EUR: 0.92, GBP: 0.79, INR: 83.5 };
+        let exchangeRates = { EUR: 0.92, GBP: 0.79, INR: 83.5 };
+    try {
+      // Use Next.js caching to fetch live rates once per hour to prevent rate limiting
+      const forexRes = await fetch("https://open.er-api.com/v6/latest/USD", { next: { revalidate: 3600 } });
+      if (forexRes.ok) {
+        const forexData = await forexRes.json();
+        if (forexData && forexData.rates) {
+          exchangeRates = { 
+            EUR: forexData.rates.EUR || exchangeRates.EUR, 
+            GBP: forexData.rates.GBP || exchangeRates.GBP, 
+            INR: forexData.rates.INR || exchangeRates.INR 
+          };
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to fetch live forex rates, using fallback.");
+    }
     let total = 0;
     const breakdown = [];
 
@@ -76,6 +92,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Failed to calculate pricing" }, { status: 500 });
   }
 }
+
 
 
 
