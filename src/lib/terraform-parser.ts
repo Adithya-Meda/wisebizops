@@ -1,4 +1,11 @@
 export function parseTerraformDeterministically(text: string) {
+  // SEC-FIX: Prevent Regex Denial of Service (ReDoS) by capping input size
+  // V8 event loop will block on lazy lookaheads if text is massively long
+  if (text.length > 100000) {
+    console.warn("TF file exceeds 100KB limit. Truncating to prevent ReDoS.");
+    text = text.substring(0, 100000);
+  }
+
   const resources: any[] = [];
   
   // 1. EC2 Instances
