@@ -140,6 +140,10 @@ const main = async () => {
           if (isMacInstance && !isMac) continue; // Mac instances only run macOS
           if (!isMacInstance && isMac) continue; // Non-Mac instances don't run macOS
           if (inst.includes("g.") && osName === "Windows") continue; // Graviton (ARM) doesn't support Windows
+          
+          // Mac instances are only available in select regions
+          const macRegions = ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"];
+          if (isMacInstance && !macRegions.includes(regionCode)) continue;
 
           const ec2Filters = [
             { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
@@ -150,10 +154,7 @@ const main = async () => {
           ];
           if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
           const hourly = await getLivePrice("AmazonEC2", ec2Filters);
-          if (hourly === null) {
-            console.warn(`Price not found for EC2 ${inst} OS: ${osName} in ${locationName} (Combination may not exist)`);
-            continue;
-          }
+          if (hourly === null) continue; // Silently skip geographically unavailable resources
           const baseCost = hourly * 730;
           
           dbRecords.push({
@@ -173,7 +174,14 @@ const main = async () => {
           const isArm = inst.includes("g.");
           if (isArm && (engine === "SQL Server" || engine === "Oracle")) continue; // Graviton does not support SQL Server/Oracle
           
+          // Comprehensive RDS Constraints
+          if (engine === "Aurora" && (inst.includes(".micro") || inst.includes(".small"))) continue; // Aurora requires medium+
+          if (engine === "Aurora" && inst.startsWith("db.m")) continue; // Aurora uses r-series, not m-series for memory optimization
+          if (engine === "Oracle" && inst.includes(".micro")) continue; // Oracle requires small+
+          
           for (const deployment of rdsDeployments) {
+            if (engine === "Aurora" && deployment === "Multi-AZ") continue; // Aurora compute is exclusively priced as Single-AZ
+            
             let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
             let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
             
@@ -184,15 +192,17 @@ const main = async () => {
                 { Type: "TERM_MATCH", Field: "location", Value: locationName }
             ];
             
-            if (engine === "SQL Server") rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: "Express" });
-            if (engine === "Oracle") rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: "Standard One" });
+            if (engine === "SQL Server") {
+               let sqlEdition = inst.startsWith("db.t") ? "Express" : "Standard";
+               rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: sqlEdition });
+            }
+            if (engine === "Oracle") {
+               rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: "Standard One" });
+            }
 
             const hourly = await getLivePrice("AmazonRDS", rdsFilters);
             
-            if (hourly === null) {
-              console.warn(`Price not found for RDS ${inst} Engine: ${engine} in ${locationName} (Combination may not exist)`);
-              continue;
-            }
+            if (hourly === null) continue; // Silently skip geographically unavailable resources
             const baseCost = hourly * 730;
             dbRecords.push({
               service_name: "Amazon RDS",

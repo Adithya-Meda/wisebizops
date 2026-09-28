@@ -1,24 +1,32 @@
 const { PricingClient, GetProductsCommand } = require("@aws-sdk/client-pricing");
-
 const client = new PricingClient({ region: "us-east-1" });
 
-async function searchRDS() {
+async function check(engine, inst) {
   try {
     const command = new GetProductsCommand({
       ServiceCode: "AmazonRDS",
       Filters: [
         { Type: "TERM_MATCH", Field: "location", Value: "US East (N. Virginia)" },
-        { Type: "TERM_MATCH", Field: "databaseEngine", Value: "SQL Server" }
+        { Type: "TERM_MATCH", Field: "databaseEngine", Value: engine },
+        { Type: "TERM_MATCH", Field: "instanceType", Value: inst }
       ],
-      MaxResults: 5
+      MaxResults: 1
     });
-    const response = await client.send(command);
-    if (response.PriceList) {
-      const items = response.PriceList.map(item => JSON.parse(item).product.attributes);
-      console.log(`RDS SQL Server items:`, items);
+    const res = await client.send(command);
+    if (res.PriceList && res.PriceList.length > 0) {
+      console.log(`[${engine}] found ${inst}`);
+    } else {
+      console.log(`[${engine}] ${inst} NOT FOUND`);
     }
-  } catch(e) { console.error(e); }
+  } catch(e) {}
 }
 
-main = async () => { await searchRDS(); };
+async function main() {
+  await check("Aurora PostgreSQL", "db.t3.micro");
+  await check("Aurora PostgreSQL", "db.t3.small");
+  await check("SQL Server", "db.t3.micro");
+  await check("SQL Server", "db.t3.small");
+  await check("Oracle", "db.t3.micro");
+  await check("Oracle", "db.t3.small");
+}
 main();
