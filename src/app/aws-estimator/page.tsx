@@ -4,39 +4,52 @@ import { CustomSelect } from "@/components/custom-select";
 import { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 
+import architectures from '@/lib/aws-architectures.json';
+
 type ConfigOption = { label: string; options: string[] };
+
+const ec2Instances: string[] = [];
+Object.entries(architectures.ec2.instanceFamilies).forEach(([family, config]) => {
+    config.sizes.forEach(size => ec2Instances.push(`${family}.${size}`));
+});
+
+const rdsInstances: string[] = [];
+Object.entries(architectures.rds.instanceFamilies).forEach(([family, config]) => {
+    config.sizes.forEach(size => rdsInstances.push(`db.${family}.${size}`));
+});
+
 const serviceConfigs: Record<string, ConfigOption[]> = {
   "Amazon EC2": [
-    { label: "Instance Type", options: ["t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge", "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge", "m5.large", "m5.xlarge", "m5.2xlarge", "m5.4xlarge", "m6g.large", "m6g.xlarge", "m6g.2xlarge", "m6g.4xlarge", "m7i.large", "m7i.xlarge", "m7i.2xlarge", "m7i.4xlarge", "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge", "c6g.large", "c6g.xlarge", "c6g.2xlarge", "c6g.4xlarge", "c7g.large", "c7g.xlarge", "c7g.2xlarge", "c7g.4xlarge", "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge", "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge", "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge", "mac1.metal", "mac2.metal"] },
-    { label: "Operating System", options: ["Linux", "Windows", "Ubuntu", "RHEL", "macOS"] }
+    { label: "Instance Type", options: ec2Instances },
+    { label: "Operating System", options: Object.keys(architectures.ec2.operatingSystems) }
   ],
   "Amazon RDS": [
-    { label: "Database Engine", options: ["PostgreSQL", "MySQL", "Aurora", "MariaDB", "Oracle", "SQL Server"] },
-    { label: "Instance Class", options: ["db.t3.micro", "db.t3.small", "db.t3.medium", "db.t3.large", "db.t3.xlarge", "db.t4g.micro", "db.t4g.small", "db.t4g.medium", "db.t4g.large", "db.t4g.xlarge", "db.m5.large", "db.m5.xlarge", "db.m5.2xlarge", "db.m5.4xlarge", "db.m6g.large", "db.m6g.xlarge", "db.m6g.2xlarge", "db.m6g.4xlarge", "db.r5.large", "db.r5.xlarge", "db.r5.2xlarge", "db.r5.4xlarge", "db.r6g.large", "db.r6g.xlarge", "db.r6g.2xlarge", "db.r6g.4xlarge"] },
-    { label: "Deployment", options: ["Single-AZ", "Multi-AZ"] }
+    { label: "Database Engine", options: Object.keys(architectures.rds.engines) },
+    { label: "Instance Class", options: rdsInstances },
+    { label: "Deployment", options: ["Single-AZ", "Multi-AZ"] } // Dynamic strict filtering handles validation
   ],
   "Amazon S3": [
-    { label: "Storage Class", options: ["Standard", "Intelligent-Tiering", "Standard-IA", "One Zone-IA", "Glacier"] }
+    { label: "Storage Class", options: architectures.s3.tiers.map(t => t.name) }
   ],
   "AWS Lambda": [
-    { label: "Architecture", options: ["x86_64", "arm64"] },
-    { label: "Memory", options: ["128MB", "512MB", "1024MB", "2048MB", "4096MB"] }
+    { label: "Architecture", options: architectures.serverless.lambda.architectures },
+    { label: "Memory", options: architectures.serverless.lambda.memorySizes }
   ],
   "Amazon DynamoDB": [
-    { label: "Capacity Mode", options: ["On-Demand", "Provisioned"] }
+    { label: "Capacity Mode", options: architectures.serverless.dynamodb.capacityModes }
   ],
   "Amazon EKS": [
-      { label: "Cluster Type", options: ["Standard", "Fargate"] }
-    ],
-    "Amazon EBS": [
-      { label: "Volume Type", options: ["gp3", "gp2", "io1", "io2", "st1", "sc1"] }
-    ],
-    "Elastic Load Balancing": [
-      { label: "Load Balancer Type", options: ["Application", "Network", "Classic", "Gateway"] }
-    ],
-    "Amazon VPC": [
-      { label: "Resource Type", options: ["NAT Gateway", "Endpoint"] }
-    ]
+    { label: "Cluster Type", options: architectures.compute.eks.modes }
+  ],
+  "Amazon EBS": [
+    { label: "Volume Type", options: Object.keys(architectures.ebs.volumeTypes) }
+  ],
+  "Elastic Load Balancing": [
+    { label: "Load Balancer Type", options: Object.keys(architectures.networking.loadBalancers) }
+  ],
+  "Amazon VPC": [
+    { label: "Resource Type", options: Object.keys(architectures.networking.vpc).map(k => architectures.networking.vpc[k as keyof typeof architectures.networking.vpc]) }
+  ]
 };
 
 const defaultServices = [
