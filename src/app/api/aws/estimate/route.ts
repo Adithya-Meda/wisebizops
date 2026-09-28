@@ -57,9 +57,9 @@ export async function POST(req: Request) {
       const { data, error } = await supabase
         .from('aws_prices')
         .select('price_usd')
-        .eq('service_name', serviceName)
+        .ilike('service_name', serviceName)
         .eq('region', region)
-        .eq('configuration', primaryConfig)
+        .ilike('configuration', primaryConfig)
         .single();
         
       if (data && !error) return parseFloat(data.price_usd);
@@ -67,8 +67,8 @@ export async function POST(req: Request) {
       const { data: fallbackData } = await supabase
         .from('aws_prices')
         .select('price_usd')
-        .eq('service_name', serviceName)
-        .eq('configuration', primaryConfig)
+        .ilike('service_name', serviceName)
+        .ilike('configuration', primaryConfig)
         .limit(1)
         .single();
         

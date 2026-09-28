@@ -43,4 +43,13 @@ describe('Pricing Engine Calculator', () => {
     expect(res[0].error).toBe(true);
     expect(res[0].cost).toBe(0);
   });
+
+  it('handles whitespace in service and configuration gracefully', async () => {
+    mockDB.mockResolvedValue(0.125);
+    const resources = [{ name: '  Amazon EBS   (  gp2  ) ', quantity: 1, storage: 500 }];
+    
+    const res = await calculatePricing(resources, mockDB);
+    expect(res[0].cost).toBe(62.5);
+    expect(mockDB).toHaveBeenCalledWith('Amazon EBS', 'gp2');
+  });
 });

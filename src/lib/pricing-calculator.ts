@@ -15,6 +15,9 @@ export function calculatePricing(
   return Promise.all(
     resources.map(async (res) => {
       let resStr = typeof res === 'object' ? res.name : res;
+      if (typeof resStr === 'string') {
+        resStr = resStr.trim();
+      }
       let quantity = typeof res === 'object' ? (res.quantity || 1) : 1;
       let storage = typeof res === 'object' ? res.storage : undefined;
 
@@ -24,7 +27,7 @@ export function calculatePricing(
       }
 
       const serviceName = match[1].trim();
-      let primaryConfig = match[2] ? match[2] : "Standard";
+      let primaryConfig = match[2] ? match[2].trim() : "Standard";
 
       const unitCost = await getPriceFromDB(serviceName, primaryConfig);
 
