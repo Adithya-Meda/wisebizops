@@ -1,0 +1,91 @@
+{
+  "regions": {
+    "us-east-1": "US East (N. Virginia)",
+    "us-east-2": "US East (Ohio)",
+    "us-west-1": "US West (N. California)",
+    "us-west-2": "US West (Oregon)",
+    "ca-central-1": "Canada (Central)",
+    "eu-west-1": "EU (Ireland)",
+    "eu-west-2": "EU (London)",
+    "eu-west-3": "EU (Paris)",
+    "eu-central-1": "EU (Frankfurt)",
+    "eu-north-1": "EU (Stockholm)",
+    "eu-south-1": "EU (Milan)",
+    "ap-southeast-1": "Asia Pacific (Singapore)",
+    "ap-southeast-2": "Asia Pacific (Sydney)",
+    "ap-southeast-3": "Asia Pacific (Jakarta)",
+    "ap-northeast-1": "Asia Pacific (Tokyo)",
+    "ap-northeast-2": "Asia Pacific (Seoul)",
+    "ap-northeast-3": "Asia Pacific (Osaka)",
+    "ap-south-1": "Asia Pacific (Mumbai)",
+    "ap-south-2": "Asia Pacific (Hyderabad)",
+    "ap-east-1": "Asia Pacific (Hong Kong)",
+    "sa-east-1": "South America (Sao Paulo)",
+    "me-south-1": "Middle East (Bahrain)",
+    "me-central-1": "Middle East (UAE)",
+    "af-south-1": "Africa (Cape Town)"
+  },
+  "ec2": {
+    "operatingSystems": {
+      "Linux": "Linux",
+      "Ubuntu": "Linux",
+      "RHEL": "RHEL",
+      "Windows": "Windows",
+      "macOS": "Linux"
+    },
+    "instanceFamilies": {
+      "t3": { "arch": "x86", "sizes": ["micro", "small", "medium", "large", "xlarge", "2xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
+      "t4g": { "arch": "arm", "sizes": ["micro", "small", "medium", "large", "xlarge", "2xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
+      "m5": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
+      "m6g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
+      "m7i": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
+      "c5": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
+      "c6g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
+      "c7g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
+      "r5": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
+      "r6g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
+      "r7g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
+      "mac1": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] },
+      "mac2": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] },
+      "mac2-m2": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] },
+      "mac2-m2pro": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] }
+    }
+  },
+  "rds": {
+    "engines": {
+      "PostgreSQL": { "apiEngine": "PostgreSQL", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "m5", "m6g", "r5", "r6g"], "minSize": "micro" },
+      "MySQL": { "apiEngine": "MySQL", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "m5", "m6g", "r5", "r6g"], "minSize": "micro" },
+      "MariaDB": { "apiEngine": "MariaDB", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "m5", "m6g", "r5", "r6g"], "minSize": "micro" },
+      "Aurora": { "apiEngine": "Aurora PostgreSQL", "deployments": ["Single-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "r5", "r6g"], "minSize": "medium" },
+      "Oracle": { "apiEngine": "Oracle", "databaseEdition": "Standard One", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "m5", "r5"], "minSize": "small" },
+      "SQL Server": { "apiEngine": "SQL Server", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "m5", "r5"], "minSize": "micro", "editionMapping": { "t3": "Express", "m5": "Standard", "r5": "Standard" } }
+    },
+    "instanceFamilies": {
+      "t3": { "sizes": ["micro", "small", "medium", "large", "xlarge"] },
+      "t4g": { "sizes": ["micro", "small", "medium", "large", "xlarge"] },
+      "m5": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] },
+      "m6g": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] },
+      "r5": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] },
+      "r6g": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] }
+    }
+  },
+  "ebs": {
+    "volumeTypes": {
+      "gp3": "General Purpose",
+      "gp2": "General Purpose",
+      "io1": "Provisioned IOPS",
+      "io2": "Provisioned IOPS",
+      "st1": "Throughput Optimized HDD",
+      "sc1": "Cold HDD"
+    }
+  },
+  "s3": {
+    "tiers": [
+      { "name": "Standard", "apiField": "volumeType", "apiValue": "Standard" },
+      { "name": "Intelligent-Tiering", "apiField": "storageClass", "apiValue": "Intelligent-Tiering" },
+      { "name": "Standard-IA", "apiField": "volumeType", "apiValue": "Standard - Infrequent Access" },
+      { "name": "One Zone-IA", "apiField": "volumeType", "apiValue": "One Zone - Infrequent Access" },
+      { "name": "Glacier", "apiField": "storageClass", "apiValue": "Archive" }
+    ]
+  }
+}

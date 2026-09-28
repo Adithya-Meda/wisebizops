@@ -55,61 +55,27 @@ async function getLivePrice(serviceCode, filters, maxRetries = 5) {
   return null;
 }
 
-const regionMapping = {
-  "us-east-1": "US East (N. Virginia)",
-  "us-east-2": "US East (Ohio)",
-  "us-west-1": "US West (N. California)",
-  "us-west-2": "US West (Oregon)",
-  "ca-central-1": "Canada (Central)",
-  "eu-west-1": "EU (Ireland)",
-  "eu-west-2": "EU (London)",
-  "eu-west-3": "EU (Paris)",
-  "eu-central-1": "EU (Frankfurt)",
-  "eu-north-1": "EU (Stockholm)",
-  "eu-south-1": "EU (Milan)",
-  "ap-southeast-1": "Asia Pacific (Singapore)",
-  "ap-southeast-2": "Asia Pacific (Sydney)",
-  "ap-southeast-3": "Asia Pacific (Jakarta)",
-  "ap-northeast-1": "Asia Pacific (Tokyo)",
-  "ap-northeast-2": "Asia Pacific (Seoul)",
-  "ap-northeast-3": "Asia Pacific (Osaka)",
-  "ap-south-1": "Asia Pacific (Mumbai)",
-  "ap-south-2": "Asia Pacific (Hyderabad)",
-  "ap-east-1": "Asia Pacific (Hong Kong)",
-  "sa-east-1": "South America (Sao Paulo)",
-  "me-south-1": "Middle East (Bahrain)",
-  "me-central-1": "Middle East (UAE)",
-  "af-south-1": "Africa (Cape Town)"
-};
+const architectures = require("../lib/aws-architectures.json");
+const regionMapping = architectures.regions;
 
 const main = async () => {
   
-  const ec2Instances = [
-    "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge",
-    "t4g.micro", "t4g.small", "t4g.medium", "t4g.large", "t4g.xlarge", "t4g.2xlarge",
-    "m5.large", "m5.xlarge", "m5.2xlarge", "m5.4xlarge",
-    "m6g.large", "m6g.xlarge", "m6g.2xlarge", "m6g.4xlarge",
-    "m7i.large", "m7i.xlarge", "m7i.2xlarge", "m7i.4xlarge",
-    "c5.large", "c5.xlarge", "c5.2xlarge", "c5.4xlarge",
-    "c6g.large", "c6g.xlarge", "c6g.2xlarge", "c6g.4xlarge",
-    "c7g.large", "c7g.xlarge", "c7g.2xlarge", "c7g.4xlarge",
-    "r5.large", "r5.xlarge", "r5.2xlarge", "r5.4xlarge",
-    "r6g.large", "r6g.xlarge", "r6g.2xlarge", "r6g.4xlarge",
-    "r7g.large", "r7g.xlarge", "r7g.2xlarge", "r7g.4xlarge",
-    "mac1.metal", "mac2.metal", "mac2-m2.metal", "mac2-m2pro.metal"
-  ];
-  const operatingSystems = { "Linux": "Linux", "Ubuntu": "Linux", "RHEL": "RHEL", "Windows": "Windows" };
+  let ec2Instances = [];
+  for (const [family, config] of Object.entries(architectures.ec2.instanceFamilies)) {
+    for (const size of config.sizes) {
+      ec2Instances.push(`${family}.${size}`);
+    }
+  }
+  const operatingSystems = architectures.ec2.operatingSystems;
 
-  const rdsEngines = ["PostgreSQL", "MySQL", "Aurora", "MariaDB", "Oracle", "SQL Server"];
-  const rdsInstances = [
-    "db.t3.micro", "db.t3.small", "db.t3.medium", "db.t3.large", "db.t3.xlarge",
-    "db.t4g.micro", "db.t4g.small", "db.t4g.medium", "db.t4g.large", "db.t4g.xlarge",
-    "db.m5.large", "db.m5.xlarge", "db.m5.2xlarge", "db.m5.4xlarge",
-    "db.m6g.large", "db.m6g.xlarge", "db.m6g.2xlarge", "db.m6g.4xlarge",
-    "db.r5.large", "db.r5.xlarge", "db.r5.2xlarge", "db.r5.4xlarge",
-    "db.r6g.large", "db.r6g.xlarge", "db.r6g.2xlarge", "db.r6g.4xlarge"
-  ];
-  const rdsDeployments = ["Single-AZ", "Multi-AZ"];
+  const rdsEngines = Object.keys(architectures.rds.engines);
+  let rdsInstances = [];
+  for (const [family, config] of Object.entries(architectures.rds.instanceFamilies)) {
+    for (const size of config.sizes) {
+      rdsInstances.push(`db.${family}.${size}`);
+    }
+  }
+  const rdsDeployments = ["Single-AZ", "Multi-AZ"]; // Handled per-engine in preflight
 
   let totalQueries = 0;
 
@@ -131,19 +97,15 @@ const main = async () => {
 
       // 1. EC2
       for (const inst of ec2Instances) {
-        const operatingSystemsWithMac = { ...operatingSystems, "macOS": "Linux" };
-        for (const [osName, osApiValue] of Object.entries(operatingSystemsWithMac)) {
-          const isMacInstance = inst.startsWith("mac");
+        for (const [osName, osApiValue] of Object.entries(operatingSystems)) {
           const isMac = osName === "macOS";
           
-          // Architecture Constraints (Save API calls & time)
-          if (isMacInstance && !isMac) continue; // Mac instances only run macOS
-          if (!isMacInstance && isMac) continue; // Non-Mac instances don't run macOS
-          if (inst.includes("g.") && osName === "Windows") continue; // Graviton (ARM) doesn't support Windows
+          const family = inst.split('.')[0];
+          const config = architectures.ec2.instanceFamilies[family];
           
-          // Mac instances are only available in select regions
-          const macRegions = ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"];
-          if (isMacInstance && !macRegions.includes(regionCode)) continue;
+          // Preflight Architectural Comparison
+          if (!config.supportedOs.includes(osName)) continue;
+          if (config.supportedRegions && !config.supportedRegions.includes(regionCode)) continue;
 
           const ec2Filters = [
             { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
@@ -171,33 +133,33 @@ const main = async () => {
       // 2. RDS
       for (const engine of rdsEngines) {
         for (const inst of rdsInstances) {
-          const isArm = inst.includes("g.");
-          if (isArm && (engine === "SQL Server" || engine === "Oracle")) continue; // Graviton does not support SQL Server/Oracle
+          const engineConfig = architectures.rds.engines[engine];
+          const family = inst.split('.')[1];
+          const size = inst.split('.')[2];
           
-          // Comprehensive RDS Constraints
-          if (engine === "Aurora" && (inst.includes(".micro") || inst.includes(".small"))) continue; // Aurora requires medium+
-          if (engine === "Aurora" && inst.startsWith("db.m")) continue; // Aurora uses r-series, not m-series for memory optimization
-          if (engine === "Oracle" && inst.includes(".micro")) continue; // Oracle requires small+
+          // Preflight Architectural Comparison
+          if (!engineConfig.supportedInstanceFamilies.includes(family)) continue;
+          
+          // Size preflight check (e.g., skip micro/small for Aurora)
+          const sizes = architectures.rds.instanceFamilies[family].sizes;
+          if (sizes.indexOf(size) < sizes.indexOf(engineConfig.minSize)) continue;
           
           for (const deployment of rdsDeployments) {
-            if (engine === "Aurora" && deployment === "Multi-AZ") continue; // Aurora compute is exclusively priced as Single-AZ
+            if (!engineConfig.deployments.includes(deployment)) continue;
             
-            let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
-            let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
+            let apiEngine = engineConfig.apiEngine;
             
             const rdsFilters = [
                 { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
-                { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment },
+                { Type: "TERM_MATCH", Field: "deploymentOption", Value: deployment },
                 { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
                 { Type: "TERM_MATCH", Field: "location", Value: locationName }
             ];
             
-            if (engine === "SQL Server") {
-               let sqlEdition = inst.startsWith("db.t") ? "Express" : "Standard";
-               rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: sqlEdition });
-            }
-            if (engine === "Oracle") {
-               rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: "Standard One" });
+            if (engineConfig.databaseEdition) {
+               rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: engineConfig.databaseEdition });
+            } else if (engineConfig.editionMapping) {
+               rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: engineConfig.editionMapping[family] });
             }
 
             const hourly = await getLivePrice("AmazonRDS", rdsFilters);
