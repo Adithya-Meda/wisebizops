@@ -113,7 +113,7 @@ const main = async () => {
               ec2Filters = [
                 { Type: "TERM_MATCH", Field: "productFamily", Value: "Dedicated Host" },
                 { Type: "TERM_MATCH", Field: "location", Value: locationName },
-                { Type: "TERM_MATCH", Field: "instanceFamily", Value: family }
+                { Type: "TERM_MATCH", Field: "instanceType", Value: family }
               ];
           } else {
               ec2Filters = [
