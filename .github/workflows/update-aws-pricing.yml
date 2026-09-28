@@ -29,6 +29,9 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-1
 
+      - name: Preflight Architecture Validation
+        run: node src/scripts/validate-architectures.js
+
       - name: Fetch and Upsert AWS Pricing to Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
