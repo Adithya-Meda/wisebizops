@@ -13,32 +13,46 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Rate limiter helper
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function getLivePrice(serviceCode, filters) {
-  try {
-    await sleep(200); // 5 API calls per second to avoid rate limits
-    const command = new GetProductsCommand({
-      ServiceCode: serviceCode,
-      Filters: filters,
-      MaxResults: 1
-    });
-    const response = await client.send(command);
-    if (response.PriceList && response.PriceList.length > 0) {
-      const priceItem = JSON.parse(response.PriceList[0]);
-      const onDemand = priceItem.terms.OnDemand;
-      if (onDemand) {
-        const firstKey = Object.keys(onDemand)[0];
-        const priceDimensions = onDemand[firstKey].priceDimensions;
-        const dimKey = Object.keys(priceDimensions)[0];
-        return parseFloat(priceDimensions[dimKey].pricePerUnit.USD);
+async function getLivePrice(serviceCode, filters, maxRetries = 5) {
+  let attempt = 0;
+  let delay = 500; // Start with 500ms
+  while (attempt <= maxRetries) {
+    try {
+      await sleep(delay); // Baseline rate limiting + backoff
+      const command = new GetProductsCommand({
+        ServiceCode: serviceCode,
+        Filters: filters,
+        MaxResults: 1
+      });
+      const response = await client.send(command);
+      if (response.PriceList && response.PriceList.length > 0) {
+        const priceItem = JSON.parse(response.PriceList[0]);
+        const onDemand = priceItem.terms.OnDemand;
+        if (onDemand) {
+          const firstKey = Object.keys(onDemand)[0];
+          const priceDimensions = onDemand[firstKey].priceDimensions;
+          const dimKey = Object.keys(priceDimensions)[0];
+          return parseFloat(priceDimensions[dimKey].pricePerUnit.USD);
+        }
+      }
+      return null;
+    } catch (error) {
+      if (error.name === 'ThrottlingException' || error.$metadata?.httpStatusCode === 429 || error.name === 'TooManyRequestsException') {
+        attempt++;
+        if (attempt > maxRetries) {
+          console.error(`Rate limit permanently exceeded for ${serviceCode} after ${maxRetries} retries.`);
+          throw error;
+        }
+        console.warn(`Rate limited for ${serviceCode}. Retrying in ${delay}ms...`);
+        delay *= 2; // Exponential backoff
+      } else {
+        throw error;
       }
     }
-    return null;
-  } catch (error) {
-    return null;
   }
+  return null;
 }
 
 const regionMapping = {
@@ -100,177 +114,187 @@ const main = async () => {
 
   let totalQueries = 0;
 
-  for (const [regionCode, locationName] of Object.entries(regionMapping)) {
-    console.log(`Fetching data for region: ${regionCode} (${locationName})`);
+  try {
+    for (const [regionCode, locationName] of Object.entries(regionMapping)) {
+      console.log(`Fetching data for region: ${regionCode} (${locationName})`);
 
-    // 1. EC2
-    for (const inst of ec2Instances) {
-      const operatingSystemsWithMac = { ...operatingSystems, "macOS": "Linux" };
-      for (const [osName, osApiValue] of Object.entries(operatingSystemsWithMac)) {
-        const isMac = osName === "macOS";
-        const ec2Filters = [
-          { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-          { Type: "TERM_MATCH", Field: "location", Value: locationName },
-          { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
-          { Type: "TERM_MATCH", Field: "tenancy", Value: isMac ? "Host" : "Shared" },
-          { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" }
-        ];
-        if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
-        const hourly = await getLivePrice("AmazonEC2", ec2Filters);
-        const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 8 : 70);
-        
-        dbRecords.push({
-          service_name: "Amazon EC2",
-          region: regionCode,
-          configuration: `${inst}, ${osName}`,
-          price_usd: parseFloat(baseCost.toFixed(2)),
-          pricing_unit: "per Resource-month"
-        });
-        totalQueries++;
-      }
-    }
-
-    // 2. RDS
-    for (const engine of rdsEngines) {
-      for (const inst of rdsInstances) {
-        for (const deployment of rdsDeployments) {
-          let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
-          if (engine === "SQL Server") apiEngine = "SQL Server Express";
-          let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
+      // 1. EC2
+      for (const inst of ec2Instances) {
+        const operatingSystemsWithMac = { ...operatingSystems, "macOS": "Linux" };
+        for (const [osName, osApiValue] of Object.entries(operatingSystemsWithMac)) {
+          const isMac = osName === "macOS";
+          const ec2Filters = [
+            { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+            { Type: "TERM_MATCH", Field: "location", Value: locationName },
+            { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
+            { Type: "TERM_MATCH", Field: "tenancy", Value: isMac ? "Host" : "Shared" },
+            { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" }
+          ];
+          if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
+          const hourly = await getLivePrice("AmazonEC2", ec2Filters);
+          if (hourly === null) throw new Error(`Failed to fetch price for EC2 ${inst} OS: ${osName} in ${locationName}`);
+          const baseCost = hourly * 730;
           
-          const hourly = await getLivePrice("AmazonRDS", [
-              { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
-              { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment },
-              { Type: "TERM_MATCH", Field: "instanceType", Value: inst }
-            ]);
-          
-          const baseCost = hourly ? hourly * 730 : (inst.includes('micro') ? 15 : 150);
           dbRecords.push({
-            service_name: "Amazon RDS",
+            service_name: "Amazon EC2",
             region: regionCode,
-            configuration: `${engine}, ${inst}, ${deployment}`,
+            configuration: `${inst}, ${osName}`,
             price_usd: parseFloat(baseCost.toFixed(2)),
             pricing_unit: "per Resource-month"
           });
           totalQueries++;
         }
       }
-    }
 
-    // 3. EBS
-    const ebsTypes = { "gp3": "General Purpose", "gp2": "General Purpose", "io1": "Provisioned IOPS", "io2": "Provisioned IOPS", "st1": "Throughput Optimized HDD", "sc1": "Cold HDD" };
-    for (const [volType, volName] of Object.entries(ebsTypes)) {
-      const gbCost = await getLivePrice("AmazonEC2", [
-        { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-        { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType },
-          { Type: "TERM_MATCH", Field: "location", Value: regionMapping[regionCode] }
-      ]);
-      const baseCost = gbCost ? gbCost : (volType === 'gp3' ? 0.08 : 0.10);
+      // 2. RDS
+      for (const engine of rdsEngines) {
+        for (const inst of rdsInstances) {
+          for (const deployment of rdsDeployments) {
+            let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
+            if (engine === "SQL Server") apiEngine = "SQL Server Express";
+            let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
+            
+            const hourly = await getLivePrice("AmazonRDS", [
+                { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
+                { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment },
+                { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+                { Type: "TERM_MATCH", Field: "location", Value: locationName }
+              ]);
+            
+            if (hourly === null) throw new Error(`Failed to fetch price for RDS ${inst} Engine: ${engine} in ${locationName}`);
+            const baseCost = hourly * 730;
+            dbRecords.push({
+              service_name: "Amazon RDS",
+              region: regionCode,
+              configuration: `${engine}, ${inst}, ${deployment}`,
+              price_usd: parseFloat(baseCost.toFixed(2)),
+              pricing_unit: "per Resource-month"
+            });
+            totalQueries++;
+          }
+        }
+      }
+
+      // 3. EBS
+      const ebsTypes = { "gp3": "General Purpose", "gp2": "General Purpose", "io1": "Provisioned IOPS", "io2": "Provisioned IOPS", "st1": "Throughput Optimized HDD", "sc1": "Cold HDD" };
+      for (const [volType, volName] of Object.entries(ebsTypes)) {
+        const gbCost = await getLivePrice("AmazonEC2", [
+          { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
+          { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType },
+          { Type: "TERM_MATCH", Field: "location", Value: locationName }
+        ]);
+        if (gbCost === null) throw new Error(`Failed to fetch price for EBS ${volType} in ${locationName}`);
         dbRecords.push({
           service_name: "Amazon EBS",
           region: regionCode,
           configuration: volType,
-          price_usd: parseFloat(baseCost.toFixed(4)),
+          price_usd: parseFloat(gbCost.toFixed(4)),
           pricing_unit: "per GB-month"
         });
-    }
+        totalQueries++;
+      }
 
-    // 4. S3
-    const s3Tiers = { "Standard": "Standard", "Intelligent-Tiering": "Intelligent-Tiering", "Standard-IA": "Standard - Infrequent Access", "One Zone-IA": "One Zone - Infrequent Access", "Glacier": "Glacier Flexible Retrieval" };
-    for (const [tier, apiName] of Object.entries(s3Tiers)) {
-       const gbCost = await getLivePrice("AmazonS3", [
-          { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-          { Type: "TERM_MATCH", Field: "storageClass", Value: apiName },
-            { Type: "TERM_MATCH", Field: "location", Value: regionMapping[regionCode] }
-       ]);
-       const baseCost = gbCost ? gbCost : 0.023;
+      // 4. S3
+      const s3Tiers = { "Standard": "Standard", "Intelligent-Tiering": "Intelligent-Tiering", "Standard-IA": "Standard - Infrequent Access", "One Zone-IA": "One Zone - Infrequent Access", "Glacier": "Glacier Flexible Retrieval" };
+      for (const [tier, apiName] of Object.entries(s3Tiers)) {
+         const gbCost = await getLivePrice("AmazonS3", [
+            { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
+            { Type: "TERM_MATCH", Field: "storageClass", Value: apiName },
+            { Type: "TERM_MATCH", Field: "location", Value: locationName }
+         ]);
+         if (gbCost === null) throw new Error(`Failed to fetch price for S3 ${tier} in ${locationName}`);
          dbRecords.push({
             service_name: "Amazon S3",
             region: regionCode,
             configuration: tier,
-            price_usd: parseFloat(baseCost.toFixed(4)),
+            price_usd: parseFloat(gbCost.toFixed(4)),
             pricing_unit: "per GB-month"
          });
+         totalQueries++;
+      }
+
+      // Minor services with multipliers (since some APIs are obscured like EKS, WAF, Shield)
+      let multiplier = 1.0;
+      if (regionCode.startsWith("eu-")) multiplier = 1.15;
+      else if (regionCode.startsWith("ap-")) multiplier = 1.25;
+
+      console.log("Fetching dynamic prices for minor services...");
+      
+      const albHourly = await getLivePrice("AWSELB", [
+        { Type: "TERM_MATCH", Field: "location", Value: locationName },
+        { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Application" }
+      ]);
+      const nlbHourly = await getLivePrice("AWSELB", [
+        { Type: "TERM_MATCH", Field: "location", Value: locationName },
+        { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Network" }
+      ]);
+      const clbHourly = await getLivePrice("AWSELB", [
+        { Type: "TERM_MATCH", Field: "location", Value: locationName },
+        { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" }
+      ]);
+      const natHourly = await getLivePrice("AmazonEC2", [
+        { Type: "TERM_MATCH", Field: "location", Value: locationName },
+        { Type: "TERM_MATCH", Field: "productFamily", Value: "NAT Gateway" }
+      ]);
+      const lambdaReq = await getLivePrice("AWSLambda", [
+        { Type: "TERM_MATCH", Field: "location", Value: locationName },
+        { Type: "TERM_MATCH", Field: "group", Value: "AWS-Lambda-Requests" }
+      ]);
+
+      if (albHourly === null) throw new Error(`Failed to fetch ALB in ${locationName}`);
+      if (nlbHourly === null) throw new Error(`Failed to fetch NLB in ${locationName}`);
+      if (clbHourly === null) throw new Error(`Failed to fetch CLB in ${locationName}`);
+      if (natHourly === null) throw new Error(`Failed to fetch NAT Gateway in ${locationName}`);
+      if (lambdaReq === null) throw new Error(`Failed to fetch Lambda Requests in ${locationName}`);
+
+      const eksMonthly = 73.0 * multiplier;
+      const ddbProv = 47.45 * multiplier;
+      const ddbOnDem = 25.0 * multiplier;
+      
+      const minorServices = [
+        { s: "AWS Lambda", c: "x86_64, 128MB", p: lambdaReq * 1000000, u: "per 1M Requests" },
+        { s: "AWS Lambda", c: "arm64, 128MB", p: (lambdaReq * 1000000) * 0.8, u: "per 1M Requests" },
+        { s: "AWS Lambda", c: "x86_64, 512MB", p: (lambdaReq * 1000000) * 4, u: "per 1M Requests" },
+        { s: "AWS Lambda", c: "arm64, 512MB", p: (lambdaReq * 1000000) * 3.2, u: "per 1M Requests" },
+        { s: "Amazon DynamoDB", c: "Provisioned", p: ddbProv, u: "per Resource-month" },
+        { s: "Amazon DynamoDB", c: "On-Demand", p: ddbOnDem, u: "per Resource-month" },
+        { s: "Amazon EKS (Standard)", c: "Standard", p: eksMonthly, u: "per Cluster-month" },
+        { s: "Amazon EKS (Fargate)", c: "Fargate", p: eksMonthly, u: "per Cluster-month" },
+        { s: "Elastic Load Balancing (Application)", c: "Application", p: albHourly * 730, u: "per Resource-month" },
+        { s: "Elastic Load Balancing (Network)", c: "Network", p: nlbHourly * 730, u: "per Resource-month" },
+        { s: "Elastic Load Balancing (Classic)", c: "Classic", p: clbHourly * 730, u: "per Resource-month" },
+        { s: "Elastic Load Balancing (Gateway)", c: "Gateway", p: (albHourly * 730) * 0.55, u: "per Resource-month" },
+        { s: "Amazon VPC (NAT Gateway)", c: "NAT Gateway", p: natHourly * 730, u: "per Resource-month" },
+        { s: "AWS WAF", c: "Standard", p: 5.0 * multiplier, u: "per WebACL-month" },
+        { s: "AWS Shield", c: "Advanced", p: 3000.0, u: "per month" },
+        { s: "Amazon CloudFront", c: "Global", p: 8.5 * multiplier, u: "per TB-month" }
+      ];
+
+      for(const m of minorServices) {
+         dbRecords.push({
+            service_name: m.s,
+            region: regionCode,
+            configuration: m.c,
+            price_usd: parseFloat((m.p).toFixed(2)),
+            pricing_unit: m.u
+         });
+      }
+
+      console.log(`Finished ${regionCode}. Accumulated ${dbRecords.length} records. Pushing batch...`);
+      
+      const { error } = await supabase
+        .from('aws_prices')
+        .upsert(dbRecords.filter(r => r.region === regionCode), { onConflict: 'service_name,region,configuration' });
+
+      if (error) {
+        throw new Error(`Error upserting region ${regionCode} to Supabase: ${error.message}`);
+      }
     }
-
-    // Fallbacks for minor services
-    let multiplier = 1.0;
-    if (regionCode.startsWith("eu-")) multiplier = 1.15;
-    else if (regionCode.startsWith("ap-")) multiplier = 1.25;
-
-    
-    console.log("Fetching dynamic prices for minor services...");
-    
-    // Dynamic fetches
-    const albHourly = await getLivePrice("AWSELB", [
-      { Type: "TERM_MATCH", Field: "location", Value: locationName },
-      { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Application" }
-    ]);
-    const nlbHourly = await getLivePrice("AWSELB", [
-      { Type: "TERM_MATCH", Field: "location", Value: locationName },
-      { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Network" }
-    ]);
-    const clbHourly = await getLivePrice("AWSELB", [
-      { Type: "TERM_MATCH", Field: "location", Value: locationName },
-      { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" }
-    ]);
-    const natHourly = await getLivePrice("AmazonEC2", [
-      { Type: "TERM_MATCH", Field: "location", Value: locationName },
-      { Type: "TERM_MATCH", Field: "productFamily", Value: "NAT Gateway" }
-    ]);
-    const lambdaReq = await getLivePrice("AWSLambda", [
-      { Type: "TERM_MATCH", Field: "location", Value: locationName },
-      { Type: "TERM_MATCH", Field: "group", Value: "AWS-Lambda-Requests" }
-    ]);
-    
-    const eksMonthly = 73.0 * multiplier; // AWS Pricing API obscures EKS Cluster pricing, using regional multiplier
-    const ddbProv = 47.45 * multiplier;
-    const ddbOnDem = 25.0 * multiplier;
-    
-    const minorServices = [
-      { s: "AWS Lambda", c: "x86_64, 128MB", p: lambdaReq ? lambdaReq * 1000000 : 0.20 * multiplier, u: "per 1M Requests" },
-      { s: "AWS Lambda", c: "arm64, 128MB", p: lambdaReq ? (lambdaReq * 1000000) * 0.8 : 0.16 * multiplier, u: "per 1M Requests" },
-      { s: "AWS Lambda", c: "x86_64, 512MB", p: lambdaReq ? (lambdaReq * 1000000) * 4 : 0.80 * multiplier, u: "per 1M Requests" },
-      { s: "AWS Lambda", c: "arm64, 512MB", p: lambdaReq ? (lambdaReq * 1000000) * 3.2 : 0.64 * multiplier, u: "per 1M Requests" },
-      { s: "Amazon DynamoDB", c: "Provisioned", p: ddbProv, u: "per Resource-month" },
-      { s: "Amazon DynamoDB", c: "On-Demand", p: ddbOnDem, u: "per Resource-month" },
-      { s: "Amazon EKS (Standard)", c: "Standard", p: eksMonthly, u: "per Cluster-month" },
-      { s: "Amazon EKS (Fargate)", c: "Fargate", p: eksMonthly, u: "per Cluster-month" },
-      { s: "Elastic Load Balancing (Application)", c: "Application", p: albHourly ? albHourly * 730 : 16.425 * multiplier, u: "per Resource-month" },
-      { s: "Elastic Load Balancing (Network)", c: "Network", p: nlbHourly ? nlbHourly * 730 : 16.425 * multiplier, u: "per Resource-month" },
-      { s: "Elastic Load Balancing (Classic)", c: "Classic", p: clbHourly ? clbHourly * 730 : 18.25 * multiplier, u: "per Resource-month" },
-      { s: "Elastic Load Balancing (Gateway)", c: "Gateway", p: (albHourly ? albHourly * 730 : 16.425 * multiplier) * 0.55, u: "per Resource-month" },
-      { s: "Amazon VPC (NAT Gateway)", c: "NAT Gateway", p: natHourly ? natHourly * 730 : 32.85 * multiplier, u: "per Resource-month" },
-      { s: "AWS WAF", c: "Standard", p: 5.0 * multiplier, u: "per WebACL-month" },
-      { s: "AWS Shield", c: "Advanced", p: 3000.0, u: "per month" },
-      { s: "Amazon CloudFront", c: "Global", p: 8.5 * multiplier, u: "per TB-month" }
-    ];
-
-
-    for(const m of minorServices) {
-       dbRecords.push({
-          service_name: m.s,
-          region: regionCode,
-          configuration: m.c,
-          price_usd: parseFloat((m.p * multiplier).toFixed(2)),
-          pricing_unit: m.u
-       });
-    }
-
-    console.log(`Finished ${regionCode}. Accumulated ${dbRecords.length} records. Pushing batch...`);
-    
-    // Push batch per region to avoid payload too large
-    const { error } = await supabase
-      .from('aws_prices')
-      .upsert(dbRecords.filter(r => r.region === regionCode), { onConflict: 'service_name,region,configuration' });
-
-    if (error) {
-      console.error(`Error upserting region ${regionCode} to Supabase:`, error);
-    }
+    console.log(`Successfully completed pulling prices for all regions! Total queries executed: ${totalQueries}`);
+  } catch (err) {
+    console.error("CRITICAL FAILURE in pricing sync pipeline:", err);
+    process.exit(1);
   }
-
-  console.log(`Successfully completed pulling prices for all regions! Total queries executed: ${totalQueries}`);
 };
 
 main();
-
