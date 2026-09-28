@@ -20,8 +20,8 @@ Object.entries(architectures.rds.instanceFamilies).forEach(([family, config]) =>
 
 const serviceConfigs: Record<string, ConfigOption[]> = {
   "Amazon EC2": [
-    { label: "Instance Type", options: ec2Instances },
-    { label: "Operating System", options: Object.keys(architectures.ec2.operatingSystems) }
+    { label: "Operating System", options: Object.keys(architectures.ec2.operatingSystems) },
+    { label: "Instance Type", options: ec2Instances }
   ],
   "Amazon RDS": [
     { label: "Database Engine", options: Object.keys(architectures.rds.engines) },
@@ -92,17 +92,24 @@ export default function AwsEstimator() {
   }, [selectedService]);
 
   useEffect(() => {
-    // UI Validation: Strictly enforce that macOS can only be selected with Mac bare-metal instances (and vice versa)
+    // Dynamic Validation: Ensure the selected instance type is actually supported by the selected OS
     if (selectedService === "Amazon EC2" && selectedConfig["Operating System"] && selectedConfig["Instance Type"]) {
-        const isMacOS = selectedConfig["Operating System"] === "macOS";
-        const isMacInst = selectedConfig["Instance Type"].startsWith("mac");
-
-        if (isMacOS && !isMacInst) {
-            // Force OS back to Linux if user selects macOS on a non-Mac instance
-            setSelectedConfig(prev => ({...prev, "Operating System": "Linux"}));
-        } else if (!isMacOS && isMacInst) {
-            // Force OS to macOS if user selects a Mac instance
-            setSelectedConfig(prev => ({...prev, "Operating System": "macOS"}));
+        const currentOs = selectedConfig["Operating System"];
+        const currentInst = selectedConfig["Instance Type"];
+        const family = currentInst.split('.')[0];
+        const familyConfig = architectures.ec2.instanceFamilies[family as keyof typeof architectures.ec2.instanceFamilies];
+        
+        if (familyConfig && !familyConfig.supportedOs.includes(currentOs)) {
+            // Find the first instance type that supports this OS
+            const validInstances: string[] = [];
+            Object.entries(architectures.ec2.instanceFamilies).forEach(([f, config]) => {
+                if (config.supportedOs.includes(currentOs)) {
+                    config.sizes.forEach(size => validInstances.push(`${f}.${size}`));
+                }
+            });
+            if (validInstances.length > 0) {
+                setSelectedConfig(prev => ({...prev, "Instance Type": validInstances[0]}));
+            }
         }
     }
   }, [selectedConfig, selectedService]);
@@ -355,7 +362,25 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
 
                   {serviceConfigs[selectedService] && (
                     <div className="grid grid-cols-2 gap-3 pt-1 border-t border-zinc-200 dark:border-white/10">
-                      {serviceConfigs[selectedService].map((conf, idx) => (
+                      {(() => {
+                          const configs = JSON.parse(JSON.stringify(serviceConfigs[selectedService] || []));
+                          if (selectedService === "Amazon EC2") {
+                              const currentOs = selectedConfig["Operating System"];
+                              if (currentOs) {
+                                  const instConfig = configs.find((c: any) => c.label === "Instance Type");
+                                  if (instConfig) {
+                                      const validInstances: string[] = [];
+                                      Object.entries(architectures.ec2.instanceFamilies).forEach(([family, config]) => {
+                                          if (config.supportedOs.includes(currentOs)) {
+                                              config.sizes.forEach(size => validInstances.push(`${family}.${size}`));
+                                          }
+                                      });
+                                      instConfig.options = validInstances;
+                                  }
+                              }
+                          }
+                          return configs;
+                      })().map((conf: any, idx: number) => (
                         <div key={idx}>
                           <label className="block text-[11px] font-medium text-zinc-500 dark:text-zinc-400 mb-1.5 transition-colors">{conf.label}</label>
                           <CustomSelect options={conf.options.map((opt: string) => ({value: opt, label: opt}))} value={selectedConfig[conf.label] || ""} onChange={(val: string) => setSelectedConfig({...selectedConfig, [conf.label]: val})} className="w-full appearance-none rounded-2xl border border-primary-400/50 dark:border-primary-500/40 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 bg-black/[0.03] dark:bg-black/20 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.06),inset_-2px_-2px_5px_rgba(255,255,255,0.5)] dark:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.5),inset_-2px_-2px_5px_rgba(255,255,255,0.03)] px-3 py-1.5 backdrop-blur-sm text-xs text-zinc-900 dark:text-zinc-300 focus:outline-none transition-all" />
