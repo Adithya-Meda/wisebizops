@@ -83,7 +83,6 @@ const regionMapping = {
 };
 
 const main = async () => {
-  const dbRecords = [];
   
   const ec2Instances = [
     "t3.micro", "t3.small", "t3.medium", "t3.large", "t3.xlarge", "t3.2xlarge",
@@ -114,8 +113,20 @@ const main = async () => {
 
   let totalQueries = 0;
 
+  async function processConcurrently(items, concurrency, asyncCallback) {
+    let index = 0;
+    const workers = Array.from({ length: concurrency }, async () => {
+      while (index < items.length) {
+        await asyncCallback(items[index++]);
+      }
+    });
+    await Promise.all(workers);
+  }
+
   try {
-    for (const [regionCode, locationName] of Object.entries(regionMapping)) {
+    const regions = Object.entries(regionMapping);
+    await processConcurrently(regions, 4, async ([regionCode, locationName]) => {
+      const dbRecords = [];
       console.log(`Fetching data for region: ${regionCode} (${locationName})`);
 
       // 1. EC2
@@ -306,12 +317,12 @@ const main = async () => {
       
       const { error } = await supabase
         .from('aws_prices')
-        .upsert(dbRecords.filter(r => r.region === regionCode), { onConflict: 'service_name,region,configuration' });
+        .upsert(dbRecords, { onConflict: 'service_name,region,configuration' });
 
       if (error) {
         throw new Error(`Error upserting region ${regionCode} to Supabase: ${error.message}`);
       }
-    }
+    });
     console.log(`Successfully completed pulling prices for all regions! Total queries executed: ${totalQueries}`);
   } catch (err) {
     console.error("CRITICAL FAILURE in pricing sync pipeline:", err);
