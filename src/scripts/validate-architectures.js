@@ -5,6 +5,7 @@ function validate() {
   
   let validEc2Count = 0;
   let validRdsCount = 0;
+  let validOtherCount = 0;
   
   const regions = Object.keys(architectures.regions);
   console.log(`\nValidating across ${regions.length} regions...`);
@@ -39,11 +40,24 @@ function validate() {
     }
   }
 
+  // Validate Others
+  validOtherCount += Object.keys(architectures.ebs.volumeTypes).length * regions.length;
+  validOtherCount += architectures.s3.tiers.length * regions.length;
+  validOtherCount += Object.keys(architectures.networking.loadBalancers).length * regions.length;
+  validOtherCount += Object.keys(architectures.networking.vpc).length * regions.length;
+  validOtherCount += architectures.serverless.lambda.architectures.length * architectures.serverless.lambda.memorySizes.length * regions.length;
+  validOtherCount += architectures.serverless.dynamodb.capacityModes.length * regions.length;
+  validOtherCount += architectures.compute.eks.modes.length * regions.length;
+  validOtherCount += architectures.security.waf.length * regions.length;
+  validOtherCount += architectures.security.shield.length * regions.length;
+  validOtherCount += architectures.cdn.cloudfront.length * regions.length;
+
   console.log(`\n[Preflight Results]`);
   console.log(`- Permitted EC2 Combinations: ${validEc2Count}`);
   console.log(`- Permitted RDS Combinations: ${validRdsCount}`);
+  console.log(`- Permitted Minor Service Combinations: ${validOtherCount}`);
   
-  if (validEc2Count === 0 || validRdsCount === 0) {
+  if (validEc2Count === 0 || validRdsCount === 0 || validOtherCount === 0) {
     console.error("Validation failed! Zero combinations generated.");
     process.exit(1);
   }
