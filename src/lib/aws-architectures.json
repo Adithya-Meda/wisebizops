@@ -34,39 +34,3530 @@
       "macOS": "Linux"
     },
     "instanceFamilies": {
-      "t3": { "arch": "x86", "sizes": ["micro", "small", "medium", "large", "xlarge", "2xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
-      "t4g": { "arch": "arm", "sizes": ["micro", "small", "medium", "large", "xlarge", "2xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
-      "m5": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
-      "m6g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
-      "m7i": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
-      "c5": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
-      "c6g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
-      "c7g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
-      "r5": { "arch": "x86", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL", "Windows"] },
-      "r6g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
-      "r7g": { "arch": "arm", "sizes": ["large", "xlarge", "2xlarge", "4xlarge"], "supportedOs": ["Linux", "Ubuntu", "RHEL"] },
-      "mac1": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] },
-      "mac2": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] },
-      "mac2-m2": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] },
-      "mac2-m2pro": { "arch": "mac", "sizes": ["metal"], "supportedOs": ["macOS"], "supportedRegions": ["us-east-1", "us-east-2", "us-west-2", "eu-west-1", "eu-central-1", "ap-southeast-1", "ap-southeast-2", "ap-northeast-1"] }
+      "a1": {
+        "arch": "arm",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c1": {
+        "arch": "x86",
+        "sizes": [
+          "medium",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c3": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c4": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c5": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "18xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "9xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c5a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c5ad": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c5d": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "18xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "9xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c5n": {
+        "arch": "x86",
+        "sizes": [
+          "18xlarge",
+          "2xlarge",
+          "4xlarge",
+          "9xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c6a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c6g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c6gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c6gn": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c6i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c6id": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c6in": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c7a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c7g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c7gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c7gn": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c7i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c7i-flex": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c8gb": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c8gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c8gn": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c8i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8i-flex": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8ib": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8id": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8in": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c8ine": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "c9g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "c9gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "d2": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "d3": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "d3en": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "2xlarge",
+          "4xlarge",
+          "6xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "f2": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "48xlarge",
+          "6xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g4dn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g5": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g5g": {
+        "arch": "arm",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "g6": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g6e": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g6f": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g7": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "g7e": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "gr6": {
+        "arch": "x86",
+        "sizes": [
+          "4xlarge",
+          "8xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "gr6f": {
+        "arch": "x86",
+        "sizes": [
+          "4xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "h1": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "hpc7g": {
+        "arch": "arm",
+        "sizes": [
+          "16xlarge",
+          "4xlarge",
+          "8xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "i2": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "i3": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "i3en": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "24xlarge",
+          "2xlarge",
+          "3xlarge",
+          "6xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "i4g": {
+        "arch": "arm",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "i4i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "i7i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "i7ie": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "18xlarge",
+          "24xlarge",
+          "2xlarge",
+          "3xlarge",
+          "48xlarge",
+          "6xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "i8g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "i8ge": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "18xlarge",
+          "24xlarge",
+          "2xlarge",
+          "3xlarge",
+          "48xlarge",
+          "6xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "im4gn": {
+        "arch": "arm",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "inf1": {
+        "arch": "x86",
+        "sizes": [
+          "24xlarge",
+          "2xlarge",
+          "6xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "inf2": {
+        "arch": "x86",
+        "sizes": [
+          "24xlarge",
+          "48xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "is4gen": {
+        "arch": "arm",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m1": {
+        "arch": "x86",
+        "sizes": [
+          "large",
+          "medium",
+          "small",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m2": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m3": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "large",
+          "medium",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m4": {
+        "arch": "x86",
+        "sizes": [
+          "10xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5ad": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5d": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5dn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5n": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m5zn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "2xlarge",
+          "3xlarge",
+          "6xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m6a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m6g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m6gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m6i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m6id": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m6idn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m6in": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m7a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m7g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m7gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m7i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m7i-flex": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8azn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "24xlarge",
+          "3xlarge",
+          "6xlarge",
+          "large",
+          "medium",
+          "metal-12xl",
+          "metal-24xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m8gb": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m8gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m8gn": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m8i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8i-flex": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8ib": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8id": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8idb": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8idn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8in": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m8ine": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "m9g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "m9gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "mac-m3ultra": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac-m4": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac-m4max": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac-m4pro": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac1": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac2": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac2-m1ultra": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac2-m2": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "mac2-m2pro": {
+        "arch": "mac",
+        "sizes": [
+          "metal"
+        ],
+        "supportedOs": [
+          "macOS"
+        ],
+        "supportedRegions": [
+          "us-east-1",
+          "us-east-2",
+          "us-west-2",
+          "eu-west-1",
+          "eu-central-1",
+          "ap-southeast-1",
+          "ap-southeast-2",
+          "ap-northeast-1"
+        ]
+      },
+      "p3dn": {
+        "arch": "x86",
+        "sizes": [
+          "24xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "p4d": {
+        "arch": "x86",
+        "sizes": [
+          "24xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "p4de": {
+        "arch": "x86",
+        "sizes": [
+          "24xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "p5": {
+        "arch": "x86",
+        "sizes": [
+          "48xlarge",
+          "4xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "p5en": {
+        "arch": "x86",
+        "sizes": [
+          "48xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "p6-b200": {
+        "arch": "x86",
+        "sizes": [
+          "48xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "p6-b300": {
+        "arch": "x86",
+        "sizes": [
+          "48xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r3": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r4": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5ad": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5b": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5d": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5dn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r5n": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r6a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r6g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r6gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r6i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r6id": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r6idn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r6in": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r7a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r7g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r7gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r7i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r7iz": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "metal-16xl",
+          "metal-32xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8a": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r8gb": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r8gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r8gn": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r8i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8i-flex": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8ib": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8id": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8idb": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8idn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r8in": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "r9g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "r9gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "t1": {
+        "arch": "x86",
+        "sizes": [
+          "micro"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "t2": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "large",
+          "medium",
+          "micro",
+          "nano",
+          "small",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "t3": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "large",
+          "medium",
+          "micro",
+          "nano",
+          "small",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "t3a": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "large",
+          "medium",
+          "micro",
+          "nano",
+          "small",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "t4g": {
+        "arch": "arm",
+        "sizes": [
+          "2xlarge",
+          "large",
+          "medium",
+          "micro",
+          "nano",
+          "small",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "t8i": {
+        "arch": "x86",
+        "sizes": [
+          "medium",
+          "micro",
+          "nano",
+          "small"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "trn1": {
+        "arch": "x86",
+        "sizes": [
+          "2xlarge",
+          "32xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "trn1n": {
+        "arch": "x86",
+        "sizes": [
+          "32xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u-3tb1": {
+        "arch": "x86",
+        "sizes": [
+          "56xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u-6tb1": {
+        "arch": "x86",
+        "sizes": [
+          "112xlarge",
+          "56xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u7i-12tb": {
+        "arch": "x86",
+        "sizes": [
+          "224xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u7i-6tb": {
+        "arch": "x86",
+        "sizes": [
+          "112xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u7i-8tb": {
+        "arch": "x86",
+        "sizes": [
+          "112xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u7in-16tb": {
+        "arch": "x86",
+        "sizes": [
+          "224xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u7in-24tb": {
+        "arch": "x86",
+        "sizes": [
+          "224xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "u7in-32tb": {
+        "arch": "x86",
+        "sizes": [
+          "224xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "vt1": {
+        "arch": "x86",
+        "sizes": [
+          "24xlarge",
+          "3xlarge",
+          "6xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "x1": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "32xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "x1e": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "x2gd": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "2xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "x2idn": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "24xlarge",
+          "32xlarge",
+          "metal"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "x2iedn": {
+        "arch": "x86",
+        "sizes": [
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "4xlarge",
+          "8xlarge",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "x2iezn": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "2xlarge",
+          "4xlarge",
+          "6xlarge",
+          "8xlarge",
+          "metal"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "x8g": {
+        "arch": "arm",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "48xlarge",
+          "4xlarge",
+          "8xlarge",
+          "large",
+          "medium",
+          "metal-24xl",
+          "metal-48xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL"
+        ]
+      },
+      "x8i": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "16xlarge",
+          "24xlarge",
+          "2xlarge",
+          "32xlarge",
+          "48xlarge",
+          "4xlarge",
+          "64xlarge",
+          "8xlarge",
+          "96xlarge",
+          "large",
+          "metal-48xl",
+          "metal-96xl",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      },
+      "z1d": {
+        "arch": "x86",
+        "sizes": [
+          "12xlarge",
+          "2xlarge",
+          "3xlarge",
+          "6xlarge",
+          "large",
+          "metal",
+          "xlarge"
+        ],
+        "supportedOs": [
+          "Linux",
+          "Ubuntu",
+          "RHEL",
+          "Windows"
+        ]
+      }
     }
   },
   "rds": {
     "engines": {
-      "PostgreSQL": { "apiEngine": "PostgreSQL", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "m5", "m6g", "r5", "r6g"], "minSize": "micro" },
-      "MySQL": { "apiEngine": "MySQL", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "m5", "m6g", "r5", "r6g"], "minSize": "micro" },
-      "MariaDB": { "apiEngine": "MariaDB", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "m5", "m6g", "r5", "r6g"], "minSize": "micro" },
-      "Aurora": { "apiEngine": "Aurora PostgreSQL", "deployments": ["Single-AZ"], "supportedInstanceFamilies": ["t3", "t4g", "r5", "r6g"], "minSize": "medium" },
-      "Oracle": { "apiEngine": "Oracle", "databaseEdition": "Standard One", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "m5", "r5"], "minSize": "small" },
-      "SQL Server": { "apiEngine": "SQL Server", "deployments": ["Single-AZ", "Multi-AZ"], "supportedInstanceFamilies": ["t3", "m5", "r5"], "minSize": "micro", "editionMapping": { "t3": "Express", "m5": "Standard", "r5": "Standard" } }
+      "PostgreSQL": {
+        "apiEngine": "PostgreSQL",
+        "deployments": [
+          "Single-AZ",
+          "Multi-AZ"
+        ],
+        "supportedInstanceFamilies": [
+          "t3",
+          "t4g",
+          "m5",
+          "m6g",
+          "r5",
+          "r6g"
+        ],
+        "minSize": "micro"
+      },
+      "MySQL": {
+        "apiEngine": "MySQL",
+        "deployments": [
+          "Single-AZ",
+          "Multi-AZ"
+        ],
+        "supportedInstanceFamilies": [
+          "t3",
+          "t4g",
+          "m5",
+          "m6g",
+          "r5",
+          "r6g"
+        ],
+        "minSize": "micro"
+      },
+      "MariaDB": {
+        "apiEngine": "MariaDB",
+        "deployments": [
+          "Single-AZ",
+          "Multi-AZ"
+        ],
+        "supportedInstanceFamilies": [
+          "t3",
+          "t4g",
+          "m5",
+          "m6g",
+          "r5",
+          "r6g"
+        ],
+        "minSize": "micro"
+      },
+      "Aurora": {
+        "apiEngine": "Aurora PostgreSQL",
+        "deployments": [
+          "Single-AZ"
+        ],
+        "supportedInstanceFamilies": [
+          "t3",
+          "t4g",
+          "r5",
+          "r6g"
+        ],
+        "minSize": "medium"
+      },
+      "Oracle": {
+        "apiEngine": "Oracle",
+        "databaseEdition": "Standard One",
+        "deployments": [
+          "Single-AZ",
+          "Multi-AZ"
+        ],
+        "supportedInstanceFamilies": [
+          "t3",
+          "m5",
+          "r5"
+        ],
+        "minSize": "small"
+      },
+      "SQL Server": {
+        "apiEngine": "SQL Server",
+        "deployments": [
+          "Single-AZ",
+          "Multi-AZ"
+        ],
+        "supportedInstanceFamilies": [
+          "t3",
+          "m5",
+          "r5"
+        ],
+        "minSize": "micro",
+        "editionMapping": {
+          "t3": "Express",
+          "m5": "Standard",
+          "r5": "Standard"
+        }
+      }
     },
     "instanceFamilies": {
-      "t3": { "sizes": ["micro", "small", "medium", "large", "xlarge"] },
-      "t4g": { "sizes": ["micro", "small", "medium", "large", "xlarge"] },
-      "m5": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] },
-      "m6g": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] },
-      "r5": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] },
-      "r6g": { "sizes": ["large", "xlarge", "2xlarge", "4xlarge"] }
+      "t3": {
+        "sizes": [
+          "micro",
+          "small",
+          "medium",
+          "large",
+          "xlarge"
+        ]
+      },
+      "t4g": {
+        "sizes": [
+          "micro",
+          "small",
+          "medium",
+          "large",
+          "xlarge"
+        ]
+      },
+      "m5": {
+        "sizes": [
+          "large",
+          "xlarge",
+          "2xlarge",
+          "4xlarge"
+        ]
+      },
+      "m6g": {
+        "sizes": [
+          "large",
+          "xlarge",
+          "2xlarge",
+          "4xlarge"
+        ]
+      },
+      "r5": {
+        "sizes": [
+          "large",
+          "xlarge",
+          "2xlarge",
+          "4xlarge"
+        ]
+      },
+      "r6g": {
+        "sizes": [
+          "large",
+          "xlarge",
+          "2xlarge",
+          "4xlarge"
+        ]
+      }
     }
   },
   "ebs": {
@@ -81,11 +3572,31 @@
   },
   "s3": {
     "tiers": [
-      { "name": "Standard", "apiField": "volumeType", "apiValue": "Standard" },
-      { "name": "Intelligent-Tiering", "apiField": "storageClass", "apiValue": "Intelligent-Tiering" },
-      { "name": "Standard-IA", "apiField": "volumeType", "apiValue": "Standard - Infrequent Access" },
-      { "name": "One Zone-IA", "apiField": "volumeType", "apiValue": "One Zone - Infrequent Access" },
-      { "name": "Glacier", "apiField": "storageClass", "apiValue": "Archive" }
+      {
+        "name": "Standard",
+        "apiField": "volumeType",
+        "apiValue": "Standard"
+      },
+      {
+        "name": "Intelligent-Tiering",
+        "apiField": "storageClass",
+        "apiValue": "Intelligent-Tiering"
+      },
+      {
+        "name": "Standard-IA",
+        "apiField": "volumeType",
+        "apiValue": "Standard - Infrequent Access"
+      },
+      {
+        "name": "One Zone-IA",
+        "apiField": "volumeType",
+        "apiValue": "One Zone - Infrequent Access"
+      },
+      {
+        "name": "Glacier",
+        "apiField": "storageClass",
+        "apiValue": "Archive"
+      }
     ]
   },
   "networking": {
@@ -101,23 +3612,41 @@
   },
   "serverless": {
     "lambda": {
-      "architectures": ["x86_64", "arm64"],
-      "memorySizes": ["128MB", "512MB"]
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "memorySizes": [
+        "128MB",
+        "512MB"
+      ]
     },
     "dynamodb": {
-      "capacityModes": ["Provisioned", "On-Demand"]
+      "capacityModes": [
+        "Provisioned",
+        "On-Demand"
+      ]
     }
   },
   "compute": {
     "eks": {
-      "modes": ["Standard", "Fargate"]
+      "modes": [
+        "Standard",
+        "Fargate"
+      ]
     }
   },
   "security": {
-    "waf": ["Standard"],
-    "shield": ["Advanced"]
+    "waf": [
+      "Standard"
+    ],
+    "shield": [
+      "Advanced"
+    ]
   },
   "cdn": {
-    "cloudfront": ["Global"]
+    "cloudfront": [
+      "Global"
+    ]
   }
 }

@@ -107,14 +107,25 @@ const main = async () => {
           if (!config.supportedOs.includes(osName)) continue;
           if (config.supportedRegions && !config.supportedRegions.includes(regionCode)) continue;
 
-          const ec2Filters = [
-            { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
-            { Type: "TERM_MATCH", Field: "location", Value: locationName },
-            { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
-            { Type: "TERM_MATCH", Field: "tenancy", Value: isMac ? "Host" : "Shared" },
-            { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" }
-          ];
-          if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
+          let ec2Filters;
+          
+          if (isMac) {
+              ec2Filters = [
+                { Type: "TERM_MATCH", Field: "productFamily", Value: "Dedicated Host" },
+                { Type: "TERM_MATCH", Field: "location", Value: locationName },
+                { Type: "TERM_MATCH", Field: "instanceFamily", Value: family }
+              ];
+          } else {
+              ec2Filters = [
+                { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
+                { Type: "TERM_MATCH", Field: "location", Value: locationName },
+                { Type: "TERM_MATCH", Field: "operatingSystem", Value: osApiValue },
+                { Type: "TERM_MATCH", Field: "tenancy", Value: "Shared" },
+                { Type: "TERM_MATCH", Field: "preInstalledSw", Value: "NA" },
+                { Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" }
+              ];
+          }
+          
           const hourly = await getLivePrice("AmazonEC2", ec2Filters);
           if (hourly === null) continue; // Silently skip geographically unavailable resources
           const baseCost = hourly * 730;
