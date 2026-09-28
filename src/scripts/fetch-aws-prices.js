@@ -132,7 +132,10 @@ const main = async () => {
           ];
           if (!isMac) ec2Filters.push({ Type: "TERM_MATCH", Field: "capacitystatus", Value: "Used" });
           const hourly = await getLivePrice("AmazonEC2", ec2Filters);
-          if (hourly === null) throw new Error(`Failed to fetch price for EC2 ${inst} OS: ${osName} in ${locationName}`);
+          if (hourly === null) {
+            console.warn(`Price not found for EC2 ${inst} OS: ${osName} in ${locationName} (Combination may not exist)`);
+            continue;
+          }
           const baseCost = hourly * 730;
           
           dbRecords.push({
@@ -161,7 +164,10 @@ const main = async () => {
                 { Type: "TERM_MATCH", Field: "location", Value: locationName }
               ]);
             
-            if (hourly === null) throw new Error(`Failed to fetch price for RDS ${inst} Engine: ${engine} in ${locationName}`);
+            if (hourly === null) {
+              console.warn(`Price not found for RDS ${inst} Engine: ${engine} in ${locationName} (Combination may not exist)`);
+              continue;
+            }
             const baseCost = hourly * 730;
             dbRecords.push({
               service_name: "Amazon RDS",
