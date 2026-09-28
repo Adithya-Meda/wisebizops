@@ -122,7 +122,14 @@ const main = async () => {
       for (const inst of ec2Instances) {
         const operatingSystemsWithMac = { ...operatingSystems, "macOS": "Linux" };
         for (const [osName, osApiValue] of Object.entries(operatingSystemsWithMac)) {
+          const isMacInstance = inst.startsWith("mac");
           const isMac = osName === "macOS";
+          
+          // Architecture Constraints (Save API calls & time)
+          if (isMacInstance && !isMac) continue; // Mac instances only run macOS
+          if (!isMacInstance && isMac) continue; // Non-Mac instances don't run macOS
+          if (inst.includes("g.") && osName === "Windows") continue; // Graviton (ARM) doesn't support Windows
+
           const ec2Filters = [
             { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
             { Type: "TERM_MATCH", Field: "location", Value: locationName },
