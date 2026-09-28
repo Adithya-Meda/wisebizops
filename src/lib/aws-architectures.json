@@ -87,5 +87,37 @@
       { "name": "One Zone-IA", "apiField": "volumeType", "apiValue": "One Zone - Infrequent Access" },
       { "name": "Glacier", "apiField": "storageClass", "apiValue": "Archive" }
     ]
+  },
+  "networking": {
+    "loadBalancers": {
+      "Application": "Load Balancer-Application",
+      "Network": "Load Balancer-Network",
+      "Classic": "Load Balancer",
+      "Gateway": "Load Balancer-Network"
+    },
+    "vpc": {
+      "natGateway": "NAT Gateway"
+    }
+  },
+  "serverless": {
+    "lambda": {
+      "architectures": ["x86_64", "arm64"],
+      "memorySizes": ["128MB", "512MB"]
+    },
+    "dynamodb": {
+      "capacityModes": ["Provisioned", "On-Demand"]
+    }
+  },
+  "compute": {
+    "eks": {
+      "modes": ["Standard", "Fargate"]
+    }
+  },
+  "security": {
+    "waf": ["Standard"],
+    "shield": ["Advanced"]
+  },
+  "cdn": {
+    "cloudfront": ["Global"]
   }
 }
