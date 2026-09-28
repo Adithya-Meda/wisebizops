@@ -159,6 +159,9 @@ const main = async () => {
       // 2. RDS
       for (const engine of rdsEngines) {
         for (const inst of rdsInstances) {
+          const isArm = inst.includes("g.");
+          if (isArm && (engine === "SQL Server" || engine === "Oracle")) continue; // Graviton does not support SQL Server/Oracle
+          
           for (const deployment of rdsDeployments) {
             let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
             if (engine === "SQL Server") apiEngine = "SQL Server Express";
@@ -215,7 +218,7 @@ const main = async () => {
       for (const [tier, apiName] of Object.entries(s3Tiers)) {
          const gbCost = await getLivePrice("AmazonS3", [
             { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-            { Type: "TERM_MATCH", Field: "storageClass", Value: apiName },
+            { Type: "TERM_MATCH", Field: "volumeType", Value: apiName },
             { Type: "TERM_MATCH", Field: "location", Value: locationName }
          ]);
          if (gbCost === null) {
