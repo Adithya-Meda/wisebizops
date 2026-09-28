@@ -196,7 +196,10 @@ const main = async () => {
           { Type: "TERM_MATCH", Field: "volumeApiName", Value: volType },
           { Type: "TERM_MATCH", Field: "location", Value: locationName }
         ]);
-        if (gbCost === null) throw new Error(`Failed to fetch price for EBS ${volType} in ${locationName}`);
+        if (gbCost === null) {
+          console.warn(`Failed to fetch price for EBS ${volType} in ${locationName}`);
+          continue;
+        }
         dbRecords.push({
           service_name: "Amazon EBS",
           region: regionCode,
@@ -215,7 +218,10 @@ const main = async () => {
             { Type: "TERM_MATCH", Field: "storageClass", Value: apiName },
             { Type: "TERM_MATCH", Field: "location", Value: locationName }
          ]);
-         if (gbCost === null) throw new Error(`Failed to fetch price for S3 ${tier} in ${locationName}`);
+         if (gbCost === null) {
+           console.warn(`Failed to fetch price for S3 ${tier} in ${locationName}`);
+           continue;
+         }
          dbRecords.push({
             service_name: "Amazon S3",
             region: regionCode,
@@ -233,32 +239,32 @@ const main = async () => {
 
       console.log("Fetching dynamic prices for minor services...");
       
-      const albHourly = await getLivePrice("AWSELB", [
+      let albHourly = await getLivePrice("AWSELB", [
         { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Application" }
       ]);
-      const nlbHourly = await getLivePrice("AWSELB", [
+      let nlbHourly = await getLivePrice("AWSELB", [
         { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer-Network" }
       ]);
-      const clbHourly = await getLivePrice("AWSELB", [
+      let clbHourly = await getLivePrice("AWSELB", [
         { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "productFamily", Value: "Load Balancer" }
       ]);
-      const natHourly = await getLivePrice("AmazonEC2", [
+      let natHourly = await getLivePrice("AmazonEC2", [
         { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "productFamily", Value: "NAT Gateway" }
       ]);
-      const lambdaReq = await getLivePrice("AWSLambda", [
+      let lambdaReq = await getLivePrice("AWSLambda", [
         { Type: "TERM_MATCH", Field: "location", Value: locationName },
         { Type: "TERM_MATCH", Field: "group", Value: "AWS-Lambda-Requests" }
       ]);
 
-      if (albHourly === null) throw new Error(`Failed to fetch ALB in ${locationName}`);
-      if (nlbHourly === null) throw new Error(`Failed to fetch NLB in ${locationName}`);
-      if (clbHourly === null) throw new Error(`Failed to fetch CLB in ${locationName}`);
-      if (natHourly === null) throw new Error(`Failed to fetch NAT Gateway in ${locationName}`);
-      if (lambdaReq === null) throw new Error(`Failed to fetch Lambda Requests in ${locationName}`);
+      if (albHourly === null) { console.warn(`Failed to fetch ALB in ${locationName}`); albHourly = 0; }
+      if (nlbHourly === null) { console.warn(`Failed to fetch NLB in ${locationName}`); nlbHourly = 0; }
+      if (clbHourly === null) { console.warn(`Failed to fetch CLB in ${locationName}`); clbHourly = 0; }
+      if (natHourly === null) { console.warn(`Failed to fetch NAT Gateway in ${locationName}`); natHourly = 0; }
+      if (lambdaReq === null) { console.warn(`Failed to fetch Lambda Requests in ${locationName}`); lambdaReq = 0; }
 
       const eksMonthly = 73.0 * multiplier;
       const ddbProv = 47.45 * multiplier;
