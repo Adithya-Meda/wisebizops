@@ -175,15 +175,19 @@ const main = async () => {
           
           for (const deployment of rdsDeployments) {
             let apiEngine = engine === "Aurora" ? "Aurora PostgreSQL" : engine;
-            if (engine === "SQL Server") apiEngine = "SQL Server Express";
             let apiDeployment = deployment === "Multi-AZ" ? "Multi-AZ" : "Single-AZ";
             
-            const hourly = await getLivePrice("AmazonRDS", [
+            const rdsFilters = [
                 { Type: "TERM_MATCH", Field: "databaseEngine", Value: apiEngine },
                 { Type: "TERM_MATCH", Field: "deploymentOption", Value: apiDeployment },
                 { Type: "TERM_MATCH", Field: "instanceType", Value: inst },
                 { Type: "TERM_MATCH", Field: "location", Value: locationName }
-              ]);
+            ];
+            
+            if (engine === "SQL Server") rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: "Express" });
+            if (engine === "Oracle") rdsFilters.push({ Type: "TERM_MATCH", Field: "databaseEdition", Value: "Standard One" });
+
+            const hourly = await getLivePrice("AmazonRDS", rdsFilters);
             
             if (hourly === null) {
               console.warn(`Price not found for RDS ${inst} Engine: ${engine} in ${locationName} (Combination may not exist)`);
@@ -225,11 +229,17 @@ const main = async () => {
       }
 
       // 4. S3
-      const s3Tiers = { "Standard": "Standard", "Intelligent-Tiering": "Intelligent-Tiering", "Standard-IA": "Standard - Infrequent Access", "One Zone-IA": "One Zone - Infrequent Access", "Glacier": "Glacier Flexible Retrieval" };
-      for (const [tier, apiName] of Object.entries(s3Tiers)) {
+      const s3Tiers = [
+         { tier: "Standard", f: "volumeType", v: "Standard" },
+         { tier: "Intelligent-Tiering", f: "storageClass", v: "Intelligent-Tiering" },
+         { tier: "Standard-IA", f: "volumeType", v: "Standard - Infrequent Access" },
+         { tier: "One Zone-IA", f: "volumeType", v: "One Zone - Infrequent Access" },
+         { tier: "Glacier", f: "storageClass", v: "Archive" }
+      ];
+      for (const { tier, f, v } of s3Tiers) {
          const gbCost = await getLivePrice("AmazonS3", [
             { Type: "TERM_MATCH", Field: "productFamily", Value: "Storage" },
-            { Type: "TERM_MATCH", Field: "volumeType", Value: apiName },
+            { Type: "TERM_MATCH", Field: f, Value: v },
             { Type: "TERM_MATCH", Field: "location", Value: locationName }
          ]);
          if (gbCost === null) {
