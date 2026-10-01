@@ -1,5 +1,8 @@
 const { PricingClient, GetProductsCommand } = require("@aws-sdk/client-pricing");
+const { PricingClient, GetProductsCommand } = require("@aws-sdk/client-pricing");
 const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
+const path = require('path');
 
 const client = new PricingClient({ region: "us-east-1" });
 
@@ -12,6 +15,18 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Track price changes for artifact generation
+const priceChanges = {
+  timestamp: new Date().toISOString(),
+  changes: [],
+  summary: {
+    totalInserted: 0,
+    totalUpdated: 0,
+    totalRecords: 0,
+    regions: []
+  }
+};
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -308,6 +323,57 @@ const main = async () => {
 
       console.log(`Finished ${regionCode}. Accumulated ${dbRecords.length} records. Pushing batch...`);
       
+      // Fetch existing records to detect changes
+      const { data: existingRecords, error: fetchError } = await supabase
+        .from('aws_prices')
+        .select('service_name,region,configuration,price_usd')
+        .eq('region', regionCode);
+
+      if (fetchError) {
+        throw new Error(`Error fetching existing prices for region ${regionCode}: ${fetchError.message}`);
+      }
+
+      // Build a map of existing prices for comparison
+      const existingMap = {};
+      if (existingRecords) {
+        existingRecords.forEach(record => {
+          const key = `${record.service_name}|${record.configuration}`;
+          existingMap[key] = record.price_usd;
+        });
+      }
+
+      // Track changes
+      let regionInserted = 0;
+      let regionUpdated = 0;
+      dbRecords.forEach(record => {
+        const key = `${record.service_name}|${record.configuration}`;
+        const existingPrice = existingMap[key];
+        
+        if (existingPrice === undefined) {
+          regionInserted++;
+        } else if (existingPrice !== record.price_usd) {
+          regionUpdated++;
+          priceChanges.changes.push({
+            service: record.service_name,
+            region: regionCode,
+            configuration: record.configuration,
+            oldPrice: existingPrice,
+            newPrice: record.price_usd,
+            change: parseFloat(((record.price_usd - existingPrice) / existingPrice * 100).toFixed(2))
+          });
+        }
+      });
+
+      priceChanges.summary.totalRecords += dbRecords.length;
+      priceChanges.summary.totalInserted += regionInserted;
+      priceChanges.summary.totalUpdated += regionUpdated;
+      priceChanges.summary.regions.push({
+        region: regionCode,
+        recordsProcessed: dbRecords.length,
+        inserted: regionInserted,
+        updated: regionUpdated
+      });
+      
       const { error } = await supabase
         .from('aws_prices')
         .upsert(dbRecords, { onConflict: 'service_name,region,configuration' });
@@ -317,6 +383,43 @@ const main = async () => {
       }
     });
     console.log(`Successfully completed pulling prices for all regions! Total queries executed: ${totalQueries}`);
+    
+    // Write price changes to artifact file
+    const reportLines = [
+      `AWS Pricing Update Report - ${new Date().toLocaleString()}`,
+      `${'='.repeat(60)}`,
+      '',
+      `Summary:`,
+      `  Total Records Processed: ${priceChanges.summary.totalRecords}`,
+      `  New Records Inserted: ${priceChanges.summary.totalInserted}`,
+      `  Records Updated: ${priceChanges.summary.totalUpdated}`,
+      `  Regions Processed: ${priceChanges.summary.regions.length}`,
+      '',
+      `Regional Breakdown:`,
+      ...priceChanges.summary.regions.map(r => 
+        `  ${r.region}: ${r.recordsProcessed} records (${r.inserted} inserted, ${r.updated} updated)`
+      ),
+      ''
+    ];
+
+    if (priceChanges.changes.length > 0) {
+      reportLines.push(`Price Changes Detected: ${priceChanges.changes.length}`);
+      reportLines.push(`${'-'.repeat(60)}`);
+      priceChanges.changes.forEach(change => {
+        reportLines.push(
+          `${change.service} - ${change.region} - ${change.configuration}`,
+          `  Old: $${change.oldPrice} → New: $${change.newPrice} (${change.change > 0 ? '+' : ''}${change.change}%)`,
+          ''
+        );
+      });
+    } else {
+      reportLines.push(`No price changes detected in this run.`);
+    }
+
+    const report = reportLines.join('\n');
+    const reportPath = path.join(process.cwd(), 'price_changes.txt');
+    fs.writeFileSync(reportPath, report);
+    console.log(`Price changes report written to: ${reportPath}`);
   } catch (err) {
     console.error("CRITICAL FAILURE in pricing sync pipeline:", err);
     process.exit(1);
