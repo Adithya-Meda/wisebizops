@@ -20,8 +20,8 @@ Object.entries(architectures.rds.instanceFamilies).forEach(([family, config]) =>
 
 const serviceConfigs: Record<string, ConfigOption[]> = {
   "Amazon EC2": [
-    { label: "Operating System", options: Object.keys(architectures.ec2.operatingSystems) },
-    { label: "Instance Type", options: ec2Instances }
+    { label: "Instance Type", options: ec2Instances },
+    { label: "Operating System", options: Object.keys(architectures.ec2.operatingSystems) }
   ],
   "Amazon RDS": [
     { label: "Database Engine", options: Object.keys(architectures.rds.engines) },
@@ -451,12 +451,15 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
             if (curr.name.startsWith("Amazon EC2 (")) {
                 const match = curr.name.match(/Amazon EC2 \(([^,]+),\s*(.+)\)/);
                 if (match) {
-                    const os = match[1];
-                    const inst = match[2];
+                    const first = match[1].trim();
+                    const second = match[2].trim();
+                    const isFirstOs = architectures.ec2.operatingSystems.hasOwnProperty(first);
+                    const os = isFirstOs ? first : second;
+                    const inst = isFirstOs ? second : first;
                     const isMacInst = inst.startsWith("mac");
                     const isMacOS = os === "macOS";
-                    if (isMacInst && !isMacOS) curr.name = `Amazon EC2 (macOS, ${inst})`;
-                    else if (!isMacInst && isMacOS) curr.name = `Amazon EC2 (Linux, ${inst})`;
+                    const resolvedOs = isMacInst && !isMacOS ? "macOS" : (!isMacInst && isMacOS ? "Linux" : os);
+                    curr.name = `Amazon EC2 (${inst}, ${resolvedOs})`;
                 }
             }
             const existing = acc.find((r: any) => r.name === curr.name && r.storage === curr.storage);

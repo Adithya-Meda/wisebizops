@@ -62,7 +62,24 @@ export async function POST(req: Request) {
         .ilike('configuration', primaryConfig)
         .single();
         
-      if (data && !error) return parseFloat(data.price_usd);
+            if (data && !error) return parseFloat(data.price_usd);
+
+      // Resilient fallback for reversed configurations (e.g. 'Linux, a1.2xlarge')
+      if (primaryConfig.includes(',')) {
+        const parts = primaryConfig.split(',').map(p => p.trim());
+        if (parts.length === 2) {
+          const reversedConfig = `${parts[1]}, ${parts[0]}`;
+          const { data: revData } = await supabase
+            .from('aws_prices')
+            .select('price_usd')
+            .ilike('service_name', serviceName)
+            .eq('region', region)
+            .ilike('configuration', reversedConfig)
+            .single();
+
+          if (revData) return parseFloat(revData.price_usd);
+        }
+      }
       
       const { data: fallbackData } = await supabase
         .from('aws_prices')
@@ -72,7 +89,23 @@ export async function POST(req: Request) {
         .limit(1)
         .single();
         
-      if (fallbackData) return parseFloat(fallbackData.price_usd);
+            if (fallbackData) return parseFloat(fallbackData.price_usd);
+
+      if (primaryConfig.includes(',')) {
+        const parts = primaryConfig.split(',').map(p => p.trim());
+        if (parts.length === 2) {
+          const reversedConfig = `${parts[1]}, ${parts[0]}`;
+          const { data: revFallback } = await supabase
+            .from('aws_prices')
+            .select('price_usd')
+            .ilike('service_name', serviceName)
+            .ilike('configuration', reversedConfig)
+            .limit(1)
+            .single();
+
+          if (revFallback) return parseFloat(revFallback.price_usd);
+        }
+      }
       
       return null;
     };
